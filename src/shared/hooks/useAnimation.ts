@@ -25,11 +25,6 @@ export function useTextAnimation(ucfg: TextAnimationConfig | false) {
         tag: ucfg.tag === "root" ? rootRef.current : ucfg.tag || "span",
       };
 
-      const elements =
-        typeof config.tag === "string"
-          ? gsap.utils.toArray(config.tag, rootRef.current)
-          : config.tag;
-
       gsap
         .timeline({
           delay: config.delay,
@@ -39,7 +34,7 @@ export function useTextAnimation(ucfg: TextAnimationConfig | false) {
             invalidateOnRefresh: true,
           },
         })
-        .to(elements, {
+        .to(config.tag, {
           duration: config.duration || 0.8,
           stagger: 0.05,
           opacity: 1,
@@ -47,7 +42,7 @@ export function useTextAnimation(ucfg: TextAnimationConfig | false) {
           filter: `blur(0px)`,
         });
     },
-    { scope: rootRef.current }
+    { scope: rootRef }
   );
 
   return {
