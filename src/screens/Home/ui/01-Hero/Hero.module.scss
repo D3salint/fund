@@ -1,0 +1,151 @@
+@use "@/app/styles/_mixins.scss" as *;
+
+.hero {
+  min-height: 100vh;
+  padding: 2rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  position: relative;
+}
+
+.header {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 4.2rem;
+  padding: 0 8rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header_star {
+  width: 3.5rem;
+  height: 3.5rem;
+  transform: translate(0, 0.8rem);
+}
+
+.header_btn {
+  padding-left: 3rem;
+  padding-right: 2rem;
+  height: 4.4rem;
+  border-radius: 6rem;
+
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+
+  @include fontInter(1.4rem, 1.25, -0.01em, 400, textWhite());
+
+  background: linear-gradient(190deg, textWhite(0.08), textWhite(0.04));
+  backdrop-filter: blur(6rem);
+
+  position: relative;
+
+  transition: filter 100ms ease;
+
+  cursor: pointer;
+
+  svg {
+    width: 1.1rem;
+    height: 1.1rem;
+    flex-shrink: 0;
+    stroke: #cfcfcf;
+  }
+
+  ._fund {
+    @include textGradient(
+      linear-gradient(to right, #f7b465, #f6d440, #ffd099 150%)
+    );
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 0.15rem;
+    border-radius: inherit;
+    background: linear-gradient(190deg, textWhite(0.08), textWhite(0.04));
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  &:hover {
+    filter: brightness(0.9);
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.content_title {
+  margin-top: 0.7rem;
+  font-size: 17rem;
+  text-align: center;
+}
+
+.content_text {
+  margin-top: 2.8rem;
+  text-align: center;
+  max-width: 66rem;
+  width: 100%;
+}
+
+.scrollBtn {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: calc(1vw + 1vh * 8);
+
+  @include fontTThoves(1.1rem, 1.1, -0.01em, 400);
+  @include textGradient(
+    linear-gradient(to right, textWhite() 40%, textWhite(0.4))
+  );
+
+  text-transform: uppercase;
+
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  &::before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    border-left: 0.6rem solid transparent;
+    border-right: 0.6rem solid transparent;
+    border-top: 1rem solid #d9d9d9;
+  }
+}
+
+@include screenXXXL {
+  .content_title {
+    font-size: 12rem;
+  }
+  .content_text {
+    margin-top: 2.2rem;
+  }
+}
+
+@include screenLG {
+  .header {
+    top: 2rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+  .header_star {
+    transform: none;
+  }
+}

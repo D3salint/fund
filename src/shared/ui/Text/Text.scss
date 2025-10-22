@@ -1,0 +1,16 @@
+@include layer-ui {
+  .title {
+    @include fontTThoves(5.6rem, 1.1, -0.04em, 600, textPrimary());
+    @include textGradient(linear-gradient(to bottom, #fcfeff, #aea9b8));
+  }
+  .text {
+    @include fontInter(1.6rem, 1.4, normal, 400, textWhite(0.5));
+
+    &-18 {
+      font-size: 1.8rem;
+    }
+    &-22 {
+      font-size: 2.2rem;
+    }
+  }
+}

@@ -1,0 +1,306 @@
+@use "vars" as *;
+/* 
+*** Layers
+*/
+@layer defaults, ui, components, styled-components;
+
+@mixin layer-defaults {
+  @layer defaults {
+    @content;
+  }
+}
+
+@mixin layer-ui {
+  @layer ui {
+    @content;
+  }
+}
+
+@mixin layer-components {
+  @layer components {
+    @content;
+  }
+}
+
+@mixin layer-styled-components {
+  @layer styled-components {
+    @content;
+  }
+}
+
+/* 
+*** Fonts
+*/
+@mixin optimizedFontFace($name, $weight, $url, $ttf: true, $style: normal) {
+  @font-face {
+    font-family: $name;
+    font-weight: $weight;
+    font-style: $style;
+    font-display: swap;
+    @if $ttf {
+      src:
+        url("#{$url}.woff2") format("woff2"),
+        url("#{$url}.woff") format("woff"),
+        url("#{$url}.ttf") format("truetype"),
+        url("#{$url}.eot") format("embedded-opentype");
+    } @else {
+      src:
+        url("#{$url}.woff2") format("woff2"),
+        url("#{$url}.woff") format("woff"),
+        url("#{$url}.otf") format("opentype"),
+        url("#{$url}.eot") format("embedded-opentype");
+    }
+  }
+}
+
+@mixin fontFace($name, $weight, $src, $style: normal) {
+  @font-face {
+    font-family: $name;
+    font-weight: $weight;
+    font-style: $style;
+    font-display: swap;
+    src: url($src);
+  }
+}
+
+@mixin fontDefault(
+  $fontSize: 16px,
+  $leading: 1.25,
+  $letterSpacing: normal,
+  $fontWeight: 400,
+  $color: false,
+  $isItalic: false
+) {
+  font: $fontWeight $fontSize/#{$leading} $defaultFont;
+  letter-spacing: $letterSpacing;
+  @if ($isItalic) {
+    font-style: $isItalic;
+  }
+  @if ($color) {
+    color: $color;
+  }
+}
+
+/* 
+*** Image manipulation
+*/
+@mixin imageRender {
+  image-rendering: -moz-crisp-edges; /* Firefox        */
+  image-rendering: -o-crisp-edges; /* Opera          */
+  image-rendering: -webkit-optimize-contrast; /* Safari         */
+  image-rendering: optimize-contrast; /* CSS3 Proposed  */
+  -ms-interpolation-mode: nearest-neighbor;
+}
+
+@mixin imageCover($fit: cover, $position: center, $radius: inherit) {
+  width: 100%;
+  height: 100%;
+  object-fit: $fit;
+  object-position: $position;
+  border-radius: $radius;
+}
+
+@mixin imageContain {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+/* 
+*** Text
+*/
+@mixin textMaxRows($rows) {
+  display: -webkit-box;
+  -webkit-line-clamp: $rows;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+/* 
+*** Animation
+*/
+@mixin browserAcceleration {
+  -webkit-transform: translateZ(0);
+  -webkit-perspective: 1000;
+  -webkit-backface-visibility: hidden;
+}
+
+/* 
+*** CSS Manipulations
+*/
+@mixin textGradient($bgColor) {
+  background: $bgColor;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+}
+
+@mixin strokeGradient($bgColor, $strokeColor, $borderWidth: 2px) {
+  border: $borderWidth solid transparent;
+  background: $bgColor, $strokeColor;
+  background-clip: padding-box, border-box;
+  background-origin: padding-box, border-box;
+}
+
+/* 
+*** Paddings, margins, containers
+*/
+@mixin negativeMargin($px) {
+  margin-left: -$px;
+  margin-right: -$px;
+  padding-left: $px;
+  padding-right: $px;
+}
+
+@mixin verticalPadding($px) {
+  padding-top: $px;
+  padding-bottom: $px;
+}
+
+@mixin horizontalPadding($px) {
+  padding-left: $px;
+  padding-right: $px;
+}
+
+@mixin container($px) {
+  max-width: $px + ($padding-xxl * 2);
+  width: 100%;
+  margin: 0 auto;
+  @include horizontalPadding($padding-lg);
+}
+
+/* 
+*** Colors
+*/
+@function textWhite($opacity: 1) {
+  @return rgba($textWhite, $opacity);
+}
+
+@function textBlack($opacity: 1) {
+  @return rgba($textBlack, $opacity);
+}
+
+@function background() {
+  @return var(--bg);
+}
+
+/* 
+*** Media
+*/
+@mixin mediaRange($min, $max) {
+  @media screen and (min-width: $min) and (max-width: $max) {
+    @content;
+  }
+}
+
+@mixin screenMedia($condition: "min-width", $size) {
+  @media screen and (#{$condition}: #{$size}) {
+    @content;
+  }
+}
+
+@mixin screenAdaptive($offset: 0px, $mobileFirst: false) {
+  @include screenMedia(
+    if($mobileFirst, "min-width", "max-width"),
+    $adaptive + $offset
+  ) {
+    @content;
+  }
+}
+
+@mixin screenXS($offset: 0px, $mobileFirst: false) {
+  @include screenMedia(
+    if($mobileFirst, "min-width", "max-width"),
+    $xs + $offset
+  ) {
+    @content;
+  }
+}
+
+@mixin screenSM($offset: 0px, $mobileFirst: false) {
+  @include screenMedia(
+    if($mobileFirst, "min-width", "max-width"),
+    $sm + $offset
+  ) {
+    @content;
+  }
+}
+
+@mixin screenMD($offset: 0px, $mobileFirst: false) {
+  @include screenMedia(
+    if($mobileFirst, "min-width", "max-width"),
+    $md + $offset
+  ) {
+    @content;
+  }
+}
+
+@mixin screenLG($offset: 0px, $mobileFirst: false) {
+  @include screenMedia(
+    if($mobileFirst, "min-width", "max-width"),
+    $lg + $offset
+  ) {
+    @content;
+  }
+}
+
+@mixin screenXL($offset: 0px, $mobileFirst: false) {
+  @include screenMedia(
+    if($mobileFirst, "min-width", "max-width"),
+    $xl + $offset
+  ) {
+    @content;
+  }
+}
+
+@mixin screenXXL($offset: 0px, $mobileFirst: false) {
+  @include screenMedia(
+    if($mobileFirst, "min-width", "max-width"),
+    $xxl
+  ) {
+    @content;
+  }
+}
+
+@mixin screenXXXL($offset: 0px, $mobileFirst: false) {
+  @include screenMedia(
+    if($mobileFirst, "min-width", "max-width"),
+    $xxxl + $offset
+  ) {
+    @content;
+  }
+}
+
+@mixin screenHeight870($offset: 0px) {
+  @include screenMedia("max-height", 870px + $offset) {
+    @content;
+  }
+}
+
+@mixin screenHeight720($offset: 0px) {
+  @include screenMedia("max-height", 720px + $offset) {
+    @content;
+  }
+}
+
+/* 
+*** Utils
+*/
+@mixin mapArray($arr, $prop, $prefix) {
+  @each $key, $value in $arr {
+    #{$prefix}#{$key} {
+      @if ($value != null) {
+        #{$prop}: $value;
+      } @else {
+        #{$prop}: $key;
+      }
+    }
+  }
+}
+
+@function adaptiveSize($multiplier) {
+  @return calc((1vh + 1vw) * $multiplier);
+}

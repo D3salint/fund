@@ -1,0 +1,63 @@
+@use "globals" as *;
+
+@include layer-defaults {
+  /* 
+    *** Image
+    */
+  .image-cover {
+    @include imageCover;
+  }
+
+  .image-contain {
+    @include imageContain;
+  }
+
+  /* 
+    *** Layout
+    */
+  .flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .absolute {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .scrollbar-hidden {
+    &::-webkit-scrollbar {
+      display: none !important;
+    }
+  }
+
+  /* 
+    *** Media
+    */
+  .mobile-sm {
+    @include screenSM(1px, true) {
+      display: none !important;
+    }
+  }
+
+  .mobile-lg {
+    @include screenLG(1px, true) {
+      display: none !important;
+    }
+  }
+
+  .desktop-sm {
+    @include screenSM {
+      display: none !important;
+    }
+  }
+
+  .desktop-lg {
+    @include screenLG {
+      display: none !important;
+    }
+  }
+}

@@ -1,0 +1,7 @@
+@use "globals.scss" as * ;
+
+@include fontFace("Inter Tight", 400, "/fonts/InterTight-Regular.ttf");
+@include fontFace("Inter Tight", 500, "/fonts/InterTight-Medium.ttf");
+@include fontFace("Inter Tight", 600, "/fonts/InterTight-SemiBold.ttf");
+@include fontFace("TT Hoves", 400, "/fonts/TTHoves-Regular.ttf");
+@include fontFace("TT Hoves", 600, "/fonts/TTHoves-DemiBold.ttf");
