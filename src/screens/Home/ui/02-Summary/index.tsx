@@ -16,35 +16,41 @@ const stats = [
   {
     title: "Raise Amount",
     value: "$100m USD",
+    icon: "/images/icons/raise-amount.png",
   },
   {
     title: "Asset Class",
     value: "Private Equity",
+    icon: "/images/icons/asset-class.png",
   },
   {
     title: "Fund Term Length",
     value: "25%",
+    icon: "/images/icons/fund-team.png",
   },
 ];
 
 const partners = [
   {
     id: 1,
-    name: "1 Brian D. Evans",
+    avatar: "/images/temp/user-1.png",
+    name: "Brian D. Evans",
     pos: "Managing Partner",
     review:
       "Seasoned investment professional with extensive experience in fund management and strategic partnerships.",
   },
   {
     id: 2,
-    name: "2 Brian D. Evans",
+    avatar: "/images/temp/user-2.png",
+    name: "Brian D. Evans",
     pos: "Managing Partner",
     review:
       "Seasoned investment professional with extensive experience in fund management and strategic partnerships.",
   },
   {
     id: 3,
-    name: "3 Brian D. Evans",
+    avatar: "/images/temp/user-2.png",
+    name: "Brian D. Evans",
     pos: "Managing Partner",
     review:
       "Seasoned investment professional with extensive experience in fund management and strategic partnerships.",
@@ -125,9 +131,14 @@ export const Summary: React.FC = () => {
                   className={css.summary_statistic_item}
                   key={item.title + item.value}
                 >
-                  <Text className={css.summary_statistic_val}>
-                    {item.value}
-                  </Text>
+                  <div className={css.summary_statistic_row}>
+                    <p className={css.summary_statistic_icon}>
+                      <img src={item.icon} alt="" />
+                    </p>
+                    <Text className={css.summary_statistic_val}>
+                      {item.value}
+                    </Text>
+                  </div>
                   <Text className={css.summary_statistic_title}>
                     {item.title}
                   </Text>
@@ -175,6 +186,7 @@ export const Summary: React.FC = () => {
                   >
                     <Partner
                       name={partner.name}
+                      avatar={partner.avatar}
                       position={partner.pos}
                       review={partner.review}
                     />
@@ -189,6 +201,7 @@ export const Summary: React.FC = () => {
               <Partner
                 className={css.partners_card}
                 key={partner.id}
+                avatar={partner.avatar}
                 name={partner.name}
                 position={partner.pos}
                 review={partner.review}

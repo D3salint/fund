@@ -11,6 +11,7 @@ interface Props {
   name: string;
   position: string;
   review: string;
+  avatar: string;
   x?: string;
   className?: string;
 }
@@ -20,6 +21,7 @@ export const Partner: React.FC<Props> = ({
   position,
   review,
   className,
+  avatar
 }) => {
   return (
     <div className={clsx(css.partner, className)}>
@@ -29,7 +31,9 @@ export const Partner: React.FC<Props> = ({
       <span className={css.dot} data-dir="se" />
       <div className={css.head}>
         <div className={css.head_col}>
-          <div className={css.head_avatar}></div>
+          <div className={css.head_avatar}>
+            <img src={avatar} />
+          </div>
           <div className={css.head_info}>
             <Text className={css.name}>{name}</Text>
             <Text className={css.position}>{position}</Text>
