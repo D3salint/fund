@@ -27,6 +27,8 @@
   height: 4.4rem;
   border-radius: 6rem;
 
+  opacity: 0;
+
   display: flex;
   align-items: center;
   gap: 1.2rem;
@@ -98,7 +100,8 @@
 .scrollBtn {
   position: absolute;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, 3rem) scale(0.8);
+  opacity: 0;
   bottom: calc(1vw + 1vh * 8);
 
   @include fontTThoves(1.1rem, 1.1, -0.01em, 400);

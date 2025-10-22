@@ -36,6 +36,9 @@
   padding: 0 4rem;
   position: relative;
 
+  transform: translateY(3rem);
+  opacity: 0;
+
   &:first-child {
     padding-left: 0;
   }
@@ -117,6 +120,9 @@
   .partners_card {
     background: rgba(#0a0a0a, 0.39);
     backdrop-filter: blur(4rem);
+
+    opacity: 0;
+    transform: translateY(3rem);
   }
   .summary_content {
     min-height: auto;

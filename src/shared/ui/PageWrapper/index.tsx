@@ -80,72 +80,80 @@ interface SectionProps extends Props {
       };
 }
 
-export const Section = ({
-  children,
-  className,
-  circles = false,
-  id,
-}: SectionProps) => {
-  const rootRef = React.useRef<HTMLDivElement>(null);
+export const Section = React.forwardRef<HTMLElement, SectionProps>(
+  ({ children, className, circles = false, id }, ref) => {
+    const rootRef = React.useRef<HTMLDivElement>(null);
 
-  useGSAP(
-    () => {
-      if (typeof circles !== "object") return;
+    useGSAP(
+      () => {
+        if (typeof circles !== "object") return;
 
-      gsap.registerPlugin(ScrollTrigger);
+        gsap.registerPlugin(ScrollTrigger);
 
-      const timeline = gsap
-        .timeline({ paused: true })
-        .to(".section-circle svg", {
-          opacity: 1,
-          rotate: 0,
-          duration: 1.5,
-        })
-        .to(".section-circle svg", {
-          opacity: 0,
-          rotate: (index) => (index % 2 === 0 ? 60 : -45),
-          duration: 1.5,
+        const timeline = gsap
+          .timeline({ paused: true })
+          .to(".section-circle svg", {
+            opacity: 1,
+            rotate: 0,
+            duration: 1.5,
+          })
+          .to(".section-circle svg", {
+            opacity: 0,
+            rotate: (index) => (index % 2 === 0 ? 60 : -45),
+            duration: 1.5,
+          });
+
+        ScrollTrigger.create({
+          trigger: rootRef.current,
+          invalidateOnRefresh: true,
+          start: "top 50%",
+          end: "bottom 60%",
+          onEnter: () => timeline.tweenFromTo(0, 1.5),
+          onLeave: () => timeline.tweenFromTo(1.5, 3),
+          onEnterBack: () => timeline.tweenFromTo(3, 1.5),
+          onLeaveBack: () => timeline.tweenFromTo(1.5, 0),
         });
+      },
+      { scope: rootRef }
+    );
 
-      ScrollTrigger.create({
-        trigger: rootRef.current,
-        invalidateOnRefresh: true,
-        start: "top 50%",
-        end: "bottom 60%",
-        onEnter: () => timeline.tweenFromTo(0, 1.5),
-        onLeave: () => timeline.tweenFromTo(1.5, 3),
-        onEnterBack: () => timeline.tweenFromTo(3, 1.5),
-        onLeaveBack: () => timeline.tweenFromTo(1.5, 0),
-      });
-    },
-    { scope: rootRef }
-  );
-
-  return (
-    <section className={clsx(css.section, className)} ref={rootRef} id={id}>
-      {circles && (
-        <div className={css.circles_container}>
-          <div
-            className={clsx(
-              css.circles,
-              typeof circles === "object" &&
-                circles.showOnEnter &&
-                css.initialHide
-            )}
-          >
-            <div className={clsx(css.circles_small, "section-circle")}>
-              <Circle />
-            </div>
-            <div className={clsx(css.circles_big, "section-circle")}>
-              <Circle />
+    return (
+      <section
+        className={clsx(css.section, className)}
+        ref={(node) => {
+          if (node) {
+            (rootRef as any).current = node;
+            if (ref) {
+              (ref as any).current = node;
+            }
+          }
+        }}
+        id={id}
+      >
+        {circles && (
+          <div className={css.circles_container}>
+            <div
+              className={clsx(
+                css.circles,
+                typeof circles === "object" &&
+                  circles.showOnEnter &&
+                  css.initialHide
+              )}
+            >
+              <div className={clsx(css.circles_small, "section-circle")}>
+                <Circle />
+              </div>
+              <div className={clsx(css.circles_big, "section-circle")}>
+                <Circle />
+              </div>
             </div>
           </div>
-        </div>
-      )}
-      {children}
-    </section>
-  );
-};
+        )}
+        {children}
+      </section>
+    );
+  }
+);
 
 export const PageWrapper: React.FC<Props> = ({ children, className }) => {
   return <div className={clsx(css.wrapper, className)}>{children}</div>;

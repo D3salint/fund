@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 
 import { smoothScrollToAnchor } from "@/shared/lib/smoothScrollToAnchor";
@@ -7,14 +5,36 @@ import { Label } from "@/shared/ui/Label";
 import { Section } from "@/shared/ui/PageWrapper";
 import { Text } from "@/shared/ui/Text";
 import { ArrowRightIcon } from "@/shared/ui/icons/ArrowRight.icon";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 
 import css from "./Hero.module.scss";
 
 export const Hero: React.FC = () => {
+  const rootRef = React.useRef<HTMLDivElement>(null);
   const handleScroll = () => smoothScrollToAnchor("#summary-section");
+
+  useGSAP(
+    () => {
+      gsap.to(`.${css.header_btn}`, {
+        opacity: 1,
+        duration: 0.8,
+      });
+
+      gsap.to(`.${css.scrollBtn}`, {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 0.8,
+        delay: 3
+      });
+    },
+    { scope: rootRef }
+  );
 
   return (
     <Section
+      ref={rootRef}
       className={css.hero}
       circles={{ showOnEnter: true, hideOnLeave: true }}
     >
@@ -30,7 +50,7 @@ export const Hero: React.FC = () => {
       <div className={css.content}>
         <Label animation={{ duration: 1 }}>Asset Class Pill</Label>
         <Text
-          animation={{ delay: 20, duration: 1.5 }}
+          animation={{ delay: 0.4, duration: 1.1 }}
           className={["title", css.content_title]}
           as="h1"
         >

@@ -1,11 +1,12 @@
-import "swiper/css";
-import "swiper/css/effect-creative";
-
 import React from "react";
 
 import { Section } from "@/shared/ui/PageWrapper";
 import { Partner } from "@/shared/ui/Partner";
 import { Text } from "@/shared/ui/Text";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import "swiper/css";
+import "swiper/css/effect-creative";
 import { Autoplay, EffectCreative } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -51,15 +52,65 @@ const partners = [
 ];
 
 export const Summary: React.FC = () => {
+  const rootRef = React.useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      // Will be refcatored
+      gsap
+        .timeline({
+          delay: 1,
+          scrollTrigger: {
+            trigger: `.${css.summary_statistic}`,
+            invalidateOnRefresh: true,
+            start: "top 80%",
+          },
+        })
+        .to(`.${css.summary_statistic_item}`, {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          stagger: 0.1,
+        });
+
+      // Mobile
+      // Will be refactored
+      const cards = gsap.utils.toArray(
+        `.${css.partners_card}`
+      ) as HTMLElement[];
+
+      cards.forEach((card) => {
+        gsap.to(card, {
+          scrollTrigger: {
+            trigger: card,
+            invalidateOnRefresh: true,
+            start: "top 90%",
+          },
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+        });
+      });
+    },
+    { scope: rootRef }
+  );
+
   return (
-    <Section className={css.summary} id="summary-section">
+    <Section className={css.summary} ref={rootRef} id="summary-section">
       <div className="container">
         <div className={css.summary_box}>
           <div className={css.summary_content}>
-            <Text className={[css.summary_title, "title"]} as="h2">
+            <Text
+              className={[css.summary_title, "title"]}
+              animation={{}}
+              as="h2"
+            >
               Executive summary:
             </Text>
-            <Text className={[css.summary_text, "text text-16"]}>
+            <Text
+              className={[css.summary_text, "text text-16"]}
+              animation={{ delay: 0.2 }}
+            >
               This New York-based private equity fund targets high-growth B2B
               SaaS startups, leveraging a proven 10-year track record and 25%
               net IRR to capitalize on the sector’s robust market fundamentals
@@ -93,7 +144,7 @@ export const Summary: React.FC = () => {
                 autoplay={{
                   delay: 3000,
                   pauseOnMouseEnter: true,
-                  waitForTransition: true
+                  waitForTransition: true,
                 }}
                 speed={800}
                 effect="creative"
@@ -112,12 +163,16 @@ export const Summary: React.FC = () => {
                   },
                   limitProgress: 2,
                 }}
+                allowTouchMove={false}
                 loop
                 centeredSlides
                 preventInteractionOnTransition
               >
                 {[...partners, ...partners].map((partner, id) => (
-                  <SwiperSlide className={css.slider_slide} key={partner.id + id}>
+                  <SwiperSlide
+                    className={css.slider_slide}
+                    key={partner.id + id}
+                  >
                     <Partner
                       name={partner.name}
                       position={partner.pos}
