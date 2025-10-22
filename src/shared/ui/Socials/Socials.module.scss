@@ -1,0 +1,46 @@
+@include layer-ui {
+  .socials {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+  }
+  .socials_link {
+    width: 4.5rem;
+    height: 4.5rem;
+    border: 0.1rem solid textWhite(0.07);
+    flex-shrink: 0;
+    border-radius: 50%;
+
+    background: textWhite(0.04);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transition: background 150ms ease;
+
+    svg {
+      width: 2rem;
+      height: 2rem;
+      flex-shrink: 0;
+      fill: textWhite();
+      stroke: textWhite();
+    }
+
+    &:hover {
+      background-color: textWhite(0.07);
+    }
+  }
+
+  @include screenSM {
+    .socials_link {
+      width: 2.5rem;
+      height: 2.5rem;
+
+      svg {
+        width: 1.2rem;
+        height: 1.2rem;
+      }
+    }
+  }
+}

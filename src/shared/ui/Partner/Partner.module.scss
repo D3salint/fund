@@ -1,0 +1,129 @@
+@include layer-ui {
+  .partner {
+    background: #0a0a0a;
+    background-image: url("/images/partner-bg.jpg");
+    background-position: left bottom;
+    background-size: cover;
+    padding: 3rem;
+    padding-bottom: 8rem;
+    border-radius: 2.6rem;
+    border: 0.1rem solid textWhite(0.08);
+    position: relative;
+    width: 100%;
+  }
+
+  .dot {
+    position: absolute;
+    width: 0.5rem;
+    height: 0.5rem;
+    background: #d9d9d9;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+
+    &[data-dir="nw"] {
+      left: 0;
+      top: 0;
+    }
+    &[data-dir="ne"] {
+      left: 100%;
+      top: 0;
+    }
+    &[data-dir="sw"] {
+      left: 0;
+      top: 100%;
+    }
+    &[data-dir="se"] {
+      left: 100%;
+      top: 100%;
+    }
+  }
+
+  .head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1.6rem;
+  }
+  .head_avatar {
+    width: 9rem;
+    height: 9rem;
+    flex-shrink: 0;
+    border-radius: 50%;
+    border: 0.1rem solid textWhite(0.09);
+  }
+  .head_info {
+    margin-top: 2.2rem;
+  }
+
+  .name {
+    @include fontTThoves(2.4rem, 1.25, -0.03em, 600, #d9d9d9);
+  }
+  .position {
+    margin-top: 0.6rem;
+    @include fontInter(2.2rem, 1.3, -0.01em, 500, rgba(#d9d9d9, 0.5));
+  }
+  .review {
+    margin-top: 3rem;
+    color: textWhite(0.6);
+    max-width: 39rem;
+  }
+
+  @include screenXL {
+    .partner {
+      padding: 2rem;
+      padding-bottom: 6rem;
+    }
+
+    .head_avatar {
+      width: 6.5rem;
+      height: 6.5rem;
+    }
+
+    .name {
+      font-size: 1.9rem;
+    }
+    .position {
+      margin-top: 0.4rem;
+      font-size: 1.8rem;
+    }
+
+    .review {
+      font-size: 1.6rem;
+    }
+  }
+  @include screenSM {
+    .dot {
+      width: 0.4rem;
+      height: 0.4rem;
+    }
+    .partner {
+      padding: 1.6rem;
+      padding-bottom: 3.6rem;
+    }
+    .head_col {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+    }
+    .head_info {
+      margin-top: 0;
+    }
+    .head_avatar {
+      width: 5rem;
+      height: 5rem;
+    }
+    .name {
+      font-size: 1.4rem;
+    }
+    .position {
+      margin-top: 0.3rem;
+    }
+    .position,
+    .review {
+      font-size: 1.3rem;
+    }
+    .review {
+      margin-top: 1.4rem;
+    }
+  }
+}

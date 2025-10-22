@@ -2,11 +2,7 @@
   .label {
     padding: 1rem 1.9rem;
     border-radius: 3.5rem;
-    background: linear-gradient(
-      74deg,
-      textWhite(2.04%),
-      textWhite(8%)
-    );
+    background: linear-gradient(74deg, textWhite(2.04%), textWhite(8%));
     backdrop-filter: blur(9rem);
 
     @include fontInter(1.2rem, 1.25, normal, 600, textWhite());
@@ -28,6 +24,12 @@
       -webkit-mask-composite: xor;
       mask-composite: exclude;
       pointer-events: none;
+    }
+
+    &.initalState {
+      transform: translateY(3rem);
+      opacity: 0;
+      filter: blur(1rem);
     }
   }
 }
