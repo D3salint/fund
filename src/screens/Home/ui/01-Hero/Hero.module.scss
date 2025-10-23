@@ -35,8 +35,8 @@
 
   @include fontInter(1.4rem, 1.25, -0.01em, 400, textWhite());
 
-  background: linear-gradient(190deg, textWhite(0.08), textWhite(0.04));
-  backdrop-filter: blur(6rem);
+  background: linear-gradient(to bottom, textWhite(0.03), textWhite(0));
+  backdrop-filter: blur(4rem);
 
   position: relative;
 
@@ -63,7 +63,7 @@
     inset: 0;
     padding: 0.15rem;
     border-radius: inherit;
-    background: linear-gradient(190deg, textWhite(0.08), textWhite(0.04));
+    background: linear-gradient(190deg, textWhite(0.16), textWhite(0.04));
     -webkit-mask:
       linear-gradient(#fff 0 0) content-box,
       linear-gradient(#fff 0 0);
@@ -97,12 +97,25 @@
   width: 100%;
 }
 
-.scrollBtn {
+.light_container {
   position: absolute;
   left: 50%;
-  transform: translate(-50%, 3rem) scale(0.8);
+  bottom: 0;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 50rem;
+  width: 100%;
+}
+.light_image {
+  width: 100%;
   opacity: 0;
-  bottom: calc(1vw + 1vh * 8);
+}
+
+.scrollBtn {
+  transform: translate(0, 3rem) scale(0.8);
+  opacity: 0;
 
   @include fontTThoves(1.1rem, 1.1, -0.01em, 400);
   @include textGradient(
@@ -150,8 +163,24 @@
 }
 
 @include screenMD {
+  .hero {
+    justify-content: space-between;
+    padding-bottom: 0;
+    gap: 4rem;
+  }
   .content_title {
     font-size: 8rem;
+  }
+  .header {
+    padding: 0;
+  }
+  .header,
+  .light_container {
+    position: relative;
+    inset: auto;
+  }
+  .light_container {
+    transform: translate(0, 0);
   }
 }
 

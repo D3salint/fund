@@ -177,6 +177,7 @@ export const Summary: React.FC = () => {
                 allowTouchMove={false}
                 loop
                 centeredSlides
+                loopAdditionalSlides={1}
                 preventInteractionOnTransition
               >
                 {[...partners, ...partners].map((partner, id) => (

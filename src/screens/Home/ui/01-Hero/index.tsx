@@ -16,18 +16,11 @@ export const Hero: React.FC = () => {
 
   useGSAP(
     () => {
-      gsap.to(`.${css.header_btn}`, {
-        opacity: 1,
-        duration: 0.8,
-      });
-
-      gsap.to(`.${css.scrollBtn}`, {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        duration: 0.8,
-        delay: 3
-      });
+      gsap
+        .timeline({ defaults: { duration: 0.8 } })
+        .to(`.${css.header_btn}`, { opacity: 1 }, 0)
+        .to(`.${css.scrollBtn}`, { opacity: 1, y: 0, scale: 1 }, 3)
+        .to(`.${css.light_image}`, { opacity: 1, duration: 1.3 }, 3.3)
     },
     { scope: rootRef }
   );
@@ -67,13 +60,16 @@ export const Hero: React.FC = () => {
           resilient revenue in a dynamic private equity landscape.
         </Text>
       </div>
-      <button
-        className={css.scrollBtn}
-        onClick={handleScroll}
-        aria-label="Scroll button"
-      >
-        <span>Scroll to explore</span>
-      </button>
+      <div className={css.light_container}>
+        <button
+          className={css.scrollBtn}
+          onClick={handleScroll}
+          aria-label="Scroll button"
+        >
+          <span>Scroll to explore</span>
+        </button>
+        <img className={css.light_image} src="/images/hero-light.webp" alt="" />
+      </div>
     </Section>
   );
 };

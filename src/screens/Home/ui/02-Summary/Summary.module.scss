@@ -2,6 +2,9 @@
   padding-top: 10rem;
   padding-bottom: 4rem;
   overflow: hidden;
+  background: url("/images/summary-bg.webp");
+  background-position: left top;
+  background-size: cover;
 }
 .summary_box {
   display: flex;
@@ -78,7 +81,7 @@
   white-space: nowrap;
   @include fontTThoves(1.65rem, 1.25, -0.03em, 600);
   @include textGradient(
-    linear-gradient(120deg, textWhite() -50%, textWhite(0.34) 100%)
+    linear-gradient(120deg, textWhite() 0%, textWhite(0.34) 100%)
   );
   padding-right: 0.3em;
 }
@@ -151,6 +154,9 @@
 }
 
 @include screenSM {
+  .summary {
+    background-image: url("/images/summary-bg@mob.webp");
+  }
   .summary_title {
     font-size: 3.2rem;
     max-width: 100%;
