@@ -6,9 +6,8 @@ function App() {
   return (
     <PageWrapper>
       <HomeScreens.Hero />
-      {/* <HomeScreens.Hero /> */}
-      {/* <HomeScreens.Summary /> */}
-      {/* <RegisterGsapPlugins /> */}
+      <HomeScreens.Summary />
+      <RegisterGsapPlugins />
     </PageWrapper>
   );
 }

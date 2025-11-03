@@ -10,8 +10,6 @@ import "swiper/css/effect-creative";
 import { Autoplay, EffectCreative } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-import css from "./Summary.module.scss";
-
 const stats = [
   {
     title: "Raise Amount",
@@ -67,12 +65,12 @@ export const Summary: React.FC = () => {
         .timeline({
           delay: 1,
           scrollTrigger: {
-            trigger: `.${css.summary_statistic}`,
+            trigger: `.summary-stats`,
             invalidateOnRefresh: true,
             start: "top 80%",
           },
         })
-        .to(`.${css.summary_statistic_item}`, {
+        .to(`.summary-stats-item`, {
           opacity: 1,
           y: 0,
           duration: 0.8,
@@ -82,7 +80,7 @@ export const Summary: React.FC = () => {
       // Mobile
       // Will be refactored
       const cards = gsap.utils.toArray(
-        `.${css.partners_card}`
+        `.summary-partners-card`
       ) as HTMLElement[];
 
       cards.forEach((card) => {
@@ -102,19 +100,24 @@ export const Summary: React.FC = () => {
   );
 
   return (
-    <Section className={css.summary} ref={rootRef} id="summary-section">
-      <div className="container">
-        <div className={css.summary_box}>
-          <div className={css.summary_content}>
+    <Section
+      className="pt-24 pb-10 overflow-hidden bg-[url(/images/summary-bg.webp)] bg-cover bg-top-left max-sm:bg-[url(/images/summary-bg@mob.webp)]"
+      ref={rootRef}
+      id="summary-section"
+    >
+      <div className="max-w-400 px-10 mx-auto w-full max-lg:px-1.5 max-md:px-4">
+        <div className="flex items-center justify-between gap-8 pr-20 max-xxl:pr-0 max-lg:flex-col">
+          <div className="max-w-157 min-h-120 flex flex-col max-lg:min-h-auto">
             <Text
-              className={[css.summary_title, "title"]}
+              className="title font-tthoves font-semibold text-[3.5rem] -tracking-4 leading-none w-min max-sm:text-3xl max-sm:w-auto"
               animation={{}}
               as="h2"
             >
               Executive summary:
             </Text>
             <Text
-              className={[css.summary_text, "text text-16"]}
+              className="mt-8 text-base leading-4 tracking-normal text-primary/60 max-sm:text-sm max-sm:mt-2"
+              color=""
               animation={{ delay: 0.2 }}
             >
               This New York-based private equity fund targets high-growth B2B
@@ -125,21 +128,24 @@ export const Summary: React.FC = () => {
               AI, automation, and product-led strategies continues to drive
               operational efficiency and scalable value creation.
             </Text>
-            <ul className={css.summary_statistic}>
+            <ul className="summary-stats mt-auto pt-10 grid grid-cols-3 max-lg:pt-6">
               {stats.map((item) => (
                 <li
-                  className={css.summary_statistic_item}
+                  className="opacity-0 translate-y-8 summary-stats-item flex flex-col gap-4 px-10 relative first:pl-0 last:pr-0 max-xl:px-5 max-sm:px-5 max-sm:gap-1.5"
                   key={item.title + item.value}
                 >
-                  <div className={css.summary_statistic_row}>
-                    <p className={css.summary_statistic_icon}>
-                      <img src={item.icon} alt="" />
+                  <div className="flex items-center gap-3 max-sm:flex-col max-sm:items-start max-sm:gap-1.5">
+                    <p className="size-10 shrink-0 max-sm:size-6">
+                      <img className="image-contain" src={item.icon} alt="" />
                     </p>
-                    <Text className={css.summary_statistic_val}>
+                    <Text className="whitespace-nowrap font-tthoves leading-tight text-base -tracking-3 font-semibold pr-[0.3em] u-text-gradient-[linear-gradient(120deg,#fff,#ffffff57)] max-sm:text-sm">
                       {item.value}
                     </Text>
                   </div>
-                  <Text className={css.summary_statistic_title}>
+                  <Text
+                    className="text-[0.8125rem] leading-1 tracking-normal font-medium text-white/50 max-sm:text-[0.8125rem]"
+                    color=""
+                  >
                     {item.title}
                   </Text>
                 </li>
@@ -147,10 +153,10 @@ export const Summary: React.FC = () => {
             </ul>
           </div>
 
-          <div className={css.slider}>
-            <div className={css.slider_wrapper}>
+          <div className="min-h-160 max-w-133 w-full px-0.5 flex flex-col max-xl:max-w-105 max-lg:hidden">
+            <div className="my-auto">
               <Swiper
-                className={css.slider_swiper}
+                className="overflow-visible!"
                 modules={[EffectCreative, Autoplay]}
                 autoplay={{
                   delay: 3000,
@@ -181,10 +187,7 @@ export const Summary: React.FC = () => {
                 preventInteractionOnTransition
               >
                 {[...partners, ...partners].map((partner, id) => (
-                  <SwiperSlide
-                    className={css.slider_slide}
-                    key={partner.id + id}
-                  >
+                  <SwiperSlide key={partner.id + id}>
                     <Partner
                       name={partner.name}
                       avatar={partner.avatar}
@@ -197,10 +200,10 @@ export const Summary: React.FC = () => {
             </div>
           </div>
 
-          <div className={css.partners}>
+          <div className="hidden max-w-157 mt-7 flex-col gap-3 w-full max-lg:flex">
             {partners.map((partner) => (
               <Partner
-                className={css.partners_card}
+                className="summary-partners-card bg-none bg-[#0a0a0a63]! backdrop-blur-2xl opacity-0 translate-y-8"
                 key={partner.id}
                 avatar={partner.avatar}
                 name={partner.name}
