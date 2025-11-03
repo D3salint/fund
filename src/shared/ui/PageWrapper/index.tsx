@@ -119,7 +119,7 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
 
     return (
       <section
-        className={clsx(css.section, className)}
+        className={clsx("min-h-svh flex flex-col relative z-1", className)}
         ref={(node) => {
           if (node) {
             (rootRef as any).current = node;
@@ -131,20 +131,48 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
         id={id}
       >
         {circles && (
-          <div className={css.circles_container}>
+          <div
+            className={
+              "absolute left-0 top-0 size-full -z-1 pointer-events-none hidden"
+            }
+          >
             <div
               className={clsx(
-                css.circles,
+                "absolute l-0 top-1/2 w-full -translate-1/2 aspect-square",
                 typeof circles === "object" &&
                   circles.showOnEnter &&
                   css.initialHide
               )}
             >
-              <div className={clsx(css.circles_small, "section-circle")}>
-                <Circle />
+              <div
+                className={clsx(
+                  "absolute left-0 top-0 w-full origin-center scale-[0.75] rotate-[-190deg] max-md:scale-1",
+                  "section-circle"
+                )}
+              >
+                <Circle
+                  className={clsx(
+                    "size-full",
+                    typeof circles === "object" &&
+                      circles.showOnEnter &&
+                      "opacity-0 rotate-60"
+                  )}
+                />
               </div>
-              <div className={clsx(css.circles_big, "section-circle")}>
-                <Circle />
+              <div
+                className={clsx(
+                  "absolute left-0 top-0 w-full origin-center max-md:scale-150",
+                  "section-circle"
+                )}
+              >
+                <Circle
+                  className={clsx(
+                    "size-full",
+                    typeof circles === "object" &&
+                      circles.showOnEnter &&
+                      "opacity-0 -rotate-45"
+                  )}
+                />
               </div>
             </div>
           </div>
@@ -156,5 +184,14 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
 );
 
 export const PageWrapper: React.FC<Props> = ({ children, className }) => {
-  return <div className={clsx(css.wrapper, className)}>{children}</div>;
+  return (
+    <div
+      className={clsx(
+        "flex flex-col min-h-svh bg-[radial-gradient(circle_at_center,#040713,#020308)] bg-size-[100svw_100svh] bg-center bg-no-repeat bg-fixed relative z-1 before:size-full before:block before:bg-[url(/images/background-v2.webp)] before:bg-cover before:bg-center before:bg-fixed before:absolute before:left-0 before:top-0 before:-z-1 before:pointer-events-none",
+        className
+      )}
+    >
+      {children}
+    </div>
+  );
 };
