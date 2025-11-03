@@ -1,6 +1,5 @@
 import React, { type JSX } from "react";
 
-import "./Text.scss";
 import { useTextAnimation } from "@/shared/hooks/useAnimation";
 import clsx, { type ClassValue } from "clsx";
 
@@ -26,7 +25,7 @@ export const Text: React.FC<Props> = ({
   animation = false,
   disableBreak = false,
 }) => {
-  const { rootRef } = useTextAnimation(animation || false );
+  const { rootRef } = useTextAnimation(animation || false);
 
   const TagTypes = Tag as any;
 
@@ -35,7 +34,8 @@ export const Text: React.FC<Props> = ({
       className={clsx(
         className,
         "[&_span]:inline-block [&_span]:whitespace-pre-wrap",
-        animation && "[&_span]:translate-y-8 [&_span]:opacity-0 [&_span]:blur-md"
+        animation &&
+          "[&_span]:translate-y-8 [&_span]:opacity-0 [&_span]:blur-md"
       )}
       ref={rootRef}
     >

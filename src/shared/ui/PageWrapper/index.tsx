@@ -7,8 +7,6 @@ import clsx from "clsx";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/dist/ScrollTrigger";
 
-import css from "./PageWrapper.module.scss";
-
 interface Props {
   children: React.ReactNode;
   className?: string;
@@ -133,20 +131,17 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
         {circles && (
           <div
             className={
-              "absolute left-0 top-0 size-full -z-1 pointer-events-none hidden"
+              "absolute left-0 top-0 size-full -z-1 pointer-events-none overflow-hidden"
             }
           >
             <div
               className={clsx(
-                "absolute l-0 top-1/2 w-full -translate-1/2 aspect-square",
-                typeof circles === "object" &&
-                  circles.showOnEnter &&
-                  css.initialHide
+                "absolute l-0 top-1/2 w-full -translate-y-1/2 aspect-square"
               )}
             >
               <div
                 className={clsx(
-                  "absolute left-0 top-0 w-full origin-center scale-[0.75] rotate-[-190deg] max-md:scale-1",
+                  "absolute left-0 top-0 w-full origin-center scale-[0.75] rotate-[-190deg] max-md:scale-100",
                   "section-circle"
                 )}
               >
@@ -161,7 +156,7 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
               </div>
               <div
                 className={clsx(
-                  "absolute left-0 top-0 w-full origin-center max-md:scale-150",
+                  "absolute left-0 top-0 w-full origin-center max-md:scale-[1.4]",
                   "section-circle"
                 )}
               >
