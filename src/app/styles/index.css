@@ -13,6 +13,29 @@
 
   --font-tthoves: "TT Hoves";
   --font-inter: "Inter Tight";
+
+  --tracking-1: 0.01em;
+  --tracking-2: 0.02em;
+  --tracking-3: 0.03em;
+  --tracking-4: 0.04em;
+  --tracking-5: 0.05em;
+
+  --leading-1: 1.1;
+  --leading-2: 1.2;
+  --leading-3: 1.3;
+  --leading-4: 1.4;
+  --leading-5: 1.5;
+
+  --u-text-gradient-none: none;
+}
+
+@utility u-text-gradient-* {
+  background: --value(--u-text-gradient-*);
+  background: --value([*]);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
 }
 
 @utility compositemask {
@@ -24,11 +47,17 @@
   border-radius: inherit;
 }
 
+@layer base {
+  button {
+    cursor: pointer;
+  }
+}
+
 @utility image-cover {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
+  object-position: center;`
   border-radius: inherit;
 }
 

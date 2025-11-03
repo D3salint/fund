@@ -9,6 +9,7 @@ interface Props {
   as?: keyof JSX.IntrinsicElements;
   className?: ClassValue;
   disableBreak?: boolean;
+  color?: string;
   animation?:
     | {
         delay?: number;
@@ -21,6 +22,7 @@ export const Text: React.FC<Props> = ({
   as: Tag = "p",
   className,
   children,
+  color = "u-text-gradient-[linear-gradient(to_bottom,#fcfeff,#aea9b8)]",
   animation = false,
   disableBreak = false,
 }) => {
@@ -32,16 +34,16 @@ export const Text: React.FC<Props> = ({
     <TagTypes
       className={clsx(
         className,
-        "text-component",
-        animation && "text-component-aos"
+        "[&_span]:inline-block [&_span]:whitespace-pre-wrap",
+        animation && "[&_span]:translate-y-8 [&_span]:opacity-0 [&_span]:blur-md"
       )}
       ref={rootRef}
     >
       {disableBreak ? (
-        <span>{children}</span>
+        <span className={color}>{children}</span>
       ) : (
         children.split(" ").map((item, id, arr) => (
-          <span key={id}>
+          <span className={color} key={id}>
             {item}
             {arr.length !== id && " "}
           </span>
