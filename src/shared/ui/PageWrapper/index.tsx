@@ -92,12 +92,10 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
           .timeline({ paused: true })
           .to(".section-circle svg", {
             opacity: 1,
-            rotate: 0,
             duration: 1.5,
           })
           .to(".section-circle svg", {
             opacity: 0,
-            rotate: (index) => (index % 2 === 0 ? 60 : -45),
             duration: 1.5,
           });
 
@@ -147,10 +145,10 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
               >
                 <Circle
                   className={clsx(
-                    "size-full",
+                    "size-full animate-spin [animation-duration:6s] [animation-direction:reverse]",
                     typeof circles === "object" &&
                       circles.showOnEnter &&
-                      "opacity-0 rotate-60"
+                      "opacity-0"
                   )}
                 />
               </div>
@@ -162,10 +160,10 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
               >
                 <Circle
                   className={clsx(
-                    "size-full",
+                    "size-full animate-spin [animation-duration:6s]",
                     typeof circles === "object" &&
                       circles.showOnEnter &&
-                      "opacity-0 -rotate-45"
+                      "opacity-0"
                   )}
                 />
               </div>

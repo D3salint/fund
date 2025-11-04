@@ -1,5 +1,6 @@
 import React from "react";
 
+import { MarketGapAnalysisChart } from "@/shared/charts/MarketGapAnalysis";
 import { Motion } from "@/shared/ui/Motion";
 import { Section } from "@/shared/ui/PageWrapper";
 import { Text } from "@/shared/ui/Text";
@@ -74,70 +75,15 @@ export const Problem: React.FC = () => {
                 Median Days Between Seed and Series A Rounds
               </p>
             </div>
-            <div className="grid gap-6 grid-cols-[2.25rem_auto_2.25rem] mt-5 max-sm:mt-3 max-sm:grid-cols-[1.25rem_auto_1.25rem] max-sm:gap-2">
-              <div className="flex flex-col text-end">
-                <div className="flex flex-col justify-between h-[82%] my-auto">
-                  <p className="text-xs leading-4 tracking-1 text-[#cccccc] max-sm:text-[0.625rem]">
-                    40%
-                  </p>
-                  <p className="text-xs leading-4 tracking-1 text-[#cccccc] max-sm:text-[0.625rem]">
-                    30%
-                  </p>
-                  <p className="text-xs leading-4 tracking-1 text-[#cccccc] max-sm:text-[0.625rem]">
-                    20%
-                  </p>
-                  <p className="text-xs leading-4 tracking-1 text-[#cccccc] max-sm:text-[0.625rem]">
-                    10%
-                  </p>
-                  <p className="text-xs leading-4 tracking-1 text-[#cccccc] max-sm:text-[0.625rem]">
-                    0%
-                  </p>
-                </div>
-              </div>
-              <div>
-                <img
-                  className="w-full scale-[1.15]"
-                  src="/images/market-chart.svg"
-                  alt=""
-                />
-                <div className="flex justify-between text-center text-xs leading-4 tracking-1 text-[#626268] mx-auto max-w-[99%] max-sm:text-[0.625rem]">
-                  <p>2018</p>
-                  <p>2019</p>
-                  <p>2020</p>
-                  <p>2021</p>
-                  <p>2022</p>
-                  <p>2023</p>
-                  <p>2024</p>
-                </div>
-              </div>
-              <div className="flex flex-col">
-                <div className="flex flex-col justify-between h-[82%] my-auto">
-                  <p className="text-xs leading-4 tracking-1 text-[#cccccc] max-sm:text-[0.625rem]">
-                    800
-                  </p>
-                  <p className="text-xs leading-4 tracking-1 text-[#cccccc] max-sm:text-[0.625rem]">
-                    600
-                  </p>
-                  <p className="text-xs leading-4 tracking-1 text-[#cccccc] max-sm:text-[0.625rem]">
-                    400
-                  </p>
-                  <p className="text-xs leading-4 tracking-1 text-[#cccccc] max-sm:text-[0.625rem]">
-                    200
-                  </p>
-                  <p className="text-xs leading-4 tracking-1 text-[#cccccc] max-sm:text-[0.625rem]">
-                    0
-                  </p>
-                </div>
-              </div>
-            </div>
+            <MarketGapAnalysisChart className="grow mt-5 min-h-40 max-xxl:aspect-video max-sm:aspect-auto" />
             <ul className="mt-11 flex items-center gap-11 pl-16 max-xxl:items-start max-xxl:flex-col max-xxl:gap-3 max-sm:pl-6 max-sm:mt-4">
               <li className="text-sm leading-4 tracking-1 text-[#cccccc] flex items-center gap-2 max-sm:text-[0.625rem]">
-                <span className="shrink-0 w-2 h-[3px] bg-[#9C77FF] rounded-sm"/>
+                <span className="shrink-0 w-2 h-[3px] bg-[#9C77FF] rounded-sm" />
                 % of Seed-Funded B2B SaaS Startups Raising Series A Within 2
                 Years
               </li>
               <li className="text-sm leading-4 tracking-1 text-[#cccccc] flex items-center gap-2 max-sm:text-[0.625rem]">
-                <span className="shrink-0 w-2 h-[3px] bg-[#6776FF] rounded-sm"/>
+                <span className="shrink-0 w-2 h-[3px] bg-[#6776FF] rounded-sm" />
                 Median Days Between Seed and Series A Rounds
               </li>
             </ul>
