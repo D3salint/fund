@@ -128,10 +128,10 @@ export const Summary: React.FC = () => {
               AI, automation, and product-led strategies continues to drive
               operational efficiency and scalable value creation.
             </Text>
-            <ul className="summary-stats mt-auto pt-10 grid grid-cols-3 max-lg:pt-6">
+            <ul className="summary-stats mt-auto pt-10 grid grid-cols-[1fr_1.2fr_1fr] max-lg:pt-6">
               {stats.map((item) => (
                 <li
-                  className="opacity-0 translate-y-8 summary-stats-item flex flex-col gap-4 px-10 relative first:pl-0 last:pr-0 max-xl:px-5 max-sm:px-5 max-sm:gap-1.5"
+                  className="opacity-0 translate-y-8 summary-stats-item flex flex-col gap-4 px-10 relative first:pl-0 last:pr-0 max-xl:px-5 max-sm:px-5 max-sm:gap-1.5 not-first:before:block not-first:before:w-px not-first:before:h-full not-first:before:bg-white/20 not-first:before:absolute not-first:before:left-0 not-first:before:top-0"
                   key={item.title + item.value}
                 >
                   <div className="flex items-center gap-3 max-sm:flex-col max-sm:items-start max-sm:gap-1.5">

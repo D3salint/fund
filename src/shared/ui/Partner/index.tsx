@@ -55,7 +55,7 @@ export const Partner: React.FC<Props> = ({
         <Socials twitter="#" />
       </div>
       <Text
-        className="mt-7 leading-normal text-[1.125rem] max-w-97.5 text-white/60 max-xl:text-base max-sm:text-[0.8125rem] max-sm:mt-[0.875rem]"
+        className="mt-7 leading-normal text-[1.125rem] max-w-97.5 text-white/60 max-xl:text-base max-sm:text-[0.8125rem] max-sm:mt-3.5"
         color=""
       >
         {review}
