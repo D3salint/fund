@@ -7,6 +7,9 @@ function App() {
     <PageWrapper>
       <HomeScreens.Hero />
       <HomeScreens.Summary />
+      <HomeScreens.StandOut />
+      <HomeScreens.Problem />
+
       <RegisterGsapPlugins />
     </PageWrapper>
   );

@@ -1,10 +1,9 @@
 import React from "react";
 
+import { Motion } from "@/shared/ui/Motion";
 import { Section } from "@/shared/ui/PageWrapper";
 import { Partner } from "@/shared/ui/Partner";
 import { Text } from "@/shared/ui/Text";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
 import "swiper/css";
 import "swiper/css/effect-creative";
 import { Autoplay, EffectCreative } from "swiper/modules";
@@ -58,58 +57,17 @@ const partners = [
 export const Summary: React.FC = () => {
   const rootRef = React.useRef<HTMLDivElement>(null);
 
-  useGSAP(
-    () => {
-      // Will be refcatored
-      gsap
-        .timeline({
-          delay: 1,
-          scrollTrigger: {
-            trigger: `.summary-stats`,
-            invalidateOnRefresh: true,
-            start: "top 80%",
-          },
-        })
-        .to(`.summary-stats-item`, {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          stagger: 0.1,
-        });
-
-      // Mobile
-      // Will be refactored
-      const cards = gsap.utils.toArray(
-        `.summary-partners-card`
-      ) as HTMLElement[];
-
-      cards.forEach((card) => {
-        gsap.to(card, {
-          scrollTrigger: {
-            trigger: card,
-            invalidateOnRefresh: true,
-            start: "top 90%",
-          },
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-        });
-      });
-    },
-    { scope: rootRef }
-  );
-
   return (
     <Section
       className="pt-24 pb-10 overflow-hidden bg-[url(/images/summary-bg.webp)] bg-cover bg-top-left max-sm:bg-[url(/images/summary-bg@mob.webp)]"
       ref={rootRef}
       id="summary-section"
     >
-      <div className="max-w-400 px-10 mx-auto w-full max-lg:px-1.5 max-md:px-4">
+      <div className="max-w-400 px-10 mx-auto w-full max-lg:px-6 max-md:px-4">
         <div className="flex items-center justify-between gap-8 pr-20 max-xxl:pr-0 max-lg:flex-col">
           <div className="max-w-157 min-h-120 flex flex-col max-lg:min-h-auto">
             <Text
-              className="title font-tthoves font-semibold text-[3.5rem] -tracking-4 leading-none w-min max-sm:text-3xl max-sm:w-auto"
+              className="title font-tthoves font-semibold text-56 -tracking-4 leading-none w-min max-sm:text-3xl max-sm:w-auto"
               animation={{}}
               as="h2"
             >
@@ -129,9 +87,11 @@ export const Summary: React.FC = () => {
               operational efficiency and scalable value creation.
             </Text>
             <ul className="summary-stats mt-auto pt-10 grid grid-cols-[1fr_1.2fr_1fr] max-lg:pt-6">
-              {stats.map((item) => (
-                <li
-                  className="opacity-0 translate-y-8 summary-stats-item flex flex-col gap-4 px-10 relative first:pl-0 last:pr-0 max-xl:px-5 max-sm:px-5 max-sm:gap-1.5 not-first:before:block not-first:before:w-px not-first:before:h-full not-first:before:bg-white/20 not-first:before:absolute not-first:before:left-0 not-first:before:top-0"
+              {stats.map((item, id) => (
+                <Motion
+                  className="summary-stats-item flex flex-col gap-4 px-10 relative first:pl-0 last:pr-0 max-xl:px-5 max-sm:px-5 max-sm:gap-1.5 not-first:before:block not-first:before:w-px not-first:before:h-full not-first:before:bg-white/20 not-first:before:absolute not-first:before:left-0 not-first:before:top-0"
+                  initialState="opacity-0 translate-y-8"
+                  delay={id * 0.1 + 0.8}
                   key={item.title + item.value}
                 >
                   <div className="flex items-center gap-3 max-sm:flex-col max-sm:items-start max-sm:gap-1.5">
@@ -148,7 +108,7 @@ export const Summary: React.FC = () => {
                   >
                     {item.title}
                   </Text>
-                </li>
+                </Motion>
               ))}
             </ul>
           </div>
@@ -202,14 +162,15 @@ export const Summary: React.FC = () => {
 
           <div className="hidden max-w-157 mt-7 flex-col gap-3 w-full max-lg:flex">
             {partners.map((partner) => (
-              <Partner
-                className="summary-partners-card bg-none bg-[#0a0a0a63]! backdrop-blur-2xl opacity-0 translate-y-8"
-                key={partner.id}
-                avatar={partner.avatar}
-                name={partner.name}
-                position={partner.pos}
-                review={partner.review}
-              />
+              <Motion key={partner.id}>
+                <Partner
+                  className="summary-partners-card bg-none bg-[#0a0a0a63]! backdrop-blur-2xl"
+                  avatar={partner.avatar}
+                  name={partner.name}
+                  position={partner.pos}
+                  review={partner.review}
+                />
+              </Motion>
             ))}
           </div>
         </div>

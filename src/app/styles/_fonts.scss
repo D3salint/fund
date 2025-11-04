@@ -1,4 +1,12 @@
-@use "globals.scss" as * ;
+@mixin fontFace($name, $weight, $src, $style: normal) {
+  @font-face {
+    font-family: $name;
+    font-weight: $weight;
+    font-style: $style;
+    font-display: swap;
+    src: url($src);
+  }
+}
 
 @include fontFace("Inter Tight", 400, "/fonts/InterTight-Regular.ttf");
 @include fontFace("Inter Tight", 500, "/fonts/InterTight-Medium.ttf");

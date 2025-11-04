@@ -27,6 +27,28 @@
   --leading-5: 1.5;
 
   --u-text-gradient-none: none;
+
+  --u-text-rows-1: 1;
+  --u-text-rows-2: 2;
+  --u-text-rows-3: 3;
+  --u-text-rows-4: 4;
+  --u-text-rows-5: 5;
+
+  --text-18: 1.125rem;
+  --text-20: 1.25rem;
+  --text-32: 2rem;
+  --text-40: 2.5rem;
+  --text-48: 3rem;
+  --text-56: 3.5rem;
+}
+
+@utility u-text-rows-* {
+  display: -webkit-box;
+  -webkit-line-clamp: --value([integer]);
+  -webkit-line-clamp: --value(--u-text-rows-*);
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 @utility u-text-gradient-* {
