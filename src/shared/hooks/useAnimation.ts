@@ -27,7 +27,6 @@ export function useTextAnimation(ucfg: TextAnimationConfig | false) {
 
       gsap
         .timeline({
-          delay: config.delay,
           scrollTrigger: {
             trigger: rootRef.current,
             start: "top 80%",
@@ -40,7 +39,7 @@ export function useTextAnimation(ucfg: TextAnimationConfig | false) {
           opacity: 1,
           y: 0,
           filter: `blur(0px)`,
-        });
+        }, config.delay);
     },
     { scope: rootRef }
   );

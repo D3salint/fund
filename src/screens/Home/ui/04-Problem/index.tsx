@@ -61,7 +61,7 @@ export const Problem: React.FC = () => {
         <div className="mt-16.5 grid grid-cols-[auto_23.625rem] gap-10 max-xxl:gap-4 max-xl:grid-cols-1 max-lg:mt-4">
           <Motion
             delay={0.35}
-            className="flex flex-col px-10 pb-10 pt-7.5 rounded-3xl bg-[linear-gradient(to_bottom,rgba(255,255,255,0.003),rgba(255,255,255,0.01))] backdrop-blur-3xl bg-bottom-left bg-cover relative before:absolute before:inset-0 before:p-[0.1rem] before:rounded-inherit before:compositemask before:bg-[linear-gradient(170deg,rgba(255,255,255,0.1),rgba(153,153,153,0))] before:pointer-events-none max-lg:p-4 max-lg:pb-5"
+            className="overflow-hidden flex flex-col px-10 pb-10 pt-7.5 rounded-3xl bg-[linear-gradient(to_bottom,rgba(255,255,255,0.003),rgba(255,255,255,0.01))] backdrop-blur-3xl bg-bottom-left bg-cover relative before:absolute before:inset-0 before:p-[0.1rem] before:rounded-inherit before:compositemask before:bg-[linear-gradient(170deg,rgba(255,255,255,0.1),rgba(153,153,153,0))] before:pointer-events-none max-lg:p-4 max-lg:pb-5"
           >
             <Text className="font-tthoves text-32 font-semibold -tracking-3 max-sm:text-18">
               Market Gap Analysis

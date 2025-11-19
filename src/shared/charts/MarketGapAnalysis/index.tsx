@@ -15,11 +15,13 @@ import { marketGapData } from "./data";
 interface Props {
   className?: string;
   data?: Array<{ year: number; percent: number; days: number }>;
+  disableFillArea?: boolean;
 }
 
 export function MarketGapAnalysisChart({
   data = marketGapData,
   className,
+  disableFillArea,
 }: Props) {
   const [isMobile, setMobile] = React.useState(false);
 
@@ -118,7 +120,7 @@ export function MarketGapAnalysisChart({
           {/* Percent */}
           <Area
             yAxisId="left"
-            fill="url(#fillPercent)"
+            fill={disableFillArea ? "none" : "url(#fillPercent)"}
             dataKey="percent"
             type="monotone"
             stroke="url(#linePercentGradient)"
@@ -151,7 +153,7 @@ export function MarketGapAnalysisChart({
           {/* Days */}
           <Area
             yAxisId="right"
-            fill="url(#fillDays)"
+            fill={disableFillArea ? "none" : "url(#fillDays)"}
             dataKey="days"
             type="monotone"
             stroke="url(#lineDaysGradient)"

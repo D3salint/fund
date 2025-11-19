@@ -28,6 +28,8 @@
 
   --u-text-gradient-none: none;
 
+  --u-border-gradient-none: none;
+
   --u-text-rows-1: 1;
   --u-text-rows-2: 2;
   --u-text-rows-3: 3;
@@ -58,6 +60,23 @@
   -webkit-text-fill-color: transparent;
   background-clip: text;
   text-fill-color: transparent;
+}
+
+@utility u-border-gradient-* {
+  content: "";
+  display: block;
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: xor;
+  border-radius: inherit;
+  background: --value(--u-border-gradient-*);
+  background: --value([*]);
+  padding: 0.0625rem;
 }
 
 @utility compositemask {

@@ -5,12 +5,14 @@ import { RegisterGsapPlugins } from "./shared/ui/RegisterGsapPlugins";
 function App() {
   return (
     <PageWrapper>
+      <RegisterGsapPlugins />
       <HomeScreens.Hero />
       <HomeScreens.Summary />
       <HomeScreens.StandOut />
       <HomeScreens.Problem />
-
-      <RegisterGsapPlugins />
+      <HomeScreens.WhyNow />
+      <HomeScreens.Opportunity />
+      {/* <HomeScreens.Investment /> */}
     </PageWrapper>
   );
 }
