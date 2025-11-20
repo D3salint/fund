@@ -1,6 +1,6 @@
 import React from "react";
 
-import { XComIcon } from "../icons/XCom.icon";
+import { XComIcon } from "../icons/XComIcon";
 import clsx from "clsx";
 
 interface Props {

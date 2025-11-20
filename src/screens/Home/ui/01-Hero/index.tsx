@@ -4,7 +4,7 @@ import { smoothScrollToAnchor } from "@/shared/lib/smoothScrollToAnchor";
 import { Label } from "@/shared/ui/Label";
 import { Section } from "@/shared/ui/PageWrapper";
 import { Text } from "@/shared/ui/Text";
-import { ArrowRightIcon } from "@/shared/ui/icons/ArrowRight.icon";
+import { ArrowRightIcon } from "@/shared/ui/icons/ArrowRightIcon";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 
