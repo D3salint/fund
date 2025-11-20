@@ -21,7 +21,7 @@ export const WhyNow: React.FC = () => {
           Why Now?
         </Text>
         <Text
-          className="text-center mt-6 text-base leading-4 tracking-1 mask-[linear-gradient(to_bottom,black,rgba(0,0,0,0.5))]"
+          className="text-center mt-6 text-base leading-4 tracking-1 mask-[linear-gradient(to_bottom,black,rgba(0,0,0,0.5))] max-sm:text-sm max-sm:mt-3"
           color="text-white"
           animation={{ delay: 0.15 }}
         >
@@ -32,7 +32,7 @@ export const WhyNow: React.FC = () => {
           valuations while competition is muted.
         </Text>
         <Text
-          className="text-center mt-8 text-base leading-4 tracking-1 max-sm:mt-4"
+          className="text-center mt-8 text-base leading-4 tracking-1 max-sm:mt-4 max-sm:text-sm"
           color="text-white/50"
           animation={{ delay: 0.5 }}
         >
@@ -42,7 +42,7 @@ export const WhyNow: React.FC = () => {
           emerges from this funding gap.
         </Text>
 
-        <Motion delay={0.7} className="pb-8 mt-25 rounded-4xl w-full bg-[linear-gradient(to_bottom,rgba(255,255,255,0.009,rgba(255,255,255,0.03)))] backdrop-blur-3xl relative before:p-px before:u-border-gradient-[linear-gradient(160deg,rgba(255,255,255,0.18)_50%,rgba(153,153,153,0))] max-sm:mt-15 max-sm:pb-6 max-sm:pt-3.5 max-sm:rounded-2xl">
+        <Motion delay={0.7} className="pb-8 mt-25 rounded-4xl w-full bg-[linear-gradient(to_bottom,rgba(255,255,255,0.009,rgba(255,255,255,0.03)))] backdrop-blur-3xl relative before:p-px before:u-border-gradient-[linear-gradient(160deg,rgba(255,255,255,0.18)_50%,rgba(153,153,153,0))] max-sm:mt-5 max-sm:pb-6 max-sm:pt-3.5 max-sm:rounded-2xl">
           <div className="w-full grid grid-cols-2 gap-px relative">
             <div className="flex flex-col items-center">
               <img

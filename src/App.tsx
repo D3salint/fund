@@ -13,6 +13,7 @@ function App() {
       <HomeScreens.WhyNow />
       <HomeScreens.Opportunity />
       <HomeScreens.Investment />
+      <HomeScreens.MarketAnalysis />
     </PageWrapper>
   );
 }

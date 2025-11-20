@@ -8,6 +8,7 @@ import ScrollTrigger from "gsap/dist/ScrollTrigger";
 type Props = {
   duration?: number;
   delay?: number;
+  stagger?: number;
   initialState?: string;
   as?: "div" | "ul" | "li" | "p";
   animationElement?: "root" | (string & {});
@@ -15,6 +16,7 @@ type Props = {
 
 export const Motion: React.FC<Props> = ({
   delay,
+  stagger = 0.05,
   duration,
   initialState = "translate-y-8 opacity-0 blur-md",
   animationElement = "root",
@@ -41,7 +43,7 @@ export const Motion: React.FC<Props> = ({
           animationElement === "root" ? rootRef.current : animationElement,
           {
             duration: duration ?? 0.8,
-            stagger: 0.05,
+            stagger,
             opacity: 1,
             y: 0,
             filter: `blur(0px)`,
