@@ -6,3 +6,4 @@ export { WhyNow } from "./05-WhyNow";
 export { Opportunity } from "./06-Opportunity";
 export { Investment } from "./07-Investment";
 export { MarketAnalysis } from "./08-MarketAnalysis";
+export { Team } from "./09-Team";

@@ -1,9 +1,13 @@
+"use client";
+
 import React from "react";
 
 import { useGSAP } from "@gsap/react";
 import clsx from "clsx";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/dist/ScrollTrigger";
+
+import { useScroller } from "../Scroller";
 
 type Props = {
   duration?: number;
@@ -23,6 +27,7 @@ export const Motion: React.FC<Props> = ({
   as: Tag = "div",
   ...props
 }) => {
+  const { scrollerRef, isReady: isScrollerReady } = useScroller();
   const rootRef = React.useRef<any>(null);
 
   useGSAP(
@@ -35,6 +40,8 @@ export const Motion: React.FC<Props> = ({
           paused: true,
           scrollTrigger: {
             trigger: rootRef.current,
+            // Remove next prop if scroller = window
+            scroller: scrollerRef.current,
             start: "top 80%",
             invalidateOnRefresh: true,
           },
@@ -51,17 +58,14 @@ export const Motion: React.FC<Props> = ({
           delay
         );
     },
-    { scope: rootRef }
+    { scope: rootRef, dependencies: [isScrollerReady] }
   );
-
+  
   return (
     <Tag
       {...props}
       ref={rootRef}
-      className={clsx(
-        initialState,
-        props.className
-      )}
+      className={clsx(initialState, props.className)}
     />
   );
 };

@@ -181,6 +181,7 @@ export const PageWrapper: React.FC<Props> = ({ children, className }) => {
     <div
       className={clsx(
         "flex flex-col min-h-svh bg-[radial-gradient(circle_at_center,#040713,#020308)] bg-size-[100svw_100svh] bg-center bg-no-repeat bg-fixed relative z-1 before:size-full before:block before:bg-[url(/images/background-v2.webp)] before:bg-cover before:bg-center before:bg-fixed before:absolute before:left-0 before:top-0 before:-z-1 before:pointer-events-none",
+
         className
       )}
     >
