@@ -7,6 +7,8 @@ import clsx from "clsx";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/dist/ScrollTrigger";
 
+import { useScroller } from "../Scroller";
+
 interface Props {
   children: React.ReactNode;
   className?: string;
@@ -81,6 +83,7 @@ interface SectionProps extends Props {
 export const Section = React.forwardRef<HTMLElement, SectionProps>(
   ({ children, className, circles = false, id }, ref) => {
     const rootRef = React.useRef<HTMLDivElement>(null);
+    const { isReady: isScrollerReady, scrollerRef } = useScroller();
 
     useGSAP(
       () => {
@@ -102,6 +105,7 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
         ScrollTrigger.create({
           trigger: rootRef.current,
           invalidateOnRefresh: true,
+          scroller: scrollerRef.current,
           start: "top 50%",
           end: "bottom 60%",
           onEnter: () => timeline.tweenFromTo(0, 1.5),
@@ -110,7 +114,7 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
           onLeaveBack: () => timeline.tweenFromTo(1.5, 0),
         });
       },
-      { scope: rootRef }
+      { scope: rootRef, dependencies: [isScrollerReady] }
     );
 
     return (
