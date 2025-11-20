@@ -1,5 +1,3 @@
-import React from "react";
-
 import { EmailIcon } from "./icons/EmailIcon";
 import { PhoneIcon } from "./icons/PhoneIcon";
 import clsx from "clsx";
@@ -24,7 +22,12 @@ export function TeamCard({
   className,
 }: Props) {
   return (
-    <div className={clsx(className, "team-card relative py-1 h-full flex flec-col")}>
+    <div
+      className={clsx(
+        className,
+        "team-card relative py-1 h-full flex flec-col"
+      )}
+    >
       <span className="absolute size-1.25 bg-[#6776FF] rounded-full pointer-events-none left-0 top-0 max-sm:size-1" />
       <span className="absolute size-1.25 bg-[#6776FF] rounded-full pointer-events-none -translate-x-full left-full top-0 max-sm:size-1" />
       <span className="absolute size-1.25 bg-[#6776FF] rounded-full pointer-events-none -translate-y-full left-0 top-full max-sm:size-1" />
