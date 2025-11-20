@@ -4,6 +4,7 @@ import React from "react";
 
 import { useSwiperHelper } from "@/shared/hooks/useSwiperHelper";
 import { ArrowButton } from "@/shared/ui/ArrowButton";
+import { Motion } from "@/shared/ui/Motion";
 import { Section } from "@/shared/ui/PageWrapper";
 import { TeamCard } from "@/shared/ui/TeamCard";
 import { Text } from "@/shared/ui/Text";
@@ -54,7 +55,7 @@ export const Team: React.FC = () => {
       <div className="max-w-252.5 w-full mx-auto">
         <Text
           className="font-tthoves text-56 font-semibold leading-none -tracking-4 max-sm:text-32 [&_span]:first:block max-lg:[&_span]:first:inline-block"
-          // animation={{}}
+          animation={{}}
           as="h2"
         >
           Meet the Team
@@ -62,6 +63,7 @@ export const Team: React.FC = () => {
         <Text
           className="mt-9 max-w-93 text-base leading-4 tracking-normal max-lg:mt-4 max-sm:text-sm"
           color="text-primary/50"
+          animation={{ delay: 0.15 }}
         >
           Demonstrating the investment opportunity created by declining
           early-stage capital allocation against rapidly expanding AI-driven
@@ -69,16 +71,25 @@ export const Team: React.FC = () => {
         </Text>
       </div>
       <div className="mt-25 -mx-4 px-4 overflow-hidden relative max-lg:flex max-lg:flex-col max-lg:mt-12 max-sm:mt-6">
-        <div className="flex flex-col gap-5 absolute z-2 left-10 bottom-0 max-lg:relative max-lg:inset-auto max-lg:flex-row-reverse max-lg:justify-center max-lg:mt-8 max-sm:hidden!">
+        <Motion
+          delay={0.3}
+          className="flex flex-col gap-5 absolute z-2 left-10 bottom-0 max-lg:relative max-lg:inset-auto max-lg:flex-row-reverse max-lg:justify-center max-lg:mt-8 max-sm:hidden!"
+        >
           <ArrowButton onClick={slideNext} disabled={isEnd} action="next" />
           <ArrowButton
             className="[&_.animate-spin]:[animation-delay:1.2s]"
             onClick={slidePrev}
             disabled={isBeginning}
           />
-        </div>
+        </Motion>
         <div className="mask-[linear-gradient(to_right,transparent,black_calc((100vw-66.125rem)/2),black_calc((100vw-66.125rem)/2))] max-lg:mask-none max-lg:-order-1">
-          <div className="max-w-252.5 w-full mx-auto">
+          <Motion
+            animationElement=".team-card"
+            stagger={0.15}
+            duration={0.8}
+            initialState="[&_.team-card]:translate-y-8 [&_.team-card]:opacity-0 [&_.team-card]:blur-md"
+            className="max-w-252.5 w-full mx-auto"
+          >
             <Swiper
               className="overflow-visible! max-sm:[&_.swiper-wrapper]:flex-col! max-sm:[&_.swiper-wrapper]:gap-5!"
               slidesPerView={config.team.length}
@@ -89,6 +100,7 @@ export const Team: React.FC = () => {
                   slidesPerView: "auto",
                 },
               }}
+              grabCursor
               spaceBetween={24}
             >
               {config.team.map((member) => (
@@ -100,7 +112,7 @@ export const Team: React.FC = () => {
                 </SwiperSlide>
               ))}
             </Swiper>
-          </div>
+          </Motion>
         </div>
       </div>
     </Section>
