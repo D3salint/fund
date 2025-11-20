@@ -8,3 +8,4 @@ export { Investment } from "./07-Investment";
 export { MarketAnalysis } from "./08-MarketAnalysis";
 export { Team } from "./09-Team";
 export { ExampleDeal } from "./10-ExampleDeal";
+export { InvestmentTerms } from "./11-InvestmentTerms";

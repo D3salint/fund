@@ -18,6 +18,7 @@ function App() {
         <HomeScreens.MarketAnalysis />
         <HomeScreens.Team />
         <HomeScreens.ExampleDeal />
+        <HomeScreens.InvestmentTerms />
       </Scroller>
     </PageWrapper>
   );

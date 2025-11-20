@@ -7,7 +7,7 @@ import { Motion } from "@/shared/ui/Motion";
 export const WhyNow: React.FC = () => {
   return (
     <Section
-      className="py-14 px-4 flex flex-col items-center justify-center relative"
+      className="py-14 px-4 flex flex-col items-center justify-center relative bg-[url(/images/whynow-bg.jpg)] bg-cover bg-bottom"
       circles={{ showOnEnter: true, hideOnLeave: true }}
     >
       {/* <img src="/images/why-now-ray.png" className="absolute bottom-0 left-1/2 -translate-x-1/2 max-w-255 w-full bg-blend-lighten" /> */}
