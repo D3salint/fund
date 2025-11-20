@@ -21,7 +21,7 @@ export const WhyNow: React.FC = () => {
           Why Now?
         </Text>
         <Text
-          className="text-center mt-6 text-base leading-4 tracking-1 mask-[linear-gradient(to_bottom,black,rgba(0,0,0,0.25))]"
+          className="text-center mt-6 text-base leading-4 tracking-1 mask-[linear-gradient(to_bottom,black,rgba(0,0,0,0.5))]"
           color="text-white"
           animation={{ delay: 0.15 }}
         >
@@ -32,7 +32,7 @@ export const WhyNow: React.FC = () => {
           valuations while competition is muted.
         </Text>
         <Text
-          className="text-center mt-10 text-base leading-4 tracking-1 max-sm:mt-4"
+          className="text-center mt-8 text-base leading-4 tracking-1 max-sm:mt-4"
           color="text-white/50"
           animation={{ delay: 0.5 }}
         >

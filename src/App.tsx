@@ -12,7 +12,7 @@ function App() {
       <HomeScreens.Problem />
       <HomeScreens.WhyNow />
       <HomeScreens.Opportunity />
-      {/* <HomeScreens.Investment /> */}
+      <HomeScreens.Investment />
     </PageWrapper>
   );
 }
