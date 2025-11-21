@@ -1,5 +1,6 @@
 import React from "react";
 
+import { ContentCard } from "@/shared/ui/ContentCard";
 import { Motion } from "@/shared/ui/Motion";
 import { Section } from "@/shared/ui/PageWrapper";
 import { Text } from "@/shared/ui/Text";
@@ -32,6 +33,7 @@ type GeneralProps = {
   className?: string;
   padding?: string;
   style?: React.CSSProperties;
+  background?: string;
 };
 
 /* Section Components */
@@ -39,19 +41,20 @@ const Card = ({
   children,
   className,
   padding = "p-7.5 pt-6.25 max-xl:p-5 max-sm:p-4",
+  background = "before:backdrop-blur-3xl",
   style,
 }: GeneralProps) => {
   return (
-    <div
+    <ContentCard
       className={clsx(
         className,
-        "invest-card border relative before:u-border-gradient-[linear-gradient(170deg,rgba(255,255,255,0.1),rgba(153,153,153,0))] bg-[linear-gradient(to_bottom,rgba(255,255,255,0.003),rgba(255,255,255,0.01))] backdrop-blur-3xl rounded-3xl",
+        `${background} invest-card rounded-3xl`,
         `${padding} flex flex-col max-sm:rounded-2xl`
       )}
       style={style}
     >
       {children}
-    </div>
+    </ContentCard>
   );
 };
 const TitleH3 = ({ children, className }: GeneralProps) => {
@@ -118,7 +121,7 @@ export const InvestmentTerms: React.FC = () => {
           className="mt-10 gap-5 w-full flex flex-wrap max-md:gap-2"
         >
           {/* 1st card */}
-          <Card className="w-[calc(66%-0.625rem)] bg-[url(/images/invest-terms-bg.png)]! bg-cover bg-top-right max-lg:w-full">
+          <Card className="w-[calc(66%-0.625rem)] max-lg:w-full" background=" bg-[url(/images/invest-terms-bg.png)]! bg-cover bg-top-right">
             <TitleH3>
               <span className="gradient">Fund Terms</span>
             </TitleH3>
@@ -196,7 +199,7 @@ export const InvestmentTerms: React.FC = () => {
             </div>
           </Card>
           {/* 2nd card */}
-          <Card className="w-[calc(34%-0.625rem)] max-lg:w-full">
+          <Card className="w-[calc(34%-0.625rem)] max-lg:w-full backdrop-blur-3xl!" background="before:backdrop-blur-3xl">
             <TitleH3>
               <span className="gradient">Accredited Investors</span>{" "}
               <span className="block font-normal text-base leading-4 tracking-normal max-sm:text-xs">
@@ -233,7 +236,7 @@ export const InvestmentTerms: React.FC = () => {
             </div>
           </Card>
           {/* 3rd card */}
-          <Card className="w-[calc(50%-0.625rem)] bg-[url(/images/invest-card3-bg.png)]! bg-cover bg-top-right max-lg:w-full">
+          <Card className="w-[calc(50%-0.625rem)] max-lg:w-full" background="bg-[url(/images/invest-card3-bg.png)]! bg-cover bg-top-right">
             <TitleH3>
               <span className="gradient">Accredited Investors</span>{" "}
               <span className="font-normal text-base leading-4 tracking-normal max-sm:text-xs">
@@ -264,7 +267,7 @@ export const InvestmentTerms: React.FC = () => {
             </ul>
           </Card>
           {/* 4th card */}
-          <Card className="w-[calc(50%-0.625rem)] bg-[url(/images/invest-card4-bg.png)]! bg-cover bg-top-right max-lg:w-full">
+          <Card className="w-[calc(50%-0.625rem)] max-lg:w-full" background="bg-[url(/images/invest-card4-bg.png)]! bg-cover bg-top-right">
             <TitleH3>
               <span className="gradient">Deployment Metrics</span>
             </TitleH3>

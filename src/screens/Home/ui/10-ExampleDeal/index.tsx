@@ -70,7 +70,7 @@ export const ExampleDeal: React.FC = () => {
             delay={0.55}
             className={clsx(
               "rounded-3xl p-7.5 pt-6.25 bg-[url(/images/example-deal-bg.webp)] bg-cover bg-top-right w-full backdrop-blur-3xl",
-              "border relative before:u-border-gradient-[linear-gradient(170deg,rgba(255,255,255,0.1),rgba(153,153,153,0))]",
+              "relative before:u-border-gradient-[linear-gradient(170deg,rgba(255,255,255,0.1),rgba(153,153,153,0))]",
               "flex flex-col items-start",
               " max-sm:px-4 max-sm:py-5"
             )}
@@ -104,7 +104,7 @@ export const ExampleDeal: React.FC = () => {
               <div
                 className={clsx(
                   "deal-aos-item p-7.5 pt-6 rounded-3xl bg-[linear-gradient(to_bottom,rgba(255,255,255,0.003),rgba(255,255,255,0.01))]",
-                  "border relative before:u-border-gradient-[linear-gradient(170deg,rgba(255,255,255,0.1),rgba(153,153,153,0))] backdrop-blur-3xl",
+                  "relative before:u-border-gradient-[linear-gradient(170deg,rgba(255,255,255,0.1),rgba(153,153,153,0))] backdrop-blur-3xl",
                   "flex flex-col",
                   "max-lg:p-4 max-sm:p-6 max-sm:rounded-2xl"
                 )}
@@ -146,7 +146,7 @@ export const ExampleDeal: React.FC = () => {
               <div
                 className={clsx(
                   "deal-aos-item p-7.5 pt-6 rounded-3xl bg-[linear-gradient(to_bottom,rgba(255,255,255,0.003),rgba(255,255,255,0.01))]",
-                  "border relative before:u-border-gradient-[linear-gradient(170deg,rgba(255,255,255,0.1),rgba(153,153,153,0))] backdrop-blur-3xl",
+                  "relative before:u-border-gradient-[linear-gradient(170deg,rgba(255,255,255,0.1),rgba(153,153,153,0))] backdrop-blur-3xl",
                   "max-lg:p-4 max-sm:p-3.5 max-sm:rounded-2xl"
                 )}
               >
@@ -163,7 +163,7 @@ export const ExampleDeal: React.FC = () => {
                     <li
                       className={clsx(
                         "p-3 rounded-xl bg-[linear-gradient(to_bottom,rgba(255,255,255,0.003),rgba(255,255,255,0.01))]",
-                        "border relative before:u-border-gradient-[linear-gradient(170deg,rgba(255,255,255,0.1),rgba(153,153,153,0))] backdrop-blur-3xl",
+                        "relative before:u-border-gradient-[linear-gradient(170deg,rgba(255,255,255,0.1),rgba(153,153,153,0))] backdrop-blur-3xl",
                         item.full && "col-end-3 col-start-1",
                         "max-sm:p-2.5"
                       )}
@@ -179,7 +179,7 @@ export const ExampleDeal: React.FC = () => {
                             <div
                               className={clsx(
                                 "py-1 px-2.5 rounded-[100px] text-sm leading-4 tracking-normal text-primary/50 shadow-[0_-0.375rem_5.25rem_rgba(103,118,255,0.25)]",
-                                "relative border before:u-border-gradient-[linear-gradient(to_right,rgba(103,118,255,0.2),#6776FF,rgba(103,118,255,0.2))]",
+                                "relative before:u-border-gradient-[linear-gradient(to_right,rgba(103,118,255,0.2),#6776FF,rgba(103,118,255,0.2))]",
                                 "max-sm:text-xs"
                               )}
                               key={val}
