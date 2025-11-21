@@ -15,7 +15,7 @@ export function ContentCard({
     <div
       {...props}
       className={clsx(
-        `border relative before:u-border-gradient-[${borderGradient}] bg-[${bgGradient}]`,
+        `relative after:absolute after:u-border-gradient-[${borderGradient}] relative z-1 before:absolute before:bg-[${bgGradient}] before:rounded-[inherit] before:inset-0 before:-z-1 `,
         className
       )}
     />

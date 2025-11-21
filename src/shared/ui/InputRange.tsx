@@ -39,15 +39,18 @@ export function InputRange({
           {displayValue}
         </p>
       )}
-      <input
-        className={clsx("input-range w-full")}
-        type="range"
-        min={min}
-        max={max}
-        step={step}
-        value={value}
-        onChange={(ev) => onChange(parseFloat(ev.target.value))}
-      />
+      <div className="relative">
+        <input
+          className={clsx("input-range w-full")}
+          type="range"
+          min={min}
+          max={max}
+          step={step}
+          value={value}
+          onChange={(ev) => onChange(parseFloat(ev.target.value))}
+        />
+        <div className="size-6 rounded-full shrink-0 bg-[#6776FF]/20 backdrop-blur-md absolute left-0 top-1/2 -translate-y-1/2 pointer-events-none"></div>
+      </div>
       {(displayMin || displayMax) && (
         <div className="mt-2 flex items-center justify-between gap-2 font-tthoves font-sm -tracking-1 text-[#4A4A4D]">
           {displayMin && <p>{displayMin}</p>}

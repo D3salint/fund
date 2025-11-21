@@ -120,5 +120,13 @@ html {
 .input-range[type="range"] {
   -webkit-appearance: none;
   appearance: none;
+  height: 0.25rem;
+  border-radius: 0.09375rem;
+  background: #4a4a4d;
+  outline: none;
 
+  &::-webkit-slider-thumb {
+    /* -webkit-appearance: none; */
+    opacity: 0;
+  }
 }

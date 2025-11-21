@@ -48,7 +48,7 @@ export const Calculator: React.FC = () => {
         >
           See how much the fund manager could earn based on your fund parameters
         </Text>
-        <ContentCard className="backdrop-blur-3xl rounded-[3.75rem] mt-10 p-7.5 py-6.25 grid grid-cols-2 gap-6">
+        <ContentCard className="before:backdrop-blur-3xl rounded-[3.75rem] mt-10 p-7.5 py-6.25 grid grid-cols-2 gap-6">
           <div>
             <h3 className="font-tthoves font-semibold text-32 -tracking-3 u-text-gradient-[linear-gradient(to_right,#FFF,rgba(255,255,255,0.4))]">
               Fund Assumptions
