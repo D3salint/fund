@@ -1,6 +1,9 @@
 import React from "react";
 
+import { useScroller } from "@/shared/ui/Scroller";
+import { useGSAP } from "@gsap/react";
 import clsx from "clsx";
+import ScrollTrigger from "gsap/dist/ScrollTrigger";
 import {
   Area,
   AreaChart,
@@ -16,16 +19,40 @@ interface Props {
   className?: string;
   data?: Array<{ year: number; percent: number; days: number }>;
   disableFillArea?: boolean;
+  animationActive?: boolean;
 }
 
 export function MarketGapAnalysisChart({
   data = marketGapData,
   className,
   disableFillArea,
+  animationActive = true,
 }: Props) {
+  const { scrollerRef, isReady: isScrollerReady } = useScroller();
+  const [isAnimated, setAnimated] = React.useState(!animationActive);
   const [isMobile, setMobile] = React.useState(false);
+  const rootRef = React.useRef<HTMLDivElement>(null);
 
   const checkViewport = () => setMobile(window.innerWidth <= 768);
+
+  console.log(isAnimated);
+
+  useGSAP(
+    () => {
+      if (!isScrollerReady || !animationActive) return;
+
+      ScrollTrigger.create({
+        trigger: rootRef.current,
+        invalidateOnRefresh: true,
+        scroller: scrollerRef.current,
+        start: "top 60%",
+        once: true,
+        onEnter: () => setAnimated(true),
+        onEnterBack: () => setAnimated(true),
+      });
+    },
+    { scope: rootRef, dependencies: [animationActive, isScrollerReady] }
+  );
 
   React.useEffect(() => {
     window.addEventListener("resize", checkViewport);
@@ -70,6 +97,7 @@ export function MarketGapAnalysisChart({
         "size-full [&_.recharts-surface]:overflow-visible! [&_.recharts-wrapper_*]:outline-none!",
         className
       )}
+      ref={rootRef}
     >
       <ResponsiveContainer>
         <AreaChart data={data} margin={settings.root.margin} responsive>
@@ -116,21 +144,25 @@ export function MarketGapAnalysisChart({
           />
 
           {/* Percent */}
-          <Area
-            yAxisId="left"
-            fill={disableFillArea ? "none" : "url(#fillPercent)"}
-            dataKey="percent"
-            type="monotone"
-            stroke="url(#linePercentGradient)"
-            strokeWidth={settings.area.strokeWidth}
-            dot={{
-              r: settings.area.dot.r,
-              strokeWidth: settings.area.dot.strokeWidth,
-              fill: "#9C77FF",
-              fillOpacity: 1,
-              stroke: "#5C4A9A",
-            }}
-          />
+          {isAnimated && (
+            <Area
+              yAxisId="left"
+              fill={disableFillArea ? "none" : "url(#fillPercent)"}
+              dataKey="percent"
+              type="monotone"
+              stroke="url(#linePercentGradient)"
+              strokeWidth={settings.area.strokeWidth}
+              dot={{
+                r: settings.area.dot.r,
+                strokeWidth: settings.area.dot.strokeWidth,
+                fill: "#9C77FF",
+                fillOpacity: 1,
+                stroke: "#5C4A9A",
+              }}
+              animationBegin={0}
+              animationDuration={1500}
+            />
+          )}
 
           <YAxis
             dx={-settings.axis.dx}
@@ -149,21 +181,25 @@ export function MarketGapAnalysisChart({
           />
 
           {/* Days */}
-          <Area
-            yAxisId="right"
-            fill={disableFillArea ? "none" : "url(#fillDays)"}
-            dataKey="days"
-            type="monotone"
-            stroke="url(#lineDaysGradient)"
-            strokeWidth={settings.area.strokeWidth}
-            dot={{
-              r: settings.area.dot.r,
-              strokeWidth: settings.area.dot.strokeWidth,
-              fill: "#6776FF",
-              fillOpacity: 1,
-              stroke: "#3E4696",
-            }}
-          />
+          {isAnimated && (
+            <Area
+              yAxisId="right"
+              fill={disableFillArea ? "none" : "url(#fillDays)"}
+              dataKey="days"
+              type="monotone"
+              stroke="url(#lineDaysGradient)"
+              strokeWidth={settings.area.strokeWidth}
+              dot={{
+                r: settings.area.dot.r,
+                strokeWidth: settings.area.dot.strokeWidth,
+                fill: "#6776FF",
+                fillOpacity: 1,
+                stroke: "#3E4696",
+              }}
+              animationBegin={0}
+              animationDuration={1500}
+            />
+          )}
           <YAxis
             dx={settings.axis.dx}
             width={settings.axis.width}
