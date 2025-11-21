@@ -36,8 +36,10 @@ export function MarketGapAnalysisChart({
 
   const settings = React.useMemo(() => {
     const root = {
-      margin: isMobile ? { left: 8, right: 8, bottom: 8 } : { left: 10, right: 10, bottom: 10 }
-    }
+      margin: isMobile
+        ? { left: 8, right: 8, bottom: 8 }
+        : { left: 10, right: 10, bottom: 10 },
+    };
 
     const area = {
       strokeWidth: isMobile ? 1 : 3,
@@ -49,8 +51,8 @@ export function MarketGapAnalysisChart({
 
     const axis = {
       width: isMobile ? 20 : 36,
-      dx:  isMobile ? 0 : 8,
-      dy: isMobile ? 8 : 8
+      dx: isMobile ? 0 : 8,
+      dy: isMobile ? 8 : 8,
     };
 
     const text = {
@@ -65,16 +67,12 @@ export function MarketGapAnalysisChart({
   return (
     <div
       className={clsx(
-        "size-full [&_.recharts-surface]:overflow-visible!",
+        "size-full [&_.recharts-surface]:overflow-visible! [&_.recharts-wrapper_*]:outline-none!",
         className
       )}
     >
       <ResponsiveContainer>
-        <AreaChart
-          data={data}
-          margin={settings.root.margin}
-          responsive
-        >
+        <AreaChart data={data} margin={settings.root.margin} responsive>
           <defs>
             {/* Fill percent gradient */}
             <linearGradient id="fillPercent" x1="0" y1="0" x2="0" y2="1">

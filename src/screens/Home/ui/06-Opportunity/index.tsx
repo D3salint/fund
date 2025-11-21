@@ -15,7 +15,7 @@ const config = {
 
 export const Opportunity: React.FC = () => {
   return (
-    <Section className="px-14 py-10 flex flex-col max-md:px-4">
+    <Section className="px-14 py-10 flex flex-col max-md:px-4 bg-[url(/images/opportunity-bg.jpg)] bg-cover bg-top-left max-sm:bg-position-[-140%_top]">
       <div className="m-auto grow max-w-372 w-full max-h-194 h-full grid grid-cols-[49%_51%] max-lg:flex max-lg:flex-col max-lg:gap-6 max-lg:m-0 max-lg:max-h-[unset] max-lg:max-w-200 max-lg:mx-auto">
         <div className="flex justify-end pr-10 max-lg:justify-start">
           <div className="max-w-120 w-full flex flex-col">
