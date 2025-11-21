@@ -51,7 +51,9 @@ export const Team: React.FC = () => {
   const { isBeginning, isEnd, setSwiperCore, updater, slidePrev, slideNext } =
     useSwiperHelper();
   return (
-    <Section className="px-4 py-12 max-md:py-6 flex flex-col justify-center bg-[url(/images/opportunity-bg.jpg)] bg-cover bg-top-left max-sm:bg-position-[-140%_top]">
+    <Section className="px-4 py-12 max-md:py-6 flex flex-col justify-center bg-[url(/images/opportunity-bg.webp)] bg-cover bg-top-left max-sm:bg-position-[-140%_top] relative">
+      <div className="pointer-events-none absolute left-0 top-0 w-[40%] h-40 backdrop-blur-xs"/>
+
       <div className="max-w-252.5 w-full mx-auto">
         <Text
           className="font-tthoves text-56 font-semibold leading-none -tracking-4 max-sm:text-32 [&_span]:first:block max-lg:[&_span]:first:inline-block"

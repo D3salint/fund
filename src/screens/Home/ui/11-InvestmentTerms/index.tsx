@@ -121,7 +121,7 @@ export const InvestmentTerms: React.FC = () => {
           className="mt-10 gap-5 w-full flex flex-wrap max-md:gap-2"
         >
           {/* 1st card */}
-          <Card className="w-[calc(66%-0.625rem)] max-lg:w-full" background=" bg-[url(/images/invest-terms-bg.png)]! bg-cover bg-top-right">
+          <Card className="w-[calc(66%-0.625rem)] max-lg:w-full" background=" bg-[url(/images/invest-terms-bg.webp)]! bg-cover bg-top-right">
             <TitleH3>
               <span className="gradient">Fund Terms</span>
             </TitleH3>

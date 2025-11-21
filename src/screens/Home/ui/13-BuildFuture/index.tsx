@@ -48,7 +48,7 @@ export const BuildFuture: React.FC = () => {
     <Section
       className={clsx(
         "py-12 max-md:py-6 px-4 flex flex-col justify-center",
-        "bg-[url(/images/buildfuture-bg.jpg)] bg-cover bg-bottom-right",
+        "bg-[url(/images/buildfuture-bg.webp)] bg-cover bg-bottom-right",
         "max-lg:bg-none"
       )}
     >
@@ -78,7 +78,7 @@ export const BuildFuture: React.FC = () => {
         >
           <ContentCard
             className={clsx(
-              "buildfuture-aos rounded-3xl p-7.5 pt-6.5 bg-[url(/images/buildfuture-leftcard-bg.png)] bg-top-right bg-cover max-xxl:p-6",
+              "buildfuture-aos rounded-3xl p-7.5 pt-6.5 bg-[url(/images/buildfuture-leftcard-bg.webp)] bg-top-right bg-cover max-xxl:p-6",
               "max-sm:py-4.5 max-sm:px-4 max-sm:rounded-2xl"
             )}
             bgGradient=" "
