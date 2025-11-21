@@ -1,15 +1,17 @@
 import React from "react";
 
+import { Motion } from "@/shared/ui/Motion";
 import { Section } from "@/shared/ui/PageWrapper";
 import { Text } from "@/shared/ui/Text";
-import { Motion } from "@/shared/ui/Motion";
 
 export const WhyNow: React.FC = () => {
   return (
     <Section
-      className="py-14 px-4 flex flex-col items-center justify-center relative bg-[url(/images/whynow-bg.jpg)] bg-cover bg-bottom"
+      className="py-14 px-4 flex flex-col items-center justify-center relative bg-[url(/images/whynow-bg.webp)] bg-cover bg-bottom"
       circles={{ showOnEnter: true, hideOnLeave: true }}
     >
+      <div className="pointer-events-none absolute left-1/2 bottom-0 -translate-x-1/2 w-[10%] h-40 backdrop-blur-xs"/>
+
       {/* <img src="/images/why-now-ray.png" className="absolute bottom-0 left-1/2 -translate-x-1/2 max-w-255 w-full bg-blend-lighten" /> */}
       <div className="max-w-189 w-full flex flex-col items-center">
         <Text
@@ -42,7 +44,10 @@ export const WhyNow: React.FC = () => {
           emerges from this funding gap.
         </Text>
 
-        <Motion delay={0.7} className="pb-8 mt-25 rounded-4xl w-full bg-[linear-gradient(to_bottom,rgba(255,255,255,0.009,rgba(255,255,255,0.03)))] backdrop-blur-3xl relative before:p-px before:u-border-gradient-[linear-gradient(160deg,rgba(255,255,255,0.18)_50%,rgba(153,153,153,0))] max-sm:mt-5 max-sm:pb-6 max-sm:pt-3.5 max-sm:rounded-2xl">
+        <Motion
+          delay={0.7}
+          className="pb-8 mt-25 rounded-4xl w-full bg-[linear-gradient(to_bottom,rgba(255,255,255,0.009,rgba(255,255,255,0.03)))] backdrop-blur-3xl relative before:p-px before:u-border-gradient-[linear-gradient(160deg,rgba(255,255,255,0.18)_50%,rgba(153,153,153,0))] max-sm:mt-5 max-sm:pb-6 max-sm:pt-3.5 max-sm:rounded-2xl"
+        >
           <div className="w-full grid grid-cols-2 gap-px relative">
             <div className="flex flex-col items-center">
               <img

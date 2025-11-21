@@ -246,7 +246,7 @@ export const Calculator: React.FC = () => {
                 <ContentCard
                   className="p-5 pt-6 rounded-[1.25rem] col-start-1 col-end-3 grow max-sm:col-auto max-sm:rounded-xl max-sm:px-3 max-sm:py-4"
                   borderGradient="after:u-border-gradient-[linear-gradient(to_right,rgba(103,118,255,0.2),rgba(103,118,255,1),rgba(103,118,255,0.2))]"
-                  bgGradient="bg-[url(/images/calculator-summary-bg.png)] bg-cover bg-bottom"
+                  bgGradient="bg-[url(/images/calculator-summary-bg.webp)] bg-cover bg-bottom"
                 >
                   <p className="font-semibold text-2xl leading-none text-white/80 max-xl:text-18">
                     Summary
@@ -254,7 +254,7 @@ export const Calculator: React.FC = () => {
                   <ul className="mt-5 grid grid-cols-4 gap-2.5 max-xxl:grid-cols-2 max-sm:mt-3 max-sm:gap-2">
                     {config.summary.map((item) => (
                       <ContentCard
-                        className="p-4 rounded-[1.25rem] before:backdrop-blur-3xl flex flex-col justify-between gap-10 max-xxl:gap-3 max-sm:p-3 max-sm:rounded-xl"
+                        className="p-4 rounded-[1.25rem] before:backdrop-blur-3xl flex flex-col justify-between gap-10 max-xxl:gap-3 max-sm:p-3 max-sm:rounded-xl transition-all duration-300 ease-out"
                         as="li"
                         key={item.name + item.value}
                       >
