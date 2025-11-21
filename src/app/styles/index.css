@@ -68,6 +68,7 @@
   display: block;
   position: absolute;
   inset: 0;
+  z-index: 0;
   border-radius: inherit;
   -webkit-mask:
     linear-gradient(#fff 0 0) content-box,
@@ -78,6 +79,7 @@
   background: --value(--u-border-gradient-*);
   background: --value([*]);
   padding: 0.0625rem;
+  pointer-events: none;
 }
 
 @utility compositemask {
@@ -113,4 +115,10 @@
 html {
   font-family: var(--font-inter);
   font-size: 16px;
+}
+
+.input-range[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+
 }

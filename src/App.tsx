@@ -19,6 +19,7 @@ function App() {
         <HomeScreens.Team />
         <HomeScreens.ExampleDeal />
         <HomeScreens.InvestmentTerms />
+        <HomeScreens.Calculator />
       </Scroller>
     </PageWrapper>
   );
