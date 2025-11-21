@@ -27,7 +27,7 @@ const config = {
 export const Investment: React.FC = () => {
   return (
     <Section
-      className="py-5 px-4 flex flex-col items-center justify-center relative"
+      className="py-12 max-md:py-5 px-4 flex flex-col items-center justify-center relative"
       circles={{ showOnEnter: true, hideOnLeave: true }}
     >
       <div className="max-w-213 w-full flex flex-col items-center">

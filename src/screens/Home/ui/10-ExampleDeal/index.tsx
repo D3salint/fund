@@ -1,12 +1,13 @@
 import React from "react";
 
+import { HighlightLabel } from "@/shared/ui/HighlightLabel";
+import { Motion } from "@/shared/ui/Motion";
 import { Section } from "@/shared/ui/PageWrapper";
 import { Text } from "@/shared/ui/Text";
 import { CalendarIcon } from "@/shared/ui/icons/CalendarIcon";
 import { LocationIcon } from "@/shared/ui/icons/LocationIcon";
 import { StrategyIcon } from "@/shared/ui/icons/StrategyIcon";
 import clsx from "clsx";
-import { Motion } from "@/shared/ui/Motion";
 
 const config = {
   statistics: [
@@ -42,7 +43,7 @@ const config = {
 export const ExampleDeal: React.FC = () => {
   return (
     <Section
-      className="px-4 py-6 flex flex-col justify-center"
+      className="px-4 py-12 max-md:py-6 flex flex-col justify-center"
       circles={{ showOnEnter: true, hideOnLeave: true }}
     >
       <div className="max-w-251.5 w-full mx-auto flex flex-col items-center">
@@ -86,17 +87,11 @@ export const ExampleDeal: React.FC = () => {
                 AI-DrivenOps SaaS Series B
               </p>
               {/* Label */}
-              <p
-                className={clsx(
-                  "deal-aos-item font-medium text-[0.8125rem] leading-4 tracking-normal text-center rounded-[100px]",
-                  "mt-3.5 px-2.5 py-1.5 bg-[#171934] bg-[url(/images/icons/purple-button-container.svg)] bg-size-[100%_100%]",
-                  "max-sm:mt-0"
-                )}
-              >
+              <HighlightLabel className="deal-aos-item mt-3.5 max-sm:mt-0">
                 <span className="u-text-gradient-[linear-gradient(to_right,#FFF,rgba(255,255,255,0.8))]">
                   Private Equity
                 </span>
-              </p>
+              </HighlightLabel>
             </div>
             {/* Cards container */}
             <div

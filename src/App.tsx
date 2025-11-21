@@ -20,6 +20,7 @@ function App() {
         <HomeScreens.ExampleDeal />
         <HomeScreens.InvestmentTerms />
         <HomeScreens.Calculator />
+        <HomeScreens.BuildFuture />
       </Scroller>
     </PageWrapper>
   );

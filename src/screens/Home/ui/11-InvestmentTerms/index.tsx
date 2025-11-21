@@ -99,7 +99,7 @@ const Value = ({ children, className }: GeneralProps) => {
 export const InvestmentTerms: React.FC = () => {
   return (
     <Section
-      className="py-6 px-4 flex flex-col justify-center"
+      className="py-12 max-md:py-6 px-4 flex flex-col justify-center"
       circles={{ showOnEnter: true, hideOnLeave: true }}
     >
       <div className="max-w-380 w-full mx-auto">
