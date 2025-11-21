@@ -1,5 +1,64 @@
 @use "fonts";
 
+.input-range[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 0.25rem;
+  outline: none;
+  cursor: pointer;
+  background-color: #9a905d;
+
+  background: linear-gradient(
+        to right,
+        #6776ff calc(var(--progress) * 1%),
+        #4a4a4d calc(var(--progress) * 1%)
+      )
+      100% no-repeat;
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    opacity: 0;
+    width: 0.25rem;
+    height: 0.25rem;
+    border-radius: 50%;
+    background: transparent;
+  }
+
+  &::-webkit-slider-runnable-track {
+    height: 0.25rem;
+    background: linear-gradient(
+        to right,
+        #6776ff calc(var(--progress) * 1%),
+        #4a4a4d calc(var(--progress) * 1%)
+      )
+      100% no-repeat;
+    border-radius: 0.09375rem;
+  }
+
+  // &::-moz-range-thumb {
+  //   opacity: 0;
+  //   width: 1.5rem;
+  //   height: 1.5rem;
+  //   border-radius: 50%;
+  //   background: transparent;
+  // }
+
+  // &::-webkit-slider-runnable-track,
+  // &::-webkit-slider-runnable-track,
+  // &::-moz-range-track {
+  //   height: 0.25rem;
+  //   background: linear-gradient(
+  //     90deg,
+  //     #6776ff calc(var(--progress) * 1%),
+  //     #4a4a4d calc(var(--progress) * 1%)
+  //   );
+  // }
+
+  &::-moz-focus-outer {
+    border: 0;
+  }
+}
+
 // @use "reset";
 // @use "utils";
 // @use "defaults";
