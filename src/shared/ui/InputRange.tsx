@@ -30,6 +30,7 @@ export function InputRange({
   displayValue,
 }: RangeProps) {
   const thumbRef = React.useRef<HTMLDivElement>(null);
+  const [smoothProgress, setSmoothProgress] = React.useState(0);
 
   const progress = React.useMemo(() => {
     const minValue = min ?? 0;
@@ -64,14 +65,35 @@ export function InputRange({
     return () => window.removeEventListener("resize", handleResize);
   });
 
+  React.useEffect(() => {
+    let frame: number;
+
+    const animate = () => {
+      setSmoothProgress((p) => {
+        const diff = progress - p;
+
+        if (Math.abs(diff) < 0.1) return progress;
+
+        return p + diff * 0.15;
+      });
+
+      frame = requestAnimationFrame(animate);
+    };
+
+    animate();
+    return () => cancelAnimationFrame(frame);
+  }, [progress]);
+
   return (
     <div className={clsx(className, "w-full")}>
       <div className="max-sm:flex max-sm:items-center max-sm:gap-4 max-sm:justify-between">
         {title && (
-          <p className={clsx(
-            "mb-2 font-semibold text-base leading-tight -tracking-1 u-text-gradient-[linear-gradient(to_right,rgba(255,255,255,0.8),rgba(255,255,255,0.5))]",
-            "max-sm:mb-5"
-          )}>
+          <p
+            className={clsx(
+              "mb-2 font-semibold text-base leading-tight -tracking-1 u-text-gradient-[linear-gradient(to_right,rgba(255,255,255,0.8),rgba(255,255,255,0.5))]",
+              "max-sm:mb-5"
+            )}
+          >
             {title}
           </p>
         )}
@@ -83,8 +105,10 @@ export function InputRange({
       </div>
       <div className="relative flex">
         <input
-          className={clsx("input-range w-full")}
-          style={{ "--progress": progress.toFixed(2) } as any}
+          className={clsx(
+            "input-range w-full transition-all duration-300 ease-out"
+          )}
+          style={{ "--progress": smoothProgress.toFixed(2) } as any}
           type="range"
           min={min}
           max={max}
@@ -93,7 +117,7 @@ export function InputRange({
           onChange={(ev) => onChange(parseFloat(ev.target.value))}
         />
         <div
-          className="flex items-center justify-center size-6 rounded-full shrink-0 bg-[#6776FF]/20 backdrop-blur-md absolute left-0 top-1/2 -translate-y-1/2 pointer-events-none"
+          className="flex items-center justify-center size-6 rounded-full shrink-0 bg-[#6776FF]/20 backdrop-blur-md absolute left-0 top-1/2 -translate-y-1/2 pointer-events-none transition-transform duration-300 ease-out"
           ref={thumbRef}
         >
           <span className="size-1/2 rounded-full bg-[#6776FF]"></span>

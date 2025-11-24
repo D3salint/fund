@@ -59,10 +59,12 @@ export const Summary: React.FC = () => {
 
   return (
     <Section
-      className="pt-24 pb-10 overflow-hidden bg-[url(/images/summary-bg.webp)] bg-cover bg-top-left max-sm:bg-[url(/images/summary-bg@mob.webp)]"
+      className="pt-24 pb-10 overflow-hidden relative bg-[url(/images/summary-bg.webp)] bg-cover bg-top-left max-sm:bg-[url(/images/summary-bg@mob.webp)]"
       ref={rootRef}
       id="summary-section"
     >
+      <div className="pointer-events-none absolute left-0 top-0 -translate-x-1/2 w-[60%] h-40 backdrop-blur-xs"/>
+
       <div className="max-w-400 px-10 mx-auto w-full max-lg:px-6 max-md:px-4">
         <div className="flex items-center justify-between gap-8 pr-20 max-xxl:pr-0 max-lg:flex-col">
           <div className="max-w-157 min-h-120 flex flex-col max-lg:min-h-auto">
