@@ -45,6 +45,7 @@ export const ExampleDeal: React.FC = () => {
     <Section
       className="px-4 py-12 max-md:py-6 flex flex-col justify-center"
       circles={{ showOnEnter: true, hideOnLeave: true }}
+      glare={{ showOnEnter: true, hideOnLeave: true }}
     >
       <div className="max-w-251.5 w-full mx-auto flex flex-col items-center">
         <Text

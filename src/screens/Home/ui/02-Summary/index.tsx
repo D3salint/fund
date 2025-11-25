@@ -57,11 +57,14 @@ const partners = [
 export const Summary: React.FC = () => {
   const rootRef = React.useRef<HTMLDivElement>(null);
 
+  //bg-[url(/images/summary-bg.webp)] bg-cover bg-top-left max-sm:bg-[url(/images/summary-bg@mob.webp)]
+
   return (
     <Section
-      className="pt-24 pb-10 overflow-hidden relative bg-[url(/images/summary-bg.webp)] bg-cover bg-top-left max-sm:bg-[url(/images/summary-bg@mob.webp)]"
+      className="pt-24 pb-10 overflow-hidden relative "
       ref={rootRef}
       id="summary-section"
+      glare={{ showOnEnter: true, hideOnLeave: true }}
     >
       <div className="pointer-events-none absolute left-0 top-0 -translate-x-1/2 w-[60%] h-40 backdrop-blur-xs"/>
 

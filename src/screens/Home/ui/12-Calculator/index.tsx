@@ -56,7 +56,7 @@ export const Calculator: React.FC = () => {
   });
 
   return (
-    <Section className="py-12 max-md:py-6 px-4 flex flex-col justify-center">
+    <Section className="py-12 max-md:py-6 px-4 flex flex-col justify-center" glare={{ showOnEnter: true, hideOnLeave: true }}>
       <div className="mx-auto max-w-380 w-full">
         <Text
           className="font-tthoves text-56 font-semibold leading-none -tracking-4 max-sm:text-[1.75rem] text-center"

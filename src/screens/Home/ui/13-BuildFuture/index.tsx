@@ -51,6 +51,7 @@ export const BuildFuture: React.FC = () => {
         "bg-[url(/images/buildfuture-bg.webp)] bg-cover bg-bottom-right",
         "max-lg:bg-none"
       )}
+      glare={{ showOnEnter: true, hideOnLeave: true }}
     >
       <div className="mx-auto max-w-380 w-full flex flex-col">
         <Motion className="flex justify-center">
