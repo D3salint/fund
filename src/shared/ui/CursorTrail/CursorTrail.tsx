@@ -23,7 +23,7 @@ const midColor = { r: 149, g: 135, b: 227 };
 const endColor = { r: 114, g: 107, b: 209 };
 const tipColor = lerpColor(startColor, midColor, 0.15);
 const tipShadow = `rgba(${tipColor.r}, ${tipColor.g}, ${tipColor.b}, 0.9)`;
-const tailShadow = "rgba(114, 107, 209, 0.8)";
+// const tailShadow = "rgba(114, 107, 209, 0.8)";
 
 export default function CursorTrail() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -118,7 +118,7 @@ export default function CursorTrail() {
         ctx.stroke();
       }
 
-      //--- dots
+      // --- dots
       if (fade > 0.01) {
         const tip = p.lastPositions[0];
         ctx.save();
