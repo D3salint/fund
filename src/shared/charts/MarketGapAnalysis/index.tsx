@@ -1,20 +1,70 @@
 import React from "react";
+import { createPortal } from "react-dom";
 
 import { useScroller } from "@/shared/ui/Scroller";
 import { useGSAP } from "@gsap/react";
 import clsx from "clsx";
+import gsap from "gsap";
 import ScrollTrigger from "gsap/dist/ScrollTrigger";
 import {
   Area,
   AreaChart,
   CartesianGrid,
-  ReferenceDot,
   ResponsiveContainer,
   XAxis,
   YAxis,
 } from "recharts";
+import type { ActiveDotProps } from "recharts/types/util/types";
 
 import { marketGapData } from "./data";
+
+type DotProps = ActiveDotProps & {
+  root: HTMLDivElement | null;
+  active: boolean;
+  visible: boolean;
+  styling: any;
+};
+
+const Dot = React.memo(({ active, styling, root, cx, cy,visible }: DotProps) => {
+  if (typeof document === "undefined" || !root) {
+    return null;
+  }
+  return createPortal(
+    <div
+      className={clsx(
+        "chart-dot bg-transparent rounded-full absolute -translate-1/2 aspect-square",
+        !visible && "opacity-0 scale-0"
+      )}
+      style={{ left: cx, top: cy, width: styling.area.dot.r * 2 }}
+    >
+      <div
+        className={clsx(
+          "size-full absolute -translate-1/2 left-1/2 top-1/2 transition-opacity opacity-0",
+          active && "opacity-100"
+        )}
+      >
+        <div
+          className="absolute -translate-1/2 left-1/2 top-1/2 w-full aspect-square rounded-full blur-xl"
+          style={{ background: styling.fill, width: styling.area.dot.r * 4 }}
+        />
+      </div>
+      <div
+        className="size-full transition-transform"
+        style={{ transform: `scale(${active ? 1.5 : 1})` }}
+      >
+        <div
+          className="size-full rounded-full absolute inset-0 "
+          style={{ background: active ? "#787290" : styling.stroke }}
+        />
+        <div
+          className="size-1/2 absolute left-1/2 top-1/2 -translate-1/2 rounded-full"
+          style={{ background: active ? "#FFF" : styling.fill }}
+        />
+      </div>
+    </div>,
+    root
+  );
+});
 
 interface Props {
   className?: string;
@@ -33,10 +83,13 @@ export function MarketGapAnalysisChart({
   const [isAnimated, setAnimated] = React.useState(!animationActive);
   const [isMobile, setMobile] = React.useState(false);
   const rootRef = React.useRef<HTMLDivElement>(null);
+  const [activeTooltipIndex, setActiveTooltipIndex] = React.useState<
+    number | null
+  >(null);
+  const [refState, setRefState] = React.useState<HTMLDivElement | null>(null);
+  const [dotsVisible, setDotsVisible] = React.useState(!animationActive);
 
   const checkViewport = () => setMobile(window.innerWidth <= 768);
-
-  console.log(isAnimated);
 
   useGSAP(
     () => {
@@ -53,6 +106,29 @@ export function MarketGapAnalysisChart({
       });
     },
     { scope: rootRef, dependencies: [animationActive, isScrollerReady] }
+  );
+
+  useGSAP(
+    () => {
+      if (refState && isAnimated) {
+        requestAnimationFrame(() => {
+          gsap.to(".chart-dot", {
+            opacity: 1,
+            scale: 1,
+            stagger: {
+              each: 1.5 / (data.length * 1.5),
+              from: "start",
+              grid: [2, data.length],
+            },
+            onComplete: () => setDotsVisible(true),
+          });
+        });
+      }
+    },
+    {
+      scope: rootRef,
+      dependencies: [isAnimated, refState],
+    }
   );
 
   React.useEffect(() => {
@@ -72,7 +148,7 @@ export function MarketGapAnalysisChart({
     const area = {
       strokeWidth: isMobile ? 1 : 3,
       dot: {
-        r: isMobile ? 2 : 5,
+        r: isMobile ? 2 : 7,
         strokeWidth: isMobile ? 1 : 3,
       },
     };
@@ -95,13 +171,24 @@ export function MarketGapAnalysisChart({
   return (
     <div
       className={clsx(
-        "size-full [&_.recharts-surface]:overflow-visible! [&_.recharts-wrapper_*]:outline-none!",
+        "size-full [&_.recharts-surface]:overflow-visible! [&_.recharts-wrapper_*]:outline-none! relative",
         className
       )}
-      ref={rootRef}
+      ref={(node) => {
+        rootRef.current = node;
+        setRefState(node);
+      }}
+      onMouseLeave={() => setActiveTooltipIndex(null)}
     >
       <ResponsiveContainer>
-        <AreaChart data={data} margin={settings.root.margin} responsive>
+        <AreaChart
+          data={data}
+          margin={settings.root.margin}
+          onMouseMove={(e) =>
+            setActiveTooltipIndex(+(e.activeTooltipIndex as number) || null)
+          }
+          responsive
+        >
           <defs>
             {/* Fill percent gradient */}
             <linearGradient id="fillPercent" x1="0" y1="0" x2="0" y2="1">
@@ -138,15 +225,10 @@ export function MarketGapAnalysisChart({
             </linearGradient>
 
             {/* Blur */}
-            <filter id="glowBlur" x="-50%" y="-50%" width="200%" height="200%">
-              <feGaussianBlur
-                in="SourceGraphic"
-                stdDeviation="18"
-                result="blur"
-              />
+            <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="20" result="blur" />
               <feMerge>
                 <feMergeNode in="blur" />
-                <feMergeNode in="SourceGraphic" />
               </feMerge>
             </filter>
           </defs>
@@ -157,8 +239,6 @@ export function MarketGapAnalysisChart({
             strokeWidth={1}
           />
 
-          
-
           {/* Percent */}
           {isAnimated && (
             <Area
@@ -168,13 +248,16 @@ export function MarketGapAnalysisChart({
               type="monotone"
               stroke="url(#linePercentGradient)"
               strokeWidth={settings.area.strokeWidth}
-              dot={{
-                r: settings.area.dot.r,
-                strokeWidth: settings.area.dot.strokeWidth,
-                fill: "#9C77FF",
-                fillOpacity: 1,
-                stroke: "#5C4A9A",
-              }}
+              activeDot={false}
+              dot={(props) => (
+                <Dot
+                  {...props}
+                  visible={dotsVisible}
+                  active={props.index === activeTooltipIndex}
+                  styling={{ ...settings, fill: "#9C77FF", stroke: "#5C4A9A" }}
+                  root={refState}
+                />
+              )}
               animationBegin={0}
               animationDuration={1500}
             />
@@ -205,13 +288,16 @@ export function MarketGapAnalysisChart({
               type="monotone"
               stroke="url(#lineDaysGradient)"
               strokeWidth={settings.area.strokeWidth}
-              dot={{
-                r: settings.area.dot.r,
-                strokeWidth: settings.area.dot.strokeWidth,
-                fill: "#6776FF",
-                fillOpacity: 1,
-                stroke: "#3E4696",
-              }}
+              activeDot={false}
+              dot={(props) => (
+                <Dot
+                  {...props}
+                  visible={dotsVisible}
+                  active={props.index === activeTooltipIndex}
+                  styling={{ ...settings, fill: "#6776FF", stroke: "#3E4696" }}
+                  root={refState}
+                />
+              )}
               animationBegin={0}
               animationDuration={1500}
             />
@@ -249,23 +335,6 @@ export function MarketGapAnalysisChart({
               color: "#626268",
             }}
           />
-
-          {/* <ReferenceDot
-            x={2020}
-            y={data.find((d) => d.year === 2020)?.percent}
-            r={12}
-            fill="#9C77FF"
-            filter="url(#glowBlur)"
-          />
-
-          <ReferenceDot
-            x={2023}
-            y={data.find((d) => d.year === 2023)?.days}
-            r={20}
-            fill="#9C77FF"
-            filter="url(#glowBlur)"
-            yAxisId="right"
-          /> */}
         </AreaChart>
       </ResponsiveContainer>
     </div>
