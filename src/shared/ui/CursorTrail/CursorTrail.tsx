@@ -2,37 +2,64 @@
 
 import { useEffect, useRef } from "react";
 
+function lerp(a: number, b: number, t: number) {
+  return a + (b - a) * t;
+}
+
+function lerpColor(
+  c1: { r: number; g: number; b: number },
+  c2: { r: number; g: number; b: number },
+  t: number
+) {
+  return {
+    r: Math.round(lerp(c1.r, c2.r, t)),
+    g: Math.round(lerp(c1.g, c2.g, t)),
+    b: Math.round(lerp(c1.b, c2.b, t)),
+  };
+}
+
+const startColor = { r: 190, g: 157, b: 243 };
+const midColor = { r: 149, g: 135, b: 227 };
+const endColor = { r: 114, g: 107, b: 209 };
+const tipColor = lerpColor(startColor, midColor, 0.15);
+const tipShadow = `rgba(${tipColor.r}, ${tipColor.g}, ${tipColor.b}, 0.9)`;
+const tailShadow = "rgba(114, 107, 209, 0.8)";
+
 export default function CursorTrail() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const SCREEN = useRef({ w: 0, h: 0 });
   const mouse = useRef({ x: 0, y: 0 });
   const mouseIsDown = useRef(false);
+  const prevMouse = useRef({ x: 0, y: 0 });
+  const mouseSpeed = useRef(0);
 
   const RADIUS = 10;
   const RADIUS_SCALE = useRef(1);
-  const R_MIN = 1;
-  const R_MAX = 1.5;
 
-  const QUANTITY = 6;
-  const TAIL_LENGTH = 85;
+  const QUANTITY = 7;
+  const TAIL_LENGTH = 55;
 
   const particles = useRef<any[]>([]);
 
   function createParticles() {
     particles.current = [];
+    const s = 3 + Math.random() * 1;
 
     for (let i = 0; i < QUANTITY; i++) {
       particles.current.push({
-        size: 1,
+        size: s,
         position: { x: mouse.current.x, y: mouse.current.y },
         offset: { x: 0, y: 0 },
         shift: { x: mouse.current.x, y: mouse.current.y },
-        speed: 0.06 + Math.random() * 0.04,
-        targetSize: 1,
-        fillColor: '#' + (Math.random() * 0x404040 + 0xaaaaaa | 0).toString(16),
-        orbit: RADIUS * 0.5 + RADIUS * 0.5 * Math.random(),
-        lastPositions: Array(TAIL_LENGTH).fill({ x: mouse.current.x, y: mouse.current.y }),
+        speed: 0.1 + Math.random() * 0.08,
+        targetSize: s,
+        fillColor: "#ffffff",
+        orbit: RADIUS * 0.5,
+        lastPositions: Array(TAIL_LENGTH).fill({
+          x: mouse.current.x,
+          y: mouse.current.y,
+        }),
       });
     }
   }
@@ -48,24 +75,11 @@ export default function CursorTrail() {
   function loop() {
     const canvas = canvasRef.current!;
     const ctx = canvas.getContext("2d")!;
-    const gradient = ctx.createLinearGradient(
-      0,
-      0,
-      canvas.width,
-      canvas.height
-    );
-    gradient.addColorStop(0, "rgb(112, 105, 208)");
-    gradient.addColorStop(1, "rgb(149, 135, 227)");
 
-    if (mouseIsDown.current) {
-      RADIUS_SCALE.current += (R_MAX - RADIUS_SCALE.current) * 0.02;
-    } else {
-      RADIUS_SCALE.current -= (RADIUS_SCALE.current - R_MIN) * 0.02;
-    }
-
-    if (RADIUS_SCALE.current > R_MAX) RADIUS_SCALE.current = R_MAX;
-
+    mouseSpeed.current *= 0.95;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    const fade = Math.min(mouseSpeed.current / 2, 1);
 
     particles.current.forEach((p, i) => {
       p.lastPositions.unshift({ x: p.position.x, y: p.position.y });
@@ -74,40 +88,53 @@ export default function CursorTrail() {
       p.shift.x += (mouse.current.x - p.shift.x) * p.speed;
       p.shift.y += (mouse.current.y - p.shift.y) * p.speed;
 
-      p.position.x = p.shift.x + Math.cos(i + p.offset.x) * (p.orbit * RADIUS_SCALE.current);
-      p.position.y = p.shift.y + Math.sin(i + p.offset.y) * (p.orbit * RADIUS_SCALE.current);
+      p.position.x =
+        p.shift.x + Math.cos(i + p.offset.x) * (p.orbit * RADIUS_SCALE.current);
+      p.position.y =
+        p.shift.y + Math.sin(i + p.offset.y) * (p.orbit * RADIUS_SCALE.current);
 
       p.position.x = Math.max(0, Math.min(SCREEN.current.w, p.position.x));
       p.position.y = Math.max(0, Math.min(SCREEN.current.h, p.position.y));
 
-      p.size += (p.targetSize - p.size) * 0.05;
-      if (Math.round(p.size) === Math.round(p.targetSize)) {
-        p.targetSize = 1 + Math.random() * 7;
-      }
-
       for (let j = 0; j < p.lastPositions.length - 1; j++) {
         const a = p.lastPositions[j];
         const b = p.lastPositions[j + 1];
+        const t = j / (p.lastPositions.length - 1);
+
+        const color =
+          t < 0.5
+            ? lerpColor(startColor, midColor, t / 0.5)
+            : lerpColor(midColor, endColor, (t - 0.5) / 0.5);
+
+        const alpha = (1 - t) * 0.9;
+
         ctx.beginPath();
-        ctx.strokeStyle = gradient;
-        ctx.lineWidth = p.size * (1 - j / p.lastPositions.length);
-        ctx.globalAlpha = 1 - j / p.lastPositions.length;
-        ctx.shadowBlur = 8;
-        ctx.shadowColor = "rgba(149, 135, 227, 0.6)";
+        ctx.strokeStyle = `rgba(${color.r}, ${color.g}, ${color.b}, ${alpha})`;
+        ctx.shadowBlur = 28;
+        ctx.shadowColor = tailShadow;
+        ctx.lineWidth = Math.max(0.6, p.size * (1 - t));
         ctx.moveTo(a.x, a.y);
         ctx.lineTo(b.x, b.y);
         ctx.stroke();
       }
 
-      const tip = p.lastPositions[0];
-      ctx.beginPath();
-      ctx.fillStyle = gradient;
-      ctx.globalAlpha = 1;
-      ctx.shadowBlur = 25;
-      ctx.shadowColor = "rgba(149, 135, 227, 0.7)";
-      ctx.arc(tip.x, tip.y, p.size / 2, 0, Math.PI * 2);
-      ctx.fill();
+      //--- dots
+      if (fade > 0.01) {
+        const tip = p.lastPositions[0];
+        ctx.save();
+        ctx.beginPath();
+        ctx.globalAlpha = fade;
+        ctx.shadowBlur = 48;
+        ctx.shadowColor = tipShadow;
+        ctx.fillStyle = `rgba(${tipColor.r}, ${tipColor.g}, ${tipColor.b}, 1)`;
+        ctx.arc(tip.x, tip.y, Math.max(0.8, p.size * 0.5), 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
     });
+
+    ctx.shadowBlur = 0;
+    ctx.globalAlpha = 1;
 
     requestAnimationFrame(loop);
   }
@@ -118,6 +145,14 @@ export default function CursorTrail() {
     createParticles();
 
     const onMove = (e: MouseEvent) => {
+      const dx = e.clientX - prevMouse.current.x;
+      const dy = e.clientY - prevMouse.current.y;
+
+      mouseSpeed.current = Math.sqrt(dx * dx + dy * dy);
+
+      prevMouse.current.x = e.clientX;
+      prevMouse.current.y = e.clientY;
+
       mouse.current.x = e.clientX;
       mouse.current.y = e.clientY;
     };
@@ -140,7 +175,7 @@ export default function CursorTrail() {
       ref={canvasRef}
       id="world"
       className="fixed top-0 left-0 pointer-events-none"
-      style={{ width: "100vw", height: "100vh", zIndex: -1 }}
+      style={{ width: "100vw", height: "100vh", zIndex: 1 }}
     />
   );
 }

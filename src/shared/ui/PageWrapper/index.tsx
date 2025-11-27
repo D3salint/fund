@@ -1,7 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { useContext } from "react";
 
+import { BackgroundContext } from "../BackgroundContext/BackgroundContext";
 import CursorTrail from "../CursorTrail/CursorTrail";
 import { GlareLayer } from "../GlareLayer/GlareLayer";
 import StarfieldCanvas from "../StarfieldCanvas/StarfieldCanvas";
@@ -93,15 +94,31 @@ interface SectionProps extends Props {
         showOnEnter: boolean;
         hideOnLeave: boolean;
       };
+  bg?: {
+    src: string;
+    showOnEnter?: boolean;
+    hideOnLeave?: boolean;
+  };
 }
 
 export const Section = React.forwardRef<HTMLElement, SectionProps>(
   (
-    { children, className, circles = false, glare = false, light = false, id },
+    {
+      children,
+      className,
+      circles = false,
+      glare = false,
+      light = false,
+      id,
+      bg = null,
+    },
     ref
   ) => {
     const rootRef = React.useRef<HTMLDivElement>(null);
     const innerCircleRef = React.useRef<HTMLDivElement>(null);
+    const outerCircleRef = React.useRef<HTMLDivElement>(null);
+
+    const { setBackground } = useContext(BackgroundContext);
 
     const { isReady: isScrollerReady, scrollerRef } = useScroller();
 
@@ -112,9 +129,8 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
         if (typeof circles === "object") {
           const timeline = gsap
             .timeline({ paused: true })
-            .to(".section-circle svg", { opacity: 1, scale: 1, duration: 1.5 })
-            .to(".section-circle svg", { opacity: 0, scale: 0, duration: 1.5 });
-
+            .to(".section-circle", { opacity: 1, scale: 1, duration: 1.5 })
+            .to(".section-circle", { opacity: 0, scale: 0, duration: 1.5 });
           ScrollTrigger.create({
             trigger: rootRef.current,
             scroller: scrollerRef.current,
@@ -174,12 +190,17 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
 
     useGSAP(
       () => {
-        if (!innerCircleRef.current) return;
+        if (!innerCircleRef.current || !outerCircleRef.current) return;
 
         gsap.fromTo(
           innerCircleRef.current,
           { scale: 0, opacity: 0 },
           { scale: 0.75, opacity: 1, duration: 1.5, ease: "power2.out" }
+        );
+        gsap.fromTo(
+          outerCircleRef.current,
+          { scale: 0, opacity: 0 },
+          { scale: 1, opacity: 1, duration: 1.5, ease: "power2.out" }
         );
       },
       { scope: rootRef }
@@ -199,6 +220,39 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
       { scope: rootRef }
     );
 
+    React.useEffect(() => {
+      if (!rootRef.current || !scrollerRef.current) return;
+
+      const trig = ScrollTrigger.create({
+        trigger: rootRef.current,
+        scroller: scrollerRef.current,
+        start: "top 50%",
+        end: "bottom 60%",
+        onEnter: () => {
+          if (bg?.showOnEnter && bg.src) {
+            setBackground(bg.src);
+          }
+        },
+        onEnterBack: () => {
+          if (bg?.showOnEnter && bg.src) {
+            setBackground(bg.src);
+          }
+        },
+        onLeave: () => {
+          if (bg?.hideOnLeave) {
+            setBackground(null);
+          }
+        },
+        onLeaveBack: () => {
+          if (bg?.hideOnLeave) {
+            setBackground(null);
+          }
+        },
+      });
+
+      return () => trig.kill();
+    }, [bg, scrollerRef, setBackground]);
+
     return (
       <section
         className={clsx("min-h-svh flex flex-col relative z-1", className)}
@@ -214,46 +268,60 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
       >
         {circles && (
           <div
-            className={
+            className={clsx(
+              "section",
               "absolute left-0 top-0 size-full -z-1 pointer-events-none overflow-hidden"
-            }
+            )}
           >
             <div
               className={clsx(
                 "absolute l-0 top-1/2 w-full -translate-y-1/2 aspect-square"
               )}
             >
+              {/* small-center */}
               <div
                 ref={innerCircleRef}
                 className={clsx(
-                  "absolute left-0 top-0 w-full origin-center scale-[0.75] rotate-[-190deg] max-md:scale-100",
-                  "section-circle"
+                  "absolute left-0 top-0 w-full origin-center scale-[0.25] rotate-[-190deg] max-md:scale-100"
                 )}
               >
-                <Circle
+                <div
                   className={clsx(
-                    "size-full animate-spin [animation-duration:6s] [animation-direction:reverse]",
+                    "section-circle opacity-0",
                     typeof circles === "object" &&
                       circles.showOnEnter &&
                       "opacity-0 scale-0"
                   )}
-                />
+                >
+                  <Circle
+                    className={clsx(
+                      "size-full animate-spin [animation-duration:6s] [animation-direction:reverse]"
+                    )}
+                  />
+                </div>
               </div>
 
+              {/* big-outer */}
               <div
+                ref={outerCircleRef}
                 className={clsx(
-                  "absolute left-0 top-0 w-full origin-center max-md:scale-[1.4]",
-                  "section-circle"
+                  "absolute left-0 top-0 w-full origin-center max-md:scale-[1.4]"
                 )}
               >
-                <Circle
+                <div
                   className={clsx(
-                    "size-full animate-spin [animation-duration:6s]",
+                    "section-circle",
                     typeof circles === "object" &&
                       circles.showOnEnter &&
                       "opacity-0 scale-0"
                   )}
-                />
+                >
+                  <Circle
+                    className={clsx(
+                      "size-full animate-spin [animation-duration:6s]"
+                    )}
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -284,6 +352,7 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
             />
           </div>
         )}
+
         {children}
       </section>
     );
@@ -298,21 +367,85 @@ export const PageWrapper: React.FC<Props> = ({ children, className }) => {
     },
     { scope: rootRef }
   );
+
+  const [currentBg, setCurrentBg] = React.useState<string | null>(
+    "/images/hero-bg.webp"
+  );
+  const [showBg, setShowBg] = React.useState<{
+    src: string | null;
+    visible: boolean;
+  }>({
+    src: currentBg,
+    visible: true,
+  });
+  const fadeDurationMs = 700;
+
+  React.useEffect(() => {
+    if (showBg.src === currentBg) return;
+
+    // поставим следующий и включим видимость
+    setShowBg({ src: currentBg, visible: false });
+
+    // небольшая задержка чтобы браузер применил стиль, затем включить opacity
+    const t1 = setTimeout(() => {
+      setShowBg({ src: currentBg, visible: true });
+
+      // по завершении анимации удаляем старый (оставляем только один слой)
+      const t2 = setTimeout(() => {
+        setShowBg({ src: currentBg, visible: true });
+      }, fadeDurationMs);
+
+      return () => clearTimeout(t2);
+    }, 20);
+
+    return () => clearTimeout(t1);
+  }, [currentBg]);
+
   return (
-    <div
-      ref={rootRef}
-      className={clsx(
-        "flex flex-col min-h-svh bg-[radial-gradient(circle_at_center,#040713,#020308)] bg-size-[100svw_100svh] bg-center bg-no-repeat bg-fixed relative z-1 before:size-full before:block before:bg-[url(/images/hero-bg.png)] before:bg-cover before:bg-center before:bg-fixed before:absolute before:left-0 before:top-0 before:-z-1 before:pointer-events-none",
-        className
-      )}
+    <BackgroundContext.Provider
+      value={{
+        setBackground: (src: string | null) => setCurrentBg(src),
+        currentBackground: currentBg,
+      }}
     >
-      <CursorTrail />
+      <div
+        ref={rootRef}
+        className={clsx(
+          "flex flex-col min-h-svh relative overflow-hidden",
+          className
+        )}
+      >
+        <div aria-hidden className="absolute inset-0 -z-20 pointer-events-none">
+          <div className="absolute inset-0 w-full h-full">
+            <img
+              src="/images/hero-bg.webp"
+              className={clsx(
+                "absolute inset-0 w-full h-full object-cover opacity-100"
+              )}
+              draggable={false}
+            />
 
-      <div className="stars opacity-0">
-        <StarfieldCanvas />
+            {showBg.src && (
+              <img
+                src={showBg.src}
+                className={clsx(
+                  "absolute inset-0 w-full h-full object-cover transition-opacity duration-700",
+                  showBg.visible ? "opacity-100" : "opacity-0"
+                )}
+                style={{ transitionDuration: `${fadeDurationMs}ms` }}
+                draggable={false}
+              />
+            )}
+          </div>
+        </div>
+        <CursorTrail />
+
+        <div className="stars opacity-0">
+          <StarfieldCanvas />
+        </div>
+
+        {children}
       </div>
-
-      {children}
-    </div>
+    </BackgroundContext.Provider>
   );
 };

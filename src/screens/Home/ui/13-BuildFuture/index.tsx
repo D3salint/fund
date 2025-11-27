@@ -1,6 +1,7 @@
 import React from "react";
 
 import { ContentCard } from "@/shared/ui/ContentCard";
+import CountUp from "@/shared/ui/CountUp/CountUp";
 import { HighlightLabel } from "@/shared/ui/HighlightLabel";
 import { Motion } from "@/shared/ui/Motion";
 import { Section } from "@/shared/ui/PageWrapper";
@@ -14,7 +15,7 @@ import { RocketIcon } from "@/shared/ui/icons/RocketIcon";
 import clsx from "clsx";
 
 export const BuildFuture: React.FC = () => {
-  const { strategies, statistics } = React.useMemo(() => {
+  const { strategies } = React.useMemo(() => {
     return {
       strategies: [
         { name: "Asset Class Period", value: "Private Equity" },
@@ -36,13 +37,13 @@ export const BuildFuture: React.FC = () => {
         },
       ],
 
-      statistics: [
-        { name: "GP Commit", value: "$2,000,000" },
-        { name: "Min Investment", value: "$350,000" },
-        { name: "Target Close Date", value: "12 months from launch" },
-      ],
+      // statistics: [
+      //   { name: "GP Commit", value: 2000000 },
+      //   { name: "Min Investment", value: 350000 },
+      //   { name: "Target Close Date", value: 12 },
+      // ],
     };
-  }, []); // deps if from API;
+  }, []); // deps if from API; statistics
 
   return (
     <Section
@@ -54,7 +55,10 @@ export const BuildFuture: React.FC = () => {
       glare={{ showOnEnter: true, hideOnLeave: true }}
     >
       <div className="mx-auto max-w-380 w-full flex flex-col">
-        <Motion className="flex justify-center">
+        <Motion
+          className="flex justify-center"
+          initialState="translate-y-28 scale-0"
+        >
           <HighlightLabel className="mx-auto  mt-3.5 max-sm:mt-0 flex items-center gap-0.5">
             <RocketIcon className="size-4 shrink-0" />
             <span className="u-text-gradient-[linear-gradient(to_right,#FFF,rgba(255,255,255,0.8))]">
@@ -62,180 +66,224 @@ export const BuildFuture: React.FC = () => {
             </span>
           </HighlightLabel>
         </Motion>
+
         <Text
           className="mt-6 font-tthoves text-56 font-semibold leading-none -tracking-4 max-sm:text-[1.75rem] text-center max-sm:mt-3"
-          animation={{ delay: 0.15 }}
+          animation={{ delay: 0.25 }}
           as="h2"
         >
           Let's Build the Future
         </Text>
 
-        <Motion
-          delay={0.4}
-          stagger={0.15}
-          animationElement=".buildfuture-aos"
-          initialState="[&>.buildfuture-aos]:translate-y-8 [&>.buildfuture-aos]:opacity-0 [&>.buildfuture-aos]:blur-md"
-          className="mt-10 grid grid-cols-[auto_34%] gap-5 max-lg:grid-cols-1 max-sm:mt-4"
-        >
-          <ContentCard
-            className={clsx(
-              "buildfuture-aos rounded-3xl p-7.5 pt-6.5 bg-[url(/images/buildfuture-leftcard-bg.webp)] bg-top-right bg-cover max-xxl:p-6",
-              "max-sm:py-4.5 max-sm:px-4 max-sm:rounded-2xl"
-            )}
-            bgGradient=" "
-          >
-            <h3 className="inline-block font-tthoves font-semibold text-32 -tracking-3 leading-tight u-text-gradient-[linear-gradient(to_right,#FFF,rgba(255,255,255,0.4))] max-sm:text-18">
-              Investment Strategy
-            </h3>
-            <div
-              className={clsx(
-                "mt-6 grid grid-cols-2 gap-3",
-                "max-sm:mt-3.5 max-sm:gap-2"
-              )}
-            >
-              {strategies.map((item) => (
-                <ContentCard
-                  className={clsx(
-                    "min-h-45 rounded-2xl before:backdrop-blur-3xl flex flex-col p-5",
-                    item.mobileFullWidth &&
-                      "max-sm:col-start-1 max-sm:col-end-3",
-                    "max-sm:p-3 max-sm:min-h-[unset]! max-sm:rounded-2xl"
-                  )}
-                  key={item.name}
-                >
-                  <div
-                    className={clsx(
-                      "grow flex flex-col",
-                      item.mobileHeadRow &&
-                        "max-sm:flex-row max-sm:items-center max-sm:justify-between max-sm:gap-3 max-sm:*:p-0 max-sm:*:m-0"
-                    )}
-                  >
-                    <p
-                      className={clsx(
-                        "mb-auto pb-8 inline-block font-semibold text-base -tracking-1 leading-tight u-text-gradient-[linear-gradient(to_right,rgba(255,255,255,0.8),rgba(255,255,255,0.5))]",
-                        "max-sm:pb-2"
-                      )}
-                    >
-                      {item.name}
-                    </p>
-                    {item.value && (
-                      <p className="flex items-center font-tthoves text-40 -tracking-1 leading-none text-primary max-xxl:text-32 max-sm:text-sm">
-                        {item.icon && (
-                          <item.icon className="size-[0.95em] shrink-0 max-sm:size-4" />
-                        )}{" "}
-                        {item.value}
-                      </p>
-                    )}
-                  </div>
-                  {item.text && (
-                    <p className="font-tthoves text-2xl leading-tight -tracking-1 text-primary max-xxl:text-18">
-                      {item.text}
-                    </p>
-                  )}
-                  {item.pdfs && (
-                    <div
-                      className={clsx(
-                        "mt-3 flex flex-wrap [flex-flow:wrap] h-15 overflow-hidden",
-                        "max-sm:grid max-sm:grid-cols-4 max-sm:gap-2 max-sm:h-auto"
-                      )}
-                    >
-                      {item.pdfs.map((pdf, id, arr) => (
-                        <ContentCard
-                          className={clsx(
-                            "p-2 size-15 flex flex-col items-center justify-center gap-0.5 rounded-lg before:backdrop-blur-2xl",
-                            `[&+&]:-ml-2.75 max-sm:m-0! max-sm:size-auto max-sm:aspect-square`
-                          )}
-                          style={{ zIndex: arr.length - id }}
-                          key={pdf}
-                        >
-                          <PDFIcon className="size-6 shrink-0" />
-                          <p className="text-center text-sm -tracking-1 leading-tight text-primary/40">
-                            {pdf}
-                          </p>
-                        </ContentCard>
-                      ))}
-                    </div>
-                  )}
-                </ContentCard>
-              ))}
-            </div>
-          </ContentCard>
-          <div className="buildfuture-aos flex flex-col">
+        <div className="mt-10 grid grid-cols-[auto_34%] gap-5 max-lg:grid-cols-1 max-sm:mt-4">
+          <Motion initialState="translate-y-48 scale-40 opacity-0">
             <ContentCard
               className={clsx(
-                "grow rounded-3xl p-7.5 pt-6.5 before:backdrop-blur-3xl max-xxl:p-6",
+                "buildfuture-aos rounded-3xl p-7.5 pt-6.5 bg-[url(/images/buildfuture-leftcard-bg.webp)] bg-top-right bg-cover max-xxl:p-6",
                 "max-sm:py-4.5 max-sm:px-4 max-sm:rounded-2xl"
               )}
+              bgGradient=" "
             >
               <h3 className="inline-block font-tthoves font-semibold text-32 -tracking-3 leading-tight u-text-gradient-[linear-gradient(to_right,#FFF,rgba(255,255,255,0.4))] max-sm:text-18">
-                First Close Targets
+                Investment Strategy
               </h3>
-              <ContentCard className="mt-6 p-5 rounded-3xl before:backdrop-blur-3xl max-sm:mt-3 max-sm:rounded-[14px] max-sm:p-3.5">
-                <div className="max-sm:flex max-sm:items-center max-sm:gap-3 max-sm:justify-between">
-                  <p className="inline-block text-base font-semibold leading-tight -tracking-1 u-text-gradient-[linear-gradient(to_right,rgba(255,255,255,0.8),rgba(255,255,255,0.5))] max-sm:text-xs">
-                    Target Amount
-                  </p>
-                  <p className="mt-2 font-tthoves text-40 -tracking-1 leading-tight text-primary max-sm:mt-0 max-sm:text-20">
-                    $100M
-                  </p>
-                </div>
-                <ul className="mt-3">
-                  {statistics.map((item) => (
-                    <li
-                      className="group py-2.5 border-b border-b-white/10 flex items-center gap-3 justify-between"
-                      key={item.name + item.value}
+
+              <Motion
+                stagger={0.1}
+                delay={0.2}
+                animationElement=".buildfuture-cards-aos"
+                initialState="[&>.buildfuture-cards-aos]:translate-y-0 [&>.buildfuture-cards-aos]:opacity-0 [&>.buildfuture-cards-aos]:scale-0"
+                className={clsx(
+                  "mt-6 grid grid-cols-2 gap-3",
+                  "max-sm:mt-3.5 max-sm:gap-2"
+                )}
+              >
+                {strategies.map((item) => (
+                  <ContentCard
+                    className={clsx(
+                      "buildfuture-cards-aos",
+                      "min-h-45 rounded-2xl before:backdrop-blur-3xl flex flex-col p-5",
+                      item.mobileFullWidth &&
+                        "max-sm:col-start-1 max-sm:col-end-3",
+                      "max-sm:p-3 max-sm:min-h-[unset]! max-sm:rounded-2xl"
+                    )}
+                    key={item.name}
+                  >
+                    <div
+                      className={clsx(
+                        "grow flex flex-col",
+                        item.mobileHeadRow &&
+                          "max-sm:flex-row max-sm:items-center max-sm:justify-between max-sm:gap-3 max-sm:*:p-0 max-sm:*:m-0"
+                      )}
                     >
-                      <p className="name text-base leading-4 tracking-normal text-white/50 max-xxl:text-sm max-sm:text-xs">
+                      <p
+                        className={clsx(
+                          "mb-auto pb-8 inline-block font-semibold text-base -tracking-1 leading-tight u-text-gradient-[linear-gradient(to_right,rgba(255,255,255,0.8),rgba(255,255,255,0.5))]",
+                          "max-sm:pb-2"
+                        )}
+                      >
                         {item.name}
                       </p>
-                      <p className="value text-right font-tthoves text-2xl leading-none -tracking-1 text-primary max-xxl:text-18 max-sm:text-xs">
-                        {item.value}
-                      </p>
-                    </li>
-                  ))}
-                </ul>
-              </ContentCard>
-              <ContentCard className="mt-6 p-5 rounded-3xl before:backdrop-blur-3xl max-sm:mt-1 max-sm:rounded-[14px] max-sm:p-3.5">
-                <p className="inline-block text-base font-semibold leading-tight -tracking-1 u-text-gradient-[linear-gradient(to_right,rgba(255,255,255,0.8),rgba(255,255,255,0.5))] max-sm:text-xs">
-                  Performance Targets
-                </p>
-                <div className="w-full grid grid-cols-2 gap-px relative">
-                  <div className="flex flex-col items-center">
-                    <img
-                      src="/images/fast-progress-1.png"
-                      className="max-w-51 w-full max-sm:max-w-26.5"
-                    />
-                    <div className="max-sm:-mt-4 max-sm:flex max-sm:items-center max-sm:gap-2">
-                      <p className="-mt-10 font-tthoves text-40 leading-none -tracking-1 text-primary text-center max-xxl:text-32 max-xxl:-mt-6 max-sm:mt-0 max-sm:text-sm">
-                        25%
-                      </p>
-                      <p className="mt-1 text-20 leading-tight -tracking-1 text-center text-primary/40 max-sm:text-xs max-sm:mt-0">
-                        Target IRR
-                      </p>
+                      {item.value && (
+                        <p className="flex items-center font-tthoves text-40 -tracking-1 leading-none text-primary max-xxl:text-32 max-sm:text-sm">
+                          {item.icon && (
+                            <item.icon className="size-[0.95em] shrink-0 max-sm:size-4" />
+                          )}{" "}
+                          {item.value}
+                        </p>
+                      )}
                     </div>
-                  </div>
-                  <div className="w-px h-12.5 bg-white/20 absolute left-1/2 top-1/2 -translate-1/2" />
-                  <div className="flex flex-col items-center">
-                    <img
-                      src="/images/fast-progress-2.png"
-                      className="max-w-51 w-full max-sm:max-w-26.5"
-                    />
-                    <div className="max-sm:-mt-4 max-sm:flex max-sm:items-center max-sm:gap-2">
-                      <p className="-mt-10 font-tthoves text-40 leading-none -tracking-1 text-primary text-center max-xxl:text-32 max-xxl:-mt-6 max-sm:mt-0 max-sm:text-sm">
-                        8%
+                    {item.text && (
+                      <p className="font-tthoves text-2xl leading-tight -tracking-1 text-primary max-xxl:text-18">
+                        {item.text}
                       </p>
-                      <p className="mt-1 text-20 leading-tight -tracking-1 text-center text-primary/40 max-sm:text-xs max-sm:mt-0">
-                        Preferred Return
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </ContentCard>
+                    )}
+
+                    {item.pdfs && (
+                      <Motion
+                        delay={0.2}
+                        stagger={0.1}
+                        animationElement=".buildfuture-cards-pdf-aos"
+                        initialState="[&>.buildfuture-cards-pdf-aos]:translate-x-8 [&>.buildfuture-cards-pdf-aos]:opacity-100"
+                        className={clsx(
+                          "mt-3 flex flex-wrap [flex-flow:wrap] h-15 overflow-hidden",
+                          "max-sm:grid max-sm:grid-cols-4 max-sm:gap-2 max-sm:h-auto"
+                        )}
+                      >
+                        {item.pdfs.map((pdf, id, arr) => (
+                          <ContentCard
+                            className={clsx("buildfuture-cards-pdf-aos",
+                              "p-2 size-15 flex flex-col items-center justify-center gap-0.5 rounded-lg before:backdrop-blur-2xl",
+                              `[&+&]:-ml-2.75 max-sm:m-0! max-sm:size-auto max-sm:aspect-square`
+                            )}
+                            style={{ zIndex: arr.length - id }}
+                            key={pdf}
+                          >
+                            <PDFIcon className="size-6 shrink-0" />
+                            <p className="text-center text-sm -tracking-1 leading-tight text-primary/40">
+                              {pdf}
+                            </p>
+                          </ContentCard>
+                        ))}
+                      </Motion>
+                    )}
+                  </ContentCard>
+                ))}
+              </Motion>
             </ContentCard>
-            <div className="mt-6.5 grid grid-cols-2 gap-3 max-sm:mt-4">
+          </Motion>
+
+          <div className="buildfuture-aos flex flex-col">
+            <Motion
+              initialState="translate-y-38 scale-40 opacity-0"
+              delay={0.2}
+            >
+              <ContentCard
+                className={clsx(
+                  "grow rounded-3xl p-7.5 pt-6.5 before:backdrop-blur-3xl max-xxl:p-6",
+                  "max-sm:py-4.5 max-sm:px-4 max-sm:rounded-2xl"
+                )}
+              >
+                <h3 className="inline-block font-tthoves font-semibold text-32 -tracking-3 leading-tight u-text-gradient-[linear-gradient(to_right,#FFF,rgba(255,255,255,0.4))] max-sm:text-18">
+                  First Close Targets
+                </h3>
+
+                <ContentCard className="mt-6 p-5 rounded-3xl before:backdrop-blur-3xl max-sm:mt-3 max-sm:rounded-[14px] max-sm:p-3.5">
+                  <div className="max-sm:flex max-sm:items-center max-sm:gap-3 max-sm:justify-between">
+                    <p className="inline-block text-base font-semibold leading-tight -tracking-1 u-text-gradient-[linear-gradient(to_right,rgba(255,255,255,0.8),rgba(255,255,255,0.5))] max-sm:text-xs">
+                      Target Amount
+                    </p>
+
+                    <p className="mt-2 font-tthoves text-40 -tracking-1 leading-tight text-primary max-sm:mt-0 max-sm:text-20">
+                      <CountUp value={100} suffix="M" delay={0.6} />
+                    </p>
+                  </div>
+
+                  <div className="mt-3">
+                    <div className="group py-2.5 border-b border-b-white/10 flex items-center gap-3 justify-between">
+                      <p className="name text-base leading-4 tracking-normal text-white/50 max-xxl:text-sm max-sm:text-xs">
+                        GP Commit
+                      </p>
+
+                      <p className="value text-right font-tthoves text-2xl leading-none -tracking-1 text-primary max-xxl:text-18 max-sm:text-xs">
+                        $<CountUp value={2000000} delay={0.6} />
+                      </p>
+                    </div>
+
+                    <div className="group py-2.5 border-b border-b-white/10 flex items-center gap-3 justify-between">
+                      <p className="name text-base leading-4 tracking-normal text-white/50 max-xxl:text-sm max-sm:text-xs">
+                        Min Investment
+                      </p>
+                      <p className="value text-right font-tthoves text-2xl leading-none -tracking-1 text-primary max-xxl:text-18 max-sm:text-xs">
+                        $<CountUp value={350000} delay={0.8} />
+                      </p>
+                    </div>
+
+                    <div className="group py-2.5 border-b border-b-white/10 flex items-center gap-3 justify-between">
+                      <p className="name text-base leading-4 tracking-normal text-white/50 max-xxl:text-sm max-sm:text-xs">
+                        Target Close Date
+                      </p>
+                      <p className="value text-right font-tthoves text-2xl leading-none -tracking-1 text-primary max-xxl:text-18 max-sm:text-xs">
+                        <CountUp value={12} delay={1} /> months from launch
+                      </p>
+                    </div>
+                  </div>
+                </ContentCard>
+
+                <ContentCard className="mt-6 p-5 rounded-3xl before:backdrop-blur-3xl max-sm:mt-1 max-sm:rounded-[14px] max-sm:p-3.5">
+                  <p className="inline-block text-base font-semibold leading-tight -tracking-1 u-text-gradient-[linear-gradient(to_right,rgba(255,255,255,0.8),rgba(255,255,255,0.5))] max-sm:text-xs">
+                    Performance Targets
+                  </p>
+
+                  <div className="w-full grid grid-cols-2 gap-px relative">
+                    <div className="flex flex-col items-center">
+                      <img
+                        src="/images/fast-progress-1.png"
+                        className="max-w-51 w-full max-sm:max-w-26.5"
+                      />
+
+                      <div className="max-sm:-mt-4 max-sm:flex max-sm:items-center max-sm:gap-2">
+                        <p className="-mt-10 font-tthoves text-40 leading-none -tracking-1 text-primary text-center max-xxl:text-32 max-xxl:-mt-6 max-sm:mt-0 max-sm:text-sm">
+                          <CountUp value={25} delay={1} suffix="%" />
+                        </p>
+                        <p className="mt-1 text-20 leading-tight -tracking-1 text-center text-primary/40 max-sm:text-xs max-sm:mt-0">
+                          Target IRR
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="w-px h-12.5 bg-white/20 absolute left-1/2 top-1/2 -translate-1/2" />
+
+                    <div className="flex flex-col items-center">
+                      <img
+                        src="/images/fast-progress-2.png"
+                        className="max-w-51 w-full max-sm:max-w-26.5"
+                      />
+
+                      <div className="max-sm:-mt-4 max-sm:flex max-sm:items-center max-sm:gap-2">
+                        <p className="-mt-10 font-tthoves text-40 leading-none -tracking-1 text-primary text-center max-xxl:text-32 max-xxl:-mt-6 max-sm:mt-0 max-sm:text-sm">
+                          <CountUp value={8} delay={1.2} suffix="%" />
+                        </p>
+                        <p className="mt-1 text-20 leading-tight -tracking-1 text-center text-primary/40 max-sm:text-xs max-sm:mt-0">
+                          Preferred Return
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </ContentCard>
+              </ContentCard>
+            </Motion>
+
+            <div
+              className="mt-6.5 grid grid-cols-2 gap-3 max-sm:mt-4"
+              // stagger={0.2}
+              // delay={0.4}
+              // animationElement=".buildfuture-button-aos"
+              // initialState="[&>.buildfuture-button-aos]:translate-y-8 [&>.buildfuture-button-aos]:opacity-0 [&>.buildfuture-button-aos]:scale-0"
+            >
               <button
                 className={clsx(
-                  "relative overflow-hidden",
+                  "relative overflow-hidden buildfuture-button-aos",
                   "p-4 rounded-[100px] flex items-center justify-center gap-1 font-medium text-sm leading2 tracking-normal text-white text-left",
                   "max-sm:text-xs",
 
@@ -260,7 +308,7 @@ export const BuildFuture: React.FC = () => {
 
               <button
                 className={clsx(
-                  "relative overflow-hidden",
+                  "relative overflow-hidden buildfuture-button-aos",
                   "p-4 rounded-[100px] flex items-center justify-center gap-1 font-medium text-sm leading2 tracking-normal text-white text-left",
                   "max-sm:text-xs",
 
@@ -281,11 +329,12 @@ export const BuildFuture: React.FC = () => {
                 Download Deck
               </button>
             </div>
+
             <p className="mt-5 text-base text-white/80 leading-4 tracking-normal text-right max-lg:text-left max-sm:mt-4 max-sm:text-sm">
               [name]@[fundname].com
             </p>
           </div>
-        </Motion>
+        </div>
       </div>
     </Section>
   );

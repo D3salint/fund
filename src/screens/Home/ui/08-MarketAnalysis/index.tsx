@@ -5,9 +5,11 @@ import { Motion } from "@/shared/ui/Motion";
 import { Section } from "@/shared/ui/PageWrapper";
 import { Text } from "@/shared/ui/Text";
 
+//bg-[url(/images/market-analysis-bg.webp)]
+
 export const MarketAnalysis: React.FC = () => {
   return (
-    <Section className="pt-24 pb-10 max-xxxl:pt-20 max-sm:pt-8 bg-[url(/images/market-analysis-bg.webp)] bg-cover bg-top-right max-sm:bg-position-[-70%_top] relative">
+    <Section className="pt-24 pb-10 max-xxxl:pt-20 max-sm:pt-8  bg-cover bg-top-right max-sm:bg-position-[-70%_top] relative">
       <div className="pointer-events-none absolute right-0 top-0 w-[40%] h-[40%] backdrop-blur-xs"/>
 
       <div className="max-w-400 px-10 mx-auto w-full max-lg:px-6 max-md:px-4">

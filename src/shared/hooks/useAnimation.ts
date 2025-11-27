@@ -39,7 +39,7 @@ export function useTextAnimation(ucfg: TextAnimationConfig | false) {
         })
         .to(config.tag, {
           duration: config.duration || 0.8,
-          stagger: 0.05,
+          stagger: 0.01,
           opacity: 1,
           y: 0,
           filter: `blur(0px)`,

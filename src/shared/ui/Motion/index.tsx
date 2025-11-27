@@ -52,7 +52,9 @@ export const Motion: React.FC<Props> = ({
             duration: duration ?? 0.8,
             stagger,
             opacity: 1,
+            scale: 1,
             y: 0,
+            x:0,
             filter: `blur(0px)`,
           },
           delay

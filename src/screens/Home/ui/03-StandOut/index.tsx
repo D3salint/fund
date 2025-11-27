@@ -1,8 +1,10 @@
 import React from "react";
 
+import Progress from "./Progress/Progress";
+import CountUp from "@/shared/ui/CountUp/CountUp";
+import { Motion } from "@/shared/ui/Motion";
 import { Section } from "@/shared/ui/PageWrapper";
 import { Text } from "@/shared/ui/Text";
-import { Motion } from "@/shared/ui/Motion";
 
 const tempList = [
   {
@@ -41,6 +43,7 @@ export const StandOut: React.FC = () => {
         >
           Why We Stand Out
         </Text>
+
         <Text
           className="text-base leading-4 tracking-normal mt-6 max-w-95 text-center max-xxl:mt-4 max-md:text-sm"
           animation={{ delay: 0.1 }}
@@ -49,11 +52,13 @@ export const StandOut: React.FC = () => {
           Our key advantages that shape a sustainable competitive edge and
           strengthen investment appeal.
         </Text>
+
         <ul className="w-full mt-16 grid grid-cols-4 gap-4 max-xxl:grid-cols-2 max-xxl:mt-10 max-sm:grid-cols-1 max-sm:mt-5 max-sm:gap-3">
           {tempList.map((item, id) => (
             <Motion
               className="flex flex-col rounded-3xl pt-6.5 pl-7.5 pb-7.5 pr-2.75 bg-[url(/images/stand-out-glass.webp)] bg-cover relative before:absolute before:inset-0 before:p-[0.1rem] before:rounded-inherit before:compositemask before:bg-[linear-gradient(150deg,rgba(255,255,255,0.1),transparent)] before:pointer-events-none max-sm:pr-7.5"
-              delay={id*0.1 + 0.5}
+              delay={id * 0.1 + 0.5}
+              initialState="opacity-0 scale-40"
               as="li"
               key={item.id}
             >
@@ -75,33 +80,44 @@ export const StandOut: React.FC = () => {
             </Motion>
           ))}
         </ul>
-        <Motion delay={0.75} className="overflow-hidden flex items-center gap-7.5 pl-7 py-3.5 w-full min-h-55.5 rounded-2xl mt-11 bg-[linear-gradient(to_bottom,rgba(255,255,255,0.003),rgba(255,255,255,0.01))] backdrop-blur-2xl relative before:absolute before:inset-0 before:p-[0.1rem] before:rounded-inherit before:compositemask before:bg-[linear-gradient(150deg,rgba(255,255,255,0.1),transparent)] before:pointer-events-none max-lg:flex max-lg:flex-col max-lg:py-7 max-lg:gap-8 max-lg:px-7 max-lg:pb-0 max-md:mt-4 max-sm:gap-5">
+
+        <Motion
+          delay={0.75}
+          className="overflow-hidden flex items-center gap-7.5 pl-7 py-3.5 w-full min-h-55.5 rounded-2xl mt-11 bg-[linear-gradient(to_bottom,rgba(255,255,255,0.003),rgba(255,255,255,0.01))] backdrop-blur-2xl relative before:absolute before:inset-0 before:p-[0.1rem] before:rounded-inherit before:compositemask before:bg-[linear-gradient(150deg,rgba(255,255,255,0.1),transparent)] before:pointer-events-none max-lg:flex max-lg:flex-col max-lg:py-7 max-lg:gap-8 max-lg:px-7 max-lg:pb-0 max-md:mt-4 max-sm:gap-5"
+        >
           <p className="font-tthoves font-semibold text-[1.28125rem] leading-1 -tracking-5 text-white whitespace-nowrap">
             Target Returns:
           </p>
           <ul className="mx-auto max-w-75 w-full gap-2 flex items-center justify-between max-lg:mx-0">
             <li className="flex flex-col text-center">
               <p className="font-tthoves text-40 leading-none text-primary">
-                47%
+                <CountUp value={47} suffix="%" delay={0.75} />
               </p>
               <p className="text-base -tracking-1 text-primary/40">Net MOIC</p>
             </li>
             <li className="w-px h-12.5 bg-white/20" />
             <li className="flex flex-col text-center">
               <p className="font-tthoves text-40 leading-none text-primary">
-                63%
+                <CountUp value={63} suffix="%" delay={0.9} />
               </p>
               <p className="text-base -tracking-1 text-primary/40">Net IRR</p>
             </li>
           </ul>
           <p className="font-tthoves font-semibold text-[1.28125rem] leading-1 -tracking-5 text-white">
             Timeline:
-          </p>          <div className="-my-3.5 h-55.5 shrink-0  max-lg:my-0  max-lg:-mx-7 ">
-            <img
+          </p>{" "}
+          <div className="-my-3.5 w-116 h-55.5 shrink-0  max-lg:my-0  max-lg:-mx-7 relative max-md:w-full">
+            <Motion delay={2.8} initialState="opacity-0" className="w-full h-full">
+              <img
+                className="w-full h-full object-contain absolute -top-8 -right-14"
+                src="/images/stand-out-chart-bg.png"
+                alt=""
+              />
+            </Motion>
 
-              className="w-full h-full object-contain"
-              src="/images/stand-out-chart.webp"
-              alt=""
+            <Progress
+              className="w-full max-w-100 h-full absolute top-11 -left-4"
+              delay={1}
             />
           </div>
         </Motion>

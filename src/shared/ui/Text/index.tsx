@@ -37,7 +37,7 @@ export const Text: React.FC<Props> = ({
         className,
         "[&_span]:inline-block [&_span]:whitespace-pre-wrap",
         animation &&
-          "[&_span]:translate-y-8 [&_span]:opacity-0 [&_span]:blur-md"
+          "[&_span]:translate-y-8 [&_span]:opacity-0  [&_span]:blur-xs"
       )}
       ref={rootRef}
     >

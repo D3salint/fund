@@ -61,12 +61,12 @@ export const Investment: React.FC = () => {
             accelerating digital transformation.
           </Text>
         </div>
-        <Motion className="mt-16 w-full rounded-[1.25rem] bg-[linear-gradient(to_bottom,rgba(103,118,255,0.03),rgba(103,118,255,0.1))] backdrop-blur-3xl relative border-px before:u-border-gradient-[linear-gradient(to_right,rgba(103,118,255,0.2),rgba(103,118,255,1),rgba(103,118,255,0.2))] max-sm:mt-3">
+        <Motion delay={0.2} duration={0.6} className="scale-0 mt-16 w-full rounded-[1.25rem] bg-[linear-gradient(to_bottom,rgba(103,118,255,0.03),rgba(103,118,255,0.1))] backdrop-blur-3xl relative border-px before:u-border-gradient-[linear-gradient(to_right,rgba(103,118,255,0.2),rgba(103,118,255,1),rgba(103,118,255,0.2))] max-sm:mt-3">
           <Motion
             animationElement=".investment-item"
             initialState="[&_.investment-item]:translate-y-5 [&_.investment-item]:opacity-0"
-            delay={0.25}
-            stagger={0.15}
+            delay={0.45}
+            stagger={0.2}
             className="grid grid-cols-[1fr_1px_1fr_1px_1fr] max-sm:flex max-sm:flex-wrap"
           >
             {config.list.map((item, id, arr) => (
