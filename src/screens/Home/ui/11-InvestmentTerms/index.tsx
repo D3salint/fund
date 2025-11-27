@@ -1,6 +1,7 @@
 import React from "react";
 
 import { ContentCard } from "@/shared/ui/ContentCard";
+import CountUp from "@/shared/ui/CountUp/CountUp";
 import { Motion } from "@/shared/ui/Motion";
 import { Section } from "@/shared/ui/PageWrapper";
 import { Text } from "@/shared/ui/Text";
@@ -57,6 +58,7 @@ const Card = ({
     </ContentCard>
   );
 };
+
 const TitleH3 = ({ children, className }: GeneralProps) => {
   return (
     <h3
@@ -71,6 +73,7 @@ const TitleH3 = ({ children, className }: GeneralProps) => {
     </h3>
   );
 };
+
 const Name = ({ children, className }: GeneralProps) => {
   return (
     <p
@@ -84,6 +87,7 @@ const Name = ({ children, className }: GeneralProps) => {
     </p>
   );
 };
+
 const Value = ({ children, className }: GeneralProps) => {
   return (
     <p
@@ -113,35 +117,49 @@ export const InvestmentTerms: React.FC = () => {
         >
           Investment Terms & Length
         </Text>
+
         <Motion
           animationElement="&>.invest-card"
           initialState="[&>.invest-card]:translate-y-8 [&>.invest-card]:opacity-0 [&>.invest-card]:blur-md"
-          stagger={0.1}
+          stagger={0.3}
           delay={0.15}
           className="mt-10 gap-5 w-full flex flex-wrap max-md:gap-2"
         >
           {/* 1st card */}
-          <Card className="w-[calc(66%-0.625rem)] max-lg:w-full" background=" bg-[url(/images/invest-terms-bg.webp)]! bg-cover bg-top-right">
+          <Card
+            className="w-[calc(66%-0.625rem)] max-lg:w-full"
+            background=" bg-[url(/images/invest-terms-bg.webp)]! bg-cover bg-top-right"
+          >
             <TitleH3>
               <span className="gradient">Fund Terms</span>
             </TitleH3>
+
             <div className="mt-6 flex flex-wrap gap-3 w-full max-md:gap-1.5 max-sm:mt-3">
               <Card
                 padding="p-5"
                 className="rounded-2xl max-sm:p-3 w-[calc(27.5%-0.5rem)] gap-8 max-md:order-4 max-md:w-[calc(34%-0.1875rem)]"
               >
                 <Name>Lockup Period</Name>
-                <Value className="mt-auto max-md:text-18!">12 months</Value>
+                <Value className="mt-auto max-md:text-18!">
+                  <CountUp value={12} /> months
+                </Value>
                 <p className="-mt-7 text-base leading-4 tracking-normal text-white/40 max-md:text-[0.5rem]">
                   90-day notice to withdraw
                 </p>
               </Card>
+
               <Card
                 padding="p-5"
                 className="rounded-2xl max-sm:p-3 w-[calc(45%-0.5rem)] gap-4 max-md:order-6 max-md:w-full"
               >
                 <Name>Reporting</Name>
-                <div
+
+                <Motion
+                  delay={0.6}
+                  animationElement=".inv-pdf-cards-aos"
+                  as="div"
+                  stagger={0.15}
+                  initialState="[&>.inv-pdf-cards-aos]:opacity-0 [&>.inv-pdf-cards-aos]:-translate-x-8"
                   className="grow mt-auto flex w-full overflow-hidden h-20 max-h-20 max-md:h-auto max-md:max-h-[unset]! max-md:grid max-md:grid-cols-4 max-md:[flex-flow:unset]! max-md:gap-2"
                   style={{ flexFlow: "wrap" }}
                 >
@@ -149,6 +167,7 @@ export const InvestmentTerms: React.FC = () => {
                     <Card
                       padding="py-3.5 px-1"
                       className={clsx(
+                        "inv-pdf-cards-aos",
                         "flex flex-col justify-center items-center gap-1 w-20 h-full shrink-0 bg-[#0B0D16]! rounded-xl!",
                         `[&+&]:-ml-8 max-md:aspect-square max-md:ml-0! max-md:z-1!`
                       )}
@@ -161,15 +180,19 @@ export const InvestmentTerms: React.FC = () => {
                       </p>
                     </Card>
                   ))}
-                </div>
+                </Motion>
               </Card>
+
               <Card
                 padding="p-5"
                 className="rounded-2xl max-sm:p-3 w-[calc(27.5%-0.5rem)] gap-8 max-md:order-3 max-md:w-[calc(100%/3-0.25rem)]"
               >
                 <Name>Minimum</Name>
-                <Value className="mt-auto max-md:text-18!">$350,000</Value>
+                <Value className="mt-auto max-md:text-18!">
+                  $<CountUp value={350000} delay={0.6} />
+                </Value>
               </Card>
+
               <Card
                 padding="p-5"
                 className="rounded-2xl max-sm:p-3 w-[calc(39.5%-0.5rem)] gap-8 max-md:order-1 max-md:w-[calc(100%/3-0.25rem)]"
@@ -177,13 +200,17 @@ export const InvestmentTerms: React.FC = () => {
                 <Name>Fund Type</Name>
                 <Value className="mt-auto max-md:text-18!">Closed-end</Value>
               </Card>
+
               <Card
                 padding="p-5"
                 className="rounded-2xl max-sm:p-3 w-[calc(21%-0.5rem)] gap-8 max-md:order-2 max-md:w-[calc(100%/3-0.25rem)]"
               >
                 <Name>Target to Investors</Name>
-                <Value className="mt-auto max-md:text-18!">25%</Value>
+                <Value className="mt-auto max-md:text-18!">
+                  <CountUp value={25} suffix="%" delay={0.6} />
+                </Value>
               </Card>
+
               <Card
                 padding="p-5"
                 className="rounded-2xl max-sm:p-3 w-[calc(39.5%-0.5rem)] gap-8 max-md:order-5 max-md:w-[calc(66%-0.1875rem)]"
@@ -198,36 +225,51 @@ export const InvestmentTerms: React.FC = () => {
               </Card>
             </div>
           </Card>
+
           {/* 2nd card */}
-          <Card className="w-[calc(34%-0.625rem)] max-lg:w-full backdrop-blur-3xl!" background="before:backdrop-blur-3xl">
+          <Card
+            className="w-[calc(34%-0.625rem)] max-lg:w-full backdrop-blur-3xl!"
+            background="before:backdrop-blur-3xl"
+          >
             <TitleH3>
               <span className="gradient">Accredited Investors</span>{" "}
               <span className="block font-normal text-base leading-4 tracking-normal max-sm:text-xs">
                 ($1m+ Net Worth)
               </span>
             </TitleH3>
+
             <div className="mt-6 grid grid-cols-2 gap-3 max-sm:mt-3 max-sm:gap-2">
               <Card
                 padding="p-5 max-sm:p-3"
                 className="justify-between gap-6 max-sm:gap-4 rounded-2xl"
               >
                 <Name>Management Fee</Name>
-                <Value>2%</Value>
+                <Value>
+                  <CountUp value={2} />%
+                </Value>
               </Card>
+
               <Card
                 padding="p-5 max-sm:p-3"
                 className="justify-between gap-6 max-sm:gap-4 rounded-2xl"
               >
                 <Name>Carried Interest</Name>
-                <Value>80/20 split</Value>
+                <Value>
+                  <CountUp value={80} />/<CountUp value={20} delay={0.8} />
+                </Value>
+                <Value className="-mt-5">split</Value>
               </Card>
+
               <Card
                 padding="p-5 max-sm:px-3"
                 className="rounded-2xl col-start-1 col-end-3 justify-between gap-6 max-sm:flex-row max-sm:items-center max-sm:gap-4"
               >
                 <Name>Above 100% Yield in 1 Year</Name>
                 <div className="max-sm:flex max-sm:flex-col max-sm:items-end">
-                  <Value>50/50 split</Value>
+                  <Value>
+                    <CountUp value={50} delay={0.6} />/
+                    <CountUp value={50} delay={0.8} /> split
+                  </Value>
                   <p className="mt-1 text-base leading-4 tracking-normal text-white/40 max-sm:text-xs">
                     (resets Dec 31st each year)
                   </p>
@@ -235,24 +277,38 @@ export const InvestmentTerms: React.FC = () => {
               </Card>
             </div>
           </Card>
+
           {/* 3rd card */}
-          <Card className="w-[calc(50%-0.625rem)] max-lg:w-full" background="bg-[url(/images/invest-card3-bg.png)]! bg-cover bg-top-right">
+          <Card
+            className="w-[calc(50%-0.625rem)] max-lg:w-full"
+            background="bg-[url(/images/invest-card3-bg.png)]! bg-cover bg-top-right"
+          >
             <TitleH3>
               <span className="gradient">Accredited Investors</span>{" "}
               <span className="font-normal text-base leading-4 tracking-normal max-sm:text-xs">
                 ($5m+ Net Worth)
               </span>
             </TitleH3>
+
             {/* Table */}
-            <ul className="mt-6 max-sm:mt-4">
+            <Motion
+              className="mt-6 max-sm:mt-4"
+              delay={0.6}
+              animationElement=".inv-terms-cards-aos"
+              as="ul"
+              stagger={0.25}
+              initialState="[&>.inv-terms-cards-aos]:opacity-0 [&>.inv-terms-cards-aos]:translate-y-8"
+            >
               <li className="grid grid-cols-[32%_auto_33%] gap-2.5 text-sm -tracking-1 leading-tight text-primary/40 mb-3 max-sm:text-10">
                 <p>Investment Range</p>
                 <p>Mgmt. Fee</p>
                 <p>Split</p>
               </li>
+
               {config.investorsTable.map((item) => (
                 <li
                   className={clsx(
+                    "inv-terms-cards-aos",
                     "py-2.5 grid grid-cols-[32%_auto_33%] gap-2.5 border-b border-b-white/10",
                     "font-tthoves text-18 -tracking-1 text-primary",
                     "max-sm:text-10 max-sm:py-1.5"
@@ -264,10 +320,14 @@ export const InvestmentTerms: React.FC = () => {
                   <p>{item.split}</p>
                 </li>
               ))}
-            </ul>
+            </Motion>
           </Card>
+
           {/* 4th card */}
-          <Card className="w-[calc(50%-0.625rem)] max-lg:w-full" background="bg-[url(/images/invest-card4-bg.png)]! bg-cover bg-top-right">
+          <Card
+            className="w-[calc(50%-0.625rem)] max-lg:w-full"
+            background="bg-[url(/images/invest-card4-bg.png)]! bg-cover bg-top-right"
+          >
             <TitleH3>
               <span className="gradient">Deployment Metrics</span>
             </TitleH3>
@@ -277,7 +337,9 @@ export const InvestmentTerms: React.FC = () => {
                 className="justify-between gap-6 rounded-2xl"
               >
                 <Name>Deals</Name>
-                <Value>5</Value>
+                <Value>
+                  <CountUp value={5} delay={1.2} />
+                </Value>
               </Card>
               <Card
                 padding="p-5 max-sm:px-3"

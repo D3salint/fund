@@ -111,7 +111,7 @@ export default function CursorTrail() {
         ctx.beginPath();
         ctx.strokeStyle = `rgba(${color.r}, ${color.g}, ${color.b}, ${alpha})`;
         ctx.shadowBlur = 28;
-        ctx.shadowColor = tailShadow;
+        // ctx.shadowColor = tailShadow;
         ctx.lineWidth = Math.max(0.6, p.size * (1 - t));
         ctx.moveTo(a.x, a.y);
         ctx.lineTo(b.x, b.y);

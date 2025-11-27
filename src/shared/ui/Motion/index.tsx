@@ -42,7 +42,7 @@ export const Motion: React.FC<Props> = ({
             trigger: rootRef.current,
             // Remove next prop if scroller = window
             scroller: scrollerRef.current,
-            start: "top 80%",
+            start: "top 90%",
             invalidateOnRefresh: true,
           },
         })

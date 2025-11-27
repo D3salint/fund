@@ -81,6 +81,7 @@ export const Opportunity: React.FC = () => {
         </div>
         <Motion
           delay={0.35}
+          initialState="scale-0 opacity-0"
           className="flex flex-col h-full pt-6 pb-10.5 pl-7.5 pr-6 rounded-3xl bg-[linear-gradient(to_bottom,rgba(255,255,255,0.009,rgba(255,255,255,0.03)))] backdrop-blur-3xl relative before:p-px before:u-border-gradient-[linear-gradient(160deg,rgba(255,255,255,0.18)_-10%,rgba(153,153,153,0)_120%)]  max-lg:max-h-auto max-lg:h-auto max-sm:p-4"
         >
           <Text className="font-tthoves text-32 font-semibold -tracking-3 max-sm:text-18">
@@ -95,7 +96,8 @@ export const Opportunity: React.FC = () => {
               Portfolio Company Median ARR Growth Rate (YoY)
             </p>
           </div>
-          <div className="mt-5 -mr-2 grow flex flex-col">
+
+          <Motion className="mt-5 -mr-2 grow flex flex-col" initialState="opacity-0" delay={0.4}>
             <MarketGapAnalysisChart
               className="grow max-lg:aspect-[1/0.6]"
               disableFillArea
@@ -118,7 +120,7 @@ export const Opportunity: React.FC = () => {
                 Median Days Between Seed and Series A Rounds
               </li>
             </ul>
-          </div>
+          </Motion>
         </Motion>
       </div>
     </Section>

@@ -54,7 +54,7 @@ export const Team: React.FC = () => {
     useSwiperHelper();
   return (
     <Section className="px-4 py-12 max-md:py-6 flex flex-col justify-center  bg-cover bg-top-left max-sm:bg-position-[-140%_top] relative">
-      <div className="pointer-events-none absolute left-0 top-0 w-[40%] h-40 backdrop-blur-xs"/>
+      <div className="pointer-events-none absolute left-0 top-0 w-[40%] h-40 backdrop-blur-xs" />
 
       <div className="max-w-252.5 w-full mx-auto">
         <Text
@@ -91,7 +91,7 @@ export const Team: React.FC = () => {
             animationElement=".team-card"
             stagger={0.15}
             duration={0.8}
-            initialState="[&_.team-card]:translate-y-8 [&_.team-card]:opacity-0 [&_.team-card]:blur-md"
+            initialState="[&_.team-card]:opacity-0 [&_.team-card]:blur-md [&_.team-card]:scale-0"
             className="max-w-252.5 w-full mx-auto"
           >
             <Swiper

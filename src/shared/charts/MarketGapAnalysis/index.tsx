@@ -8,6 +8,7 @@ import {
   Area,
   AreaChart,
   CartesianGrid,
+  ReferenceDot,
   ResponsiveContainer,
   XAxis,
   YAxis,
@@ -135,6 +136,19 @@ export function MarketGapAnalysisChart({
               <stop offset="90%" stopColor="#6776FF" stopOpacity={1} />
               <stop offset="100%" stopColor="#030018" stopOpacity={1} />
             </linearGradient>
+
+            {/* Blur */}
+            <filter id="glowBlur" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur
+                in="SourceGraphic"
+                stdDeviation="18"
+                result="blur"
+              />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
           </defs>
 
           <CartesianGrid
@@ -142,6 +156,8 @@ export function MarketGapAnalysisChart({
             stroke="#ffffff10"
             strokeWidth={1}
           />
+
+          
 
           {/* Percent */}
           {isAnimated && (
@@ -200,6 +216,7 @@ export function MarketGapAnalysisChart({
               animationDuration={1500}
             />
           )}
+
           <YAxis
             dx={settings.axis.dx}
             width={settings.axis.width}
@@ -232,6 +249,23 @@ export function MarketGapAnalysisChart({
               color: "#626268",
             }}
           />
+
+          {/* <ReferenceDot
+            x={2020}
+            y={data.find((d) => d.year === 2020)?.percent}
+            r={12}
+            fill="#9C77FF"
+            filter="url(#glowBlur)"
+          />
+
+          <ReferenceDot
+            x={2023}
+            y={data.find((d) => d.year === 2023)?.days}
+            r={20}
+            fill="#9C77FF"
+            filter="url(#glowBlur)"
+            yAxisId="right"
+          /> */}
         </AreaChart>
       </ResponsiveContainer>
     </div>

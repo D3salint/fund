@@ -1,6 +1,9 @@
+"use client";
+
 import React from "react";
 
 import clsx from "clsx";
+import gsap from "gsap";
 
 interface RangeProps {
   value: number;
@@ -18,9 +21,9 @@ interface RangeProps {
 
 export function InputRange({
   className,
-  max,
-  min,
-  step,
+  max = 100,
+  min = 0,
+  step = 1,
   onChange,
   title,
   value,
@@ -29,8 +32,9 @@ export function InputRange({
   displayMin,
   displayValue,
 }: RangeProps) {
-  const thumbRef = React.useRef<HTMLDivElement>(null);
-  const [smoothProgress, setSmoothProgress] = React.useState(0);
+  const thumbRef = React.useRef<HTMLDivElement | null>(null);
+  const inputRef = React.useRef<HTMLInputElement | null>(null);
+  const rootRef = React.useRef<HTMLDivElement | null>(null);
 
   const progress = React.useMemo(() => {
     const minValue = min ?? 0;
@@ -38,54 +42,101 @@ export function InputRange({
     return ((value - minValue) / (maxValue - minValue)) * 100;
   }, [value, min, max]);
 
-  const updateThumbPos = (progress: number) => {
+  const [smoothProgress, setSmoothProgress] = React.useState(0);
+  const isDraggingRef = React.useRef(false);
+  const tweenObj = React.useRef({ v: 0 });
+
+  const updateThumbPos = React.useCallback((p: number) => {
     if (!thumbRef.current) return;
     const thumb = thumbRef.current;
-    const parent = thumb.parentElement as HTMLElement;
+    const parent = thumb.parentElement as HTMLElement | null;
+    if (!parent) return;
     const { width: thumbWidth } = thumb.getBoundingClientRect();
     const { width: parentWidth } = parent.getBoundingClientRect();
 
-    const pos = (progress * parentWidth) / 100 - thumbWidth / 2;
-
+    const pos = (p * parentWidth) / 100 - thumbWidth / 2;
     const xpx = Math.max(0, Math.min(pos, parentWidth - thumbWidth));
-
-    thumb.style.translate = `${xpx}px -50%`;
-  };
-
-  const handleResize = () => {
-    updateThumbPos(progress);
-  };
+    thumb.style.transform = `translate(${xpx}px, -50%)`;
+  }, []);
 
   React.useEffect(() => {
-    updateThumbPos(progress);
+    const root = rootRef.current;
+    if (root) root.style.setProperty("--progress", smoothProgress.toFixed(2));
+    updateThumbPos(smoothProgress);
+  }, [smoothProgress, updateThumbPos]);
+
+  React.useEffect(() => {
+    const handler = () => updateThumbPos(smoothProgress);
+    window.addEventListener("resize", handler);
+    return () => window.removeEventListener("resize", handler);
+  }, [smoothProgress, updateThumbPos]);
+
+  React.useEffect(() => {
+    if (isDraggingRef.current) {
+      gsap.killTweensOf(tweenObj.current);
+      setSmoothProgress(progress);
+      tweenObj.current.v = progress;
+      return;
+    }
+
+    gsap.killTweensOf(tweenObj.current);
+    const tween = gsap.to(tweenObj.current, {
+      v: progress,
+      duration: 0.9,
+      stagger: 0.3,
+      ease: "power1.out",
+      onUpdate: () => {
+        setSmoothProgress(Number(tweenObj.current.v));
+      },
+    });
+
+    return () => {
+      tween.kill();
+    };
   }, [progress]);
 
   React.useEffect(() => {
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  });
+    const input = inputRef.current;
+    if (!input) return;
 
-  React.useEffect(() => {
-    let frame: number;
-
-    const animate = () => {
-      setSmoothProgress((p) => {
-        const diff = progress - p;
-
-        if (Math.abs(diff) < 0.1) return progress;
-
-        return p + diff * 0.15;
-      });
-
-      frame = requestAnimationFrame(animate);
+    const onPointerDown = () => {
+      isDraggingRef.current = true;
+      gsap.killTweensOf(tweenObj.current);
+      // во время drag — синхронизируем visual с текущим value мгновенно
+      setSmoothProgress(progress);
+      tweenObj.current.v = progress;
+      // слушаем global pointerup/touchend для завершения drag
+      window.addEventListener("pointerup", onPointerUp);
+      window.addEventListener("touchend", onPointerUp);
     };
 
-    animate();
-    return () => cancelAnimationFrame(frame);
+    const onPointerUp = () => {
+      isDraggingRef.current = false;
+      // по завершению drag можно плавно продолжать анимировать при следующем изменении прогресса
+      window.removeEventListener("pointerup", onPointerUp);
+      window.removeEventListener("touchend", onPointerUp);
+    };
+
+    input.addEventListener("pointerdown", onPointerDown);
+    input.addEventListener("touchstart", onPointerDown);
+
+    return () => {
+      input.removeEventListener("pointerdown", onPointerDown);
+      input.removeEventListener("touchstart", onPointerDown);
+      window.removeEventListener("pointerup", onPointerUp);
+      window.removeEventListener("touchend", onPointerUp);
+    };
+  }, [progress]);
+
+  React.useEffect(() => {
+    if (isDraggingRef.current) {
+      setSmoothProgress(progress);
+      tweenObj.current.v = progress;
+    }
   }, [progress]);
 
   return (
-    <div className={clsx(className, "w-full")}>
+    <div ref={rootRef} className={clsx(className, "w-full")}>
       <div className="max-sm:flex max-sm:items-center max-sm:gap-4 max-sm:justify-between">
         {title && (
           <p
@@ -103,12 +154,12 @@ export function InputRange({
           </p>
         )}
       </div>
+
       <div className="relative flex">
         <input
-          className={clsx(
-            "input-range w-full transition-all duration-300 ease-out"
-          )}
-          style={{ "--progress": smoothProgress.toFixed(2) } as any}
+          ref={inputRef}
+          className={clsx("input-range w-full", "transition-transform duration-200 ease-out")}
+          style={{ ["--progress" as any]: smoothProgress.toFixed(2) }}
           type="range"
           min={min}
           max={max}
@@ -116,13 +167,16 @@ export function InputRange({
           value={value}
           onChange={(ev) => onChange(parseFloat(ev.target.value))}
         />
+
         <div
-          className="flex items-center justify-center size-6 rounded-full shrink-0 bg-[#6776FF]/20 backdrop-blur-md absolute left-0 top-1/2 -translate-y-1/2 pointer-events-none transition-transform duration-300 ease-out"
+          className="flex items-center justify-center size-6 rounded-full shrink-0 bg-[#6776FF]/20 backdrop-blur-md absolute left-0 top-1/2 pointer-events-none transition-transform duration-200 ease-out"
           ref={thumbRef}
+          style={{ transform: "translate(0px, -50%)" }}
         >
           <span className="size-1/2 rounded-full bg-[#6776FF]"></span>
         </div>
       </div>
+
       {(displayMin || displayMax) && (
         <div className="mt-2 flex items-center justify-between gap-2 font-tthoves text-sm -tracking-1 text-[#4A4A4D]">
           {displayMin && <p>{displayMin}</p>}

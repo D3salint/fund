@@ -1,5 +1,6 @@
 import React from "react";
 
+import CountUp from "@/shared/ui/CountUp/CountUp";
 import { HighlightLabel } from "@/shared/ui/HighlightLabel";
 import { Motion } from "@/shared/ui/Motion";
 import { Section } from "@/shared/ui/PageWrapper";
@@ -63,10 +64,14 @@ export const ExampleDeal: React.FC = () => {
           Representative investment showcasing our value creation approach
         </Text>
 
-        <Motion delay={0.4} className="mt-10 max-sm:mt-5">
+        <Motion
+          delay={0.4}
+          className="mt-10 max-sm:mt-5"
+          initialState="scale-0"
+        >
           <Motion
             animationElement=".deal-aos-item"
-            initialState="[&_.deal-aos-item]:translate-y-8 [&_.deal-aos-item]:opacity-0 [&_.deal-aos-item]:blur-md"
+            initialState="[&_.deal-aos-item]scale-0 [&_.deal-aos-item]:opacity-0 [&_.deal-aos-item]:blur-md"
             stagger={0.15}
             delay={0.55}
             className={clsx(
@@ -94,6 +99,7 @@ export const ExampleDeal: React.FC = () => {
                 </span>
               </HighlightLabel>
             </div>
+
             {/* Cards container */}
             <div
               className={clsx(
@@ -119,23 +125,31 @@ export const ExampleDeal: React.FC = () => {
                   Purchase
                   <br /> and Sale Information
                 </h3>
-                <ul className="mt-auto pt-5 flex gap-3.5 max-sm:mt-2 max-sm:pt-0 max-sm:justify-between">
-                  {config.statistics.map((item, id, arr) => (
-                    <React.Fragment key={item.value}>
-                      <li className="flex flex-col max-sm:flex-row max-sm:items-center max-sm:gap-2.25">
-                        <p className="font-tthoves text-40 leading-tight -tracking-1 text-primary max-sm:text-base">
-                          {item.value}
-                        </p>
-                        <p className="text-sm leading-tight -tracking-1 text-primary/40 max-sm:text-xs max-sm:translate-y-[0.1em]">
-                          {item.name}
-                        </p>
-                      </li>
-                      {id !== arr.length - 1 && (
-                        <li className="mt-2 mb-1.5 w-px h-auto bg-white/20 max-sm:m-0"></li>
-                      )}
-                    </React.Fragment>
-                  ))}
-                </ul>
+
+                <div className="mt-auto pt-5 flex gap-3.5 max-sm:mt-2 max-sm:pt-0 max-sm:justify-between">
+                  <div className="flex flex-col max-sm:flex-row max-sm:items-center max-sm:gap-2.25">
+                    <p className="text-sm leading-tight -tracking-1 text-primary/40 max-sm:text-xs max-sm:translate-y-[0.1em]">
+                      Purchase Price
+                    </p>
+
+                    <p className="font-tthoves text-40 leading-tight -tracking-1 text-primary max-sm:text-base">
+                      $<CountUp value={8} suffix="M" delay={1} />
+                    </p>
+                  </div>
+
+                  <div className="mt-2 mb-1.5 w-px h-auto bg-white/20 max-sm:m-0"></div>
+
+                  <div className="flex flex-col max-sm:flex-row max-sm:items-center max-sm:gap-2.25">
+                    <p className="text-sm leading-tight -tracking-1 text-primary/40 max-sm:text-xs max-sm:translate-y-[0.1em]">
+                      Sale Price
+                    </p>
+
+                    <p className="font-tthoves text-40 leading-tight -tracking-1 text-primary max-sm:text-base">
+                      $<CountUp value={24} suffix="M" delay={1.2} />
+                    </p>
+                  </div>
+                </div>
+
                 <p className="mt-3 text-base leading-4 tracking-normal text-white/80 max-sm:text-xs">
                   Estimated Annual IRR –{" "}
                   <span className="font-tthoves font-semibold text-18 -tracking-3 text-[#6776FF] max-sm:text-xs">
@@ -143,6 +157,7 @@ export const ExampleDeal: React.FC = () => {
                   </span>
                 </p>
               </div>
+
               {/* Right side */}
               <div
                 className={clsx(
@@ -159,6 +174,7 @@ export const ExampleDeal: React.FC = () => {
                 >
                   Timeline and Strategy
                 </h3>
+
                 <ul className="mt-6 grid grid-cols-2 gap-x-5 gap-y-2.5 max-sm:mt-3.25">
                   {config.info.map((item) => (
                     <li
@@ -174,11 +190,19 @@ export const ExampleDeal: React.FC = () => {
                         <item.icon className="size-8 shrink-0 max-sm:size-6" />{" "}
                         {item.value}
                       </p>
+
                       {item.data && (
-                        <div className="mt-2.5 flex flex-wrap gap-0.5 max-sm:mt-2 max-sm:gap-1">
+                        <Motion
+                          className="mt-2.5 flex flex-wrap gap-0.5 max-sm:mt-2 max-sm:gap-1"
+                          stagger={0.3}
+                          delay={0.25}
+                          animationElement=".deal-tags-aos-item"
+                          initialState="[&_.deal-tags-aos-item]:scale-0 [&_.deal-tags-aos-item]:opacity-0"
+                        >
                           {item.data.map((val) => (
                             <div
                               className={clsx(
+                                "deal-tags-aos-item",
                                 "py-1 px-2.5 rounded-[100px] text-sm leading-4 tracking-normal text-primary/50 shadow-[0_-0.375rem_5.25rem_rgba(103,118,255,0.25)]",
                                 "relative before:u-border-gradient-[linear-gradient(to_right,rgba(103,118,255,0.2),#6776FF,rgba(103,118,255,0.2))]",
                                 "max-sm:text-xs"
@@ -188,7 +212,7 @@ export const ExampleDeal: React.FC = () => {
                               {val}
                             </div>
                           ))}
-                        </div>
+                        </Motion>
                       )}
                     </li>
                   ))}

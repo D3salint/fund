@@ -10,7 +10,7 @@ function App() {
       <Scroller>
         <HomeScreens.Hero />
         <HomeScreens.Summary />
-        <HomeScreens.StandOut />
+        <HomeScreens.StandOut /> 
         <HomeScreens.Problem />
         <HomeScreens.WhyNow />
         <HomeScreens.Opportunity />

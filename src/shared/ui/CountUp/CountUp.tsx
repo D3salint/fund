@@ -32,12 +32,13 @@ export function useCountUpAnimation(
 
       const obj = { val: 0 };
       const target = rootRef.current;
+      const isFloat = !Number.isInteger(ucfg.value);
 
       gsap
         .timeline({
           scrollTrigger: {
             trigger: target,
-            start: "top 80%",
+            start: "top 90%",
             scroller: scrollerRef.current,
             invalidateOnRefresh: true,
           },
@@ -48,8 +49,19 @@ export function useCountUpAnimation(
           ease: ucfg.ease ?? "power1.out",
           delay: ucfg.delay ?? 0,
           onUpdate: () => {
-            if (target) {
-              const formatted = Math.floor(obj.val).toLocaleString("en-US");
+            if (!target) return;
+
+            let current = obj.val;
+
+            if (!isFloat) {
+              current = Math.round(current);
+              target.textContent =
+                current.toLocaleString("en-US") + (ucfg.suffix ?? "");
+            } else {
+              const formatted = current.toLocaleString("en-US", {
+                minimumFractionDigits: 1,
+                maximumFractionDigits: 1,
+              });
               target.textContent = formatted + (ucfg.suffix ?? "");
             }
           },

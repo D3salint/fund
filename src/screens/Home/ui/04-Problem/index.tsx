@@ -48,6 +48,7 @@ export const Problem: React.FC = () => {
               growth and innovation potential of this critical sector.
             </Text>
           </div>
+
           <Text
             className="text-18 leading-4 max-w-94.5 max-lg:max-w-180 max-sm:text-sm max-sm:mt-3"
             animation={{ delay: 0.6 }}
@@ -58,9 +59,11 @@ export const Problem: React.FC = () => {
             allocations to emerging enterprise software companies.
           </Text>
         </div>
+
         <div className="mt-16.5 grid grid-cols-[auto_23.625rem] gap-10 max-xxl:gap-4 max-xl:grid-cols-1 max-lg:mt-4">
           <Motion
             delay={0.35}
+            initialState="opacity-0 scale-40"
             className="overflow-hidden flex flex-col px-10 pb-10 pt-7.5 rounded-3xl bg-[linear-gradient(to_bottom,rgba(255,255,255,0.003),rgba(255,255,255,0.01))] backdrop-blur-3xl bg-bottom-left bg-cover relative before:absolute before:inset-0 before:p-[0.1rem] before:rounded-inherit before:compositemask before:bg-[linear-gradient(170deg,rgba(255,255,255,0.1),rgba(153,153,153,0))] before:pointer-events-none max-lg:p-4 max-lg:pb-5"
           >
             <Text className="font-tthoves text-32 font-semibold -tracking-3 max-sm:text-18">
@@ -88,6 +91,7 @@ export const Problem: React.FC = () => {
               </li>
             </ul>
           </Motion>
+
           <Motion
             delay={0.55}
             className="p-7.5 rounded-3xl flex flex-col gap-7 bg-[url(/images/problem-bg.webp)] bg-bottom-left bg-cover relative before:absolute before:inset-0 before:p-[0.1rem] before:rounded-inherit before:compositemask before:bg-[linear-gradient(170deg,rgba(255,255,255,0.1),rgba(153,153,153,0))] before:pointer-events-none max-xxl:gap-4 max-lg:p-4 max-sm:gap-4 max-md:bg-[url(/images/problem-bg@mob.webp)]"
@@ -95,10 +99,18 @@ export const Problem: React.FC = () => {
             <Text className="font-tthoves text-32 font-semibold -tracking-3 max-lg:text-20">
               Market Inefficiencies
             </Text>
-            <ul className="flex flex-col gap-2.5 max-sm:gap-2">
+
+            <Motion
+              delay={0.6}
+              animationElement=".problem-cards-aos"
+              className="flex flex-col gap-2.5 max-sm:gap-2"
+              as="ul"
+              stagger={0.25}
+              initialState="[&>.problem-cards-aos]:opacity-0 [&>.problem-cards-aos]:scale-0"
+            >
               {tempList.map((item) => (
                 <li
-                  className="px-7.5 pt-6.25 pb-13.75 flex flex-col items-start gap-4 rounded-3xl bg-[linear-gradient(to_bottom,rgba(255,255,255,0.003),rgba(255,255,255,0.01))] backdrop-blur-2xl relative before:absolute before:inset-0 before:p-[0.1rem] before:rounded-inherit before:compositemask before:bg-[linear-gradient(170deg,rgba(255,255,255,0.1),rgba(153,153,153,0))] before:pointer-events-none max-xxl:pb-8 max-xl:flex-row max-xl:items-center max-lg:py-6 max-lg:px-3.5 max-sm:gap-3"
+                  className="problem-cards-aos px-7.5 pt-6.25 pb-13.75 flex flex-col items-start gap-4 rounded-3xl bg-[linear-gradient(to_bottom,rgba(255,255,255,0.003),rgba(255,255,255,0.01))] backdrop-blur-2xl relative before:absolute before:inset-0 before:p-[0.1rem] before:rounded-inherit before:compositemask before:bg-[linear-gradient(170deg,rgba(255,255,255,0.1),rgba(153,153,153,0))] before:pointer-events-none max-xxl:pb-8 max-xl:flex-row max-xl:items-center max-lg:py-6 max-lg:px-3.5 max-sm:gap-3"
                   key={item.id}
                 >
                   <img
@@ -114,7 +126,7 @@ export const Problem: React.FC = () => {
                   </Text>
                 </li>
               ))}
-            </ul>
+            </Motion>
           </Motion>
         </div>
       </div>

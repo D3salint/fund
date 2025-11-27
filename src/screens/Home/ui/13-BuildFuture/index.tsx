@@ -49,7 +49,7 @@ export const BuildFuture: React.FC = () => {
     <Section
       className={clsx(
         "py-12 max-md:py-6 px-4 flex flex-col justify-center",
-        "bg-[url(/images/buildfuture-bg.webp)] bg-cover bg-bottom-right",
+        "bg-[url(/images/buildfuture-bg-new.webp)] bg-cover bg-bottom-right",
         "max-lg:bg-none"
       )}
       glare={{ showOnEnter: true, hideOnLeave: true }}
@@ -57,7 +57,7 @@ export const BuildFuture: React.FC = () => {
       <div className="mx-auto max-w-380 w-full flex flex-col">
         <Motion
           className="flex justify-center"
-          initialState="translate-y-28 scale-0"
+          initialState="translate-y-8 scale-50"
         >
           <HighlightLabel className="mx-auto  mt-3.5 max-sm:mt-0 flex items-center gap-0.5">
             <RocketIcon className="size-4 shrink-0" />
@@ -76,7 +76,7 @@ export const BuildFuture: React.FC = () => {
         </Text>
 
         <div className="mt-10 grid grid-cols-[auto_34%] gap-5 max-lg:grid-cols-1 max-sm:mt-4">
-          <Motion initialState="translate-y-48 scale-40 opacity-0">
+          <Motion initialState="translate-y-18 scale-40 opacity-0">
             <ContentCard
               className={clsx(
                 "buildfuture-aos rounded-3xl p-7.5 pt-6.5 bg-[url(/images/buildfuture-leftcard-bg.webp)] bg-top-right bg-cover max-xxl:p-6",
@@ -141,10 +141,11 @@ export const BuildFuture: React.FC = () => {
 
                     {item.pdfs && (
                       <Motion
-                        delay={0.2}
-                        stagger={0.1}
+                        as="ul"
+                        delay={0.6}
+                        stagger={0.15}
                         animationElement=".buildfuture-cards-pdf-aos"
-                        initialState="[&>.buildfuture-cards-pdf-aos]:translate-x-8 [&>.buildfuture-cards-pdf-aos]:opacity-100"
+                        initialState="[&>.buildfuture-cards-pdf-aos]:-translate-x-8 [&>.buildfuture-cards-pdf-aos]:opacity-0"
                         className={clsx(
                           "mt-3 flex flex-wrap [flex-flow:wrap] h-15 overflow-hidden",
                           "max-sm:grid max-sm:grid-cols-4 max-sm:gap-2 max-sm:h-auto"
@@ -152,8 +153,9 @@ export const BuildFuture: React.FC = () => {
                       >
                         {item.pdfs.map((pdf, id, arr) => (
                           <ContentCard
-                            className={clsx("buildfuture-cards-pdf-aos",
-                              "p-2 size-15 flex flex-col items-center justify-center gap-0.5 rounded-lg before:backdrop-blur-2xl",
+                            as="li"
+                            className={clsx(
+                              "buildfuture-cards-pdf-aos p-2 size-15 flex flex-col items-center justify-center gap-0.5 rounded-lg before:backdrop-blur-2xl",
                               `[&+&]:-ml-2.75 max-sm:m-0! max-sm:size-auto max-sm:aspect-square`
                             )}
                             style={{ zIndex: arr.length - id }}
@@ -173,9 +175,9 @@ export const BuildFuture: React.FC = () => {
             </ContentCard>
           </Motion>
 
-          <div className="buildfuture-aos flex flex-col">
+          <div className="flex flex-col">
             <Motion
-              initialState="translate-y-38 scale-40 opacity-0"
+              initialState="translate-y-18 scale-40 opacity-0"
               delay={0.2}
             >
               <ContentCard
@@ -274,16 +276,17 @@ export const BuildFuture: React.FC = () => {
               </ContentCard>
             </Motion>
 
-            <div
+            <Motion
+              as="div"
               className="mt-6.5 grid grid-cols-2 gap-3 max-sm:mt-4"
-              // stagger={0.2}
-              // delay={0.4}
-              // animationElement=".buildfuture-button-aos"
-              // initialState="[&>.buildfuture-button-aos]:translate-y-8 [&>.buildfuture-button-aos]:opacity-0 [&>.buildfuture-button-aos]:scale-0"
+              stagger={0.2}
+              delay={0.4}
+              animationElement=".buildfuture-button-aos"
+              initialState="[&>.buildfuture-button-aos]:opacity-0 [&>.buildfuture-button-aos]:scale-0"
             >
               <button
                 className={clsx(
-                  "relative overflow-hidden buildfuture-button-aos",
+                  "buildfuture-button-aos relative overflow-hidden",
                   "p-4 rounded-[100px] flex items-center justify-center gap-1 font-medium text-sm leading2 tracking-normal text-white text-left",
                   "max-sm:text-xs",
 
@@ -328,7 +331,7 @@ export const BuildFuture: React.FC = () => {
                 <DownloadIcon className="size-4.5 shrink-0 max-sm:size-3.5" />{" "}
                 Download Deck
               </button>
-            </div>
+            </Motion>
 
             <p className="mt-5 text-base text-white/80 leading-4 tracking-normal text-right max-lg:text-left max-sm:mt-4 max-sm:text-sm">
               [name]@[fundname].com

@@ -42,7 +42,7 @@ export const MarketAnalysis: React.FC = () => {
 
         <div className="mt-16.5 grid grid-cols-[auto_24.1rem] gap-11 max-xxl:gap-4 max-xl:grid-cols-1 max-lg:mt-7">
           <Motion
-            delay={0.35}
+            delay={0.35} initialState="scale-10 opacity-0"
             className="overflow-hidden flex flex-col px-10 pb-10 pt-7.5 rounded-3xl bg-[linear-gradient(to_bottom,rgba(255,255,255,0.003),rgba(255,255,255,0.01))] backdrop-blur-3xl bg-bottom-left bg-cover relative before:u-border-gradient-[linear-gradient(170deg,rgba(255,255,255,0.1),rgba(153,153,153,0))] max-lg:p-4 max-lg:pb-5 max-sm:rounded-2xl"
           >
             <Text className="font-tthoves text-32 font-semibold -tracking-3 max-sm:text-18">
@@ -70,8 +70,9 @@ export const MarketAnalysis: React.FC = () => {
               </li>
             </ul>
           </Motion>
+
           <Motion
-            delay={0.5}
+            delay={0.8} initialState="scale-10 opacity-0"
             className="p-7.5 rounded-3xl flex flex-col bg-[linear-gradient(to_bottom,rgba(255,255,255,0.003),rgba(255,255,255,0.01))] backdrop-blur-3xl border-px relative before:u-border-gradient-[linear-gradient(to_bottom,rgba(255,255,255,0.1)_50%,rgba(153,153,153,0))] max-sm:p-4 max-sm:rounded-2xl max-sm:pt-5"
           >
             <div className="max-sm:flex max-sm:items-center max-sm:gap-5">
