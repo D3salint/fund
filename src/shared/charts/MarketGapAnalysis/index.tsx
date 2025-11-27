@@ -1,10 +1,9 @@
 import React from "react";
-import { createPortal } from "react-dom";
 
 import { useScroller } from "@/shared/ui/Scroller";
 import { useGSAP } from "@gsap/react";
 import clsx from "clsx";
-import gsap from "gsap";
+import { motion } from "framer-motion";
 import ScrollTrigger from "gsap/dist/ScrollTrigger";
 import {
   Area,
@@ -19,52 +18,50 @@ import type { ActiveDotProps } from "recharts/types/util/types";
 import { marketGapData } from "./data";
 
 type DotProps = ActiveDotProps & {
-  root: HTMLDivElement | null;
   active: boolean;
-  visible: boolean;
   styling: any;
 };
 
-const Dot = React.memo(({ active, styling, root, cx, cy,visible }: DotProps) => {
-  if (typeof document === "undefined" || !root) {
-    return null;
-  }
-  return createPortal(
-    <div
-      className={clsx(
-        "chart-dot bg-transparent rounded-full absolute -translate-1/2 aspect-square",
-        !visible && "opacity-0 scale-0"
+const CustomDot = ({ active, styling, cx, cy }: DotProps) => {
+  return (
+    <g>
+      <motion.circle
+        cx={cx}
+        cy={cy}
+        r={styling.area.dot.r}
+        strokeWidth={styling.area.dot.strokeWidth}
+        fill={styling.fill}
+        stroke={styling.stroke}
+      />
+      {active && (
+        <>
+          <motion.circle
+            cx={cx}
+            cy={cy}
+            r={styling.area.dot.r * 5}
+            fill={styling.fill}
+            opacity={0.5}
+            filter="url(#glow)"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.5 }}
+            transition={{ duration: 0.25 }}
+          />
+          <motion.circle
+            cx={cx}
+            cy={cy}
+            r={styling.area.dot.r * 1.5}
+            strokeWidth={styling.area.dot.strokeWidth * 2}
+            fill="white"
+            stroke="#656988"
+            initial={{ opacity: 0, r: 0 }}
+            animate={{ opacity: 1, r: styling.area.dot.r * 1.5 }}
+            transition={{ duration: 0.35 }}
+          />
+        </>
       )}
-      style={{ left: cx, top: cy, width: styling.area.dot.r * 2 }}
-    >
-      <div
-        className={clsx(
-          "size-full absolute -translate-1/2 left-1/2 top-1/2 transition-opacity opacity-0",
-          active && "opacity-100"
-        )}
-      >
-        <div
-          className="absolute -translate-1/2 left-1/2 top-1/2 w-full aspect-square rounded-full blur-xl"
-          style={{ background: styling.fill, width: styling.area.dot.r * 4 }}
-        />
-      </div>
-      <div
-        className="size-full transition-transform"
-        style={{ transform: `scale(${active ? 1.5 : 1})` }}
-      >
-        <div
-          className="size-full rounded-full absolute inset-0 "
-          style={{ background: active ? "#787290" : styling.stroke }}
-        />
-        <div
-          className="size-1/2 absolute left-1/2 top-1/2 -translate-1/2 rounded-full"
-          style={{ background: active ? "#FFF" : styling.fill }}
-        />
-      </div>
-    </div>,
-    root
+    </g>
   );
-});
+};
 
 interface Props {
   className?: string;
@@ -86,8 +83,6 @@ export function MarketGapAnalysisChart({
   const [activeTooltipIndex, setActiveTooltipIndex] = React.useState<
     number | null
   >(null);
-  const [refState, setRefState] = React.useState<HTMLDivElement | null>(null);
-  const [dotsVisible, setDotsVisible] = React.useState(!animationActive);
 
   const checkViewport = () => setMobile(window.innerWidth <= 768);
 
@@ -108,29 +103,6 @@ export function MarketGapAnalysisChart({
     { scope: rootRef, dependencies: [animationActive, isScrollerReady] }
   );
 
-  useGSAP(
-    () => {
-      if (refState && isAnimated) {
-        requestAnimationFrame(() => {
-          gsap.to(".chart-dot", {
-            opacity: 1,
-            scale: 1,
-            stagger: {
-              each: 1.5 / (data.length * 1.5),
-              from: "start",
-              grid: [2, data.length],
-            },
-            onComplete: () => setDotsVisible(true),
-          });
-        });
-      }
-    },
-    {
-      scope: rootRef,
-      dependencies: [isAnimated, refState],
-    }
-  );
-
   React.useEffect(() => {
     window.addEventListener("resize", checkViewport);
     return () => window.removeEventListener("resize", checkViewport);
@@ -148,7 +120,7 @@ export function MarketGapAnalysisChart({
     const area = {
       strokeWidth: isMobile ? 1 : 3,
       dot: {
-        r: isMobile ? 2 : 7,
+        r: isMobile ? 2 : 6,
         strokeWidth: isMobile ? 1 : 3,
       },
     };
@@ -174,10 +146,7 @@ export function MarketGapAnalysisChart({
         "size-full [&_.recharts-surface]:overflow-visible! [&_.recharts-wrapper_*]:outline-none! relative",
         className
       )}
-      ref={(node) => {
-        rootRef.current = node;
-        setRefState(node);
-      }}
+      ref={rootRef}
       onMouseLeave={() => setActiveTooltipIndex(null)}
     >
       <ResponsiveContainer>
@@ -250,12 +219,14 @@ export function MarketGapAnalysisChart({
               strokeWidth={settings.area.strokeWidth}
               activeDot={false}
               dot={(props) => (
-                <Dot
+                <CustomDot
                   {...props}
-                  visible={dotsVisible}
                   active={props.index === activeTooltipIndex}
-                  styling={{ ...settings, fill: "#9C77FF", stroke: "#5C4A9A" }}
-                  root={refState}
+                  styling={{
+                    ...settings,
+                    fill: "#9C77FF",
+                    stroke: "#5C4A9A",
+                  }}
                 />
               )}
               animationBegin={0}
@@ -290,12 +261,10 @@ export function MarketGapAnalysisChart({
               strokeWidth={settings.area.strokeWidth}
               activeDot={false}
               dot={(props) => (
-                <Dot
+                <CustomDot
                   {...props}
-                  visible={dotsVisible}
                   active={props.index === activeTooltipIndex}
                   styling={{ ...settings, fill: "#6776FF", stroke: "#3E4696" }}
-                  root={refState}
                 />
               )}
               animationBegin={0}
