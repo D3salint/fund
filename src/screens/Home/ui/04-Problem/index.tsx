@@ -3,6 +3,7 @@ import React from "react";
 import { MarketGapAnalysisChart } from "@/shared/charts/MarketGapAnalysis";
 import { Motion } from "@/shared/ui/Motion";
 import { Section } from "@/shared/ui/PageWrapper";
+import SpotlightWrapper from "@/shared/ui/SpotlightWrapper/SpotlightWrapper";
 import { Text } from "@/shared/ui/Text";
 
 const tempList = [
@@ -61,11 +62,15 @@ export const Problem: React.FC = () => {
         </div>
 
         <div className="mt-16.5 grid grid-cols-[auto_23.625rem] gap-10 max-xxl:gap-4 max-xl:grid-cols-1 max-lg:mt-4">
+
+
           <Motion
             delay={0.35}
             initialState="opacity-0 scale-40"
             className="overflow-hidden flex flex-col px-10 pb-10 pt-7.5 rounded-3xl bg-[linear-gradient(to_bottom,rgba(255,255,255,0.003),rgba(255,255,255,0.01))] backdrop-blur-3xl bg-bottom-left bg-cover relative before:absolute before:inset-0 before:p-[0.1rem] before:rounded-inherit before:compositemask before:bg-[linear-gradient(170deg,rgba(255,255,255,0.1),rgba(153,153,153,0))] before:pointer-events-none max-lg:p-4 max-lg:pb-5"
           >
+            <SpotlightWrapper />
+            
             <Text className="font-tthoves text-32 font-semibold -tracking-3 max-sm:text-18">
               Market Gap Analysis
             </Text>
@@ -78,7 +83,7 @@ export const Problem: React.FC = () => {
                 Median Days Between Seed and Series A Rounds
               </p>
             </div>
-            <MarketGapAnalysisChart className="grow mt-5 min-h-40 max-xxl:aspect-video max-sm:aspect-auto" />
+            <MarketGapAnalysisChart className="grow mt-5 min-h-40 max-xxl:aspect-video max-sm:aspect-auto z-50" />
             <ul className="mt-11 flex items-center gap-11 pl-16 max-xxl:items-start max-xxl:flex-col max-xxl:gap-3 max-sm:pl-6 max-sm:mt-4">
               <li className="text-sm leading-4 tracking-1 text-[#cccccc] flex items-center gap-2 max-sm:text-[0.625rem]">
                 <span className="shrink-0 w-2 h-[3px] bg-[#9C77FF] rounded-sm" />
@@ -96,6 +101,8 @@ export const Problem: React.FC = () => {
             delay={0.55}
             className="p-7.5 rounded-3xl flex flex-col gap-7 bg-[url(/images/problem-bg.webp)] bg-bottom-left bg-cover relative before:absolute before:inset-0 before:p-[0.1rem] before:rounded-inherit before:compositemask before:bg-[linear-gradient(170deg,rgba(255,255,255,0.1),rgba(153,153,153,0))] before:pointer-events-none max-xxl:gap-4 max-lg:p-4 max-sm:gap-4 max-md:bg-[url(/images/problem-bg@mob.webp)]"
           >
+            <SpotlightWrapper />
+
             <Text className="font-tthoves text-32 font-semibold -tracking-3 max-lg:text-20">
               Market Inefficiencies
             </Text>

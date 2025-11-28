@@ -18,6 +18,7 @@ import clsx from "clsx";
 import { ForwardIcon } from "@/shared/ui/icons/ForwardIcon";
 import { DownloadIcon } from "@/shared/ui/icons/DownloadIcon";
 import { Button } from "@/shared/ui/Button/Button";
+import SpotlightWrapper from "@/shared/ui/SpotlightWrapper/SpotlightWrapper";
 
 const btn = (
   <>
@@ -132,6 +133,8 @@ export const BuildFuture: React.FC = () => {
         </Text>
 
         <div className="mt-10 grid grid-cols-[auto_34%] gap-5 max-lg:grid-cols-1 max-sm:mt-4">
+          <SpotlightWrapper/>
+
           <Motion initialState="translate-y-18 scale-40 opacity-0">
             <ContentCard
               className={clsx(
@@ -365,7 +368,7 @@ export const BuildFuture: React.FC = () => {
 
             <Motion
               as="div"
-              className="mt-6.5 grid grid-cols-2 gap-3 max-sm:mt-4"
+              className="mt-6.5 grid grid-cols-2 gap-3 max-sm:mt-4 z-10"
               stagger={0.2}
               delay={0.4}
               initialState="opacity-0 scale-0"

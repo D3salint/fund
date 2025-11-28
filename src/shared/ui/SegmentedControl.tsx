@@ -29,7 +29,7 @@ export function SegmentedControl({
               "px-2.5 rounded-[100px] border-2 border-[#4A4A4D] text-center h-10 flex items-center justify-center",
               "font-tthoves text-[1.75rem] -tracking-1 leading-none text-[#4A4A4D]",
               "cursor-pointer",
-              "max-sm:text-xs max-sm:h-8.5 max-sm:px-3.5",
+              "max-sm:text-xs max-sm:h-8.5 max-sm:px-3.5 z-10",
               value === option &&
                 "bg-[#6776FF]/20 text-[#6776FF] border-[#6776FF]"
             )}

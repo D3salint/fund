@@ -3,6 +3,7 @@ import React from "react";
 import { MarketGapAnalysisChart } from "@/shared/charts/MarketGapAnalysis";
 import { Motion } from "@/shared/ui/Motion";
 import { Section } from "@/shared/ui/PageWrapper";
+import SpotlightWrapper from "@/shared/ui/SpotlightWrapper/SpotlightWrapper";
 import { Text } from "@/shared/ui/Text";
 
 const config = {
@@ -79,6 +80,7 @@ export const Opportunity: React.FC = () => {
             </Motion>
           </div>
         </div>
+
         <Motion
           delay={0.35}
           initialState="scale-0 opacity-0"
@@ -87,6 +89,9 @@ export const Opportunity: React.FC = () => {
           <Text className="font-tthoves text-32 font-semibold -tracking-3 max-sm:text-18">
             Market Gap Analysis
           </Text>
+
+          <SpotlightWrapper />
+
           <div className="pt-5 flex justify-between gap-5 max-sm:pt-2">
             <p className="leading-4 tracking-1 text-[0.6875rem] text-[#626268] max-w-46.5 max-sm:text-[0.5rem]">
               % of Fund Portfolio Companies Securing Next Funding Round Within
@@ -97,9 +102,13 @@ export const Opportunity: React.FC = () => {
             </p>
           </div>
 
-          <Motion className="mt-5 -mr-2 grow flex flex-col" initialState="opacity-0" delay={0.4}>
+          <Motion
+            className="mt-5 -mr-2 grow flex flex-col z-50"
+            initialState="opacity-0"
+            delay={0.4}
+          >
             <MarketGapAnalysisChart
-              className="grow max-lg:aspect-[1/0.6]"
+              className="grow max-lg:aspect-[1/0.6] "
               disableFillArea
               data={[
                 { year: 2024, days: 46, percent: 48 },
@@ -109,6 +118,7 @@ export const Opportunity: React.FC = () => {
                 { year: 2028, days: 76, percent: 72 },
               ]}
             />
+
             <ul className="mt-4 flex items-center gap-8 pl-8 pr-6 max-sm:flex-col max-sm:items-start max-sm:gap-3 max-sm:pl-4 max-sm:mt-3">
               <li className="text-sm leading-4 tracking-1 text-[#cccccc] flex items-center gap-2 max-sm:text-[0.625rem]">
                 <span className="shrink-0 w-2.5 h-[3px] bg-[#9C77FF] rounded-sm" />

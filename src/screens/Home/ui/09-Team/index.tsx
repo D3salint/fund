@@ -6,6 +6,7 @@ import { useSwiperHelper } from "@/shared/hooks/useSwiperHelper";
 import { ArrowButton } from "@/shared/ui/ArrowButton";
 import { Motion } from "@/shared/ui/Motion";
 import { Section } from "@/shared/ui/PageWrapper";
+import SpotlightWrapper from "@/shared/ui/SpotlightWrapper/SpotlightWrapper";
 import { TeamCard } from "@/shared/ui/TeamCard";
 import { Text } from "@/shared/ui/Text";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -52,6 +53,7 @@ const config = {
 export const Team: React.FC = () => {
   const { isBeginning, isEnd, setSwiperCore, updater, slidePrev, slideNext } =
     useSwiperHelper();
+
   return (
     <Section className="px-4 py-12 max-md:py-6 flex flex-col justify-center  bg-cover bg-top-left max-sm:bg-position-[-140%_top] relative">
       <div className="pointer-events-none absolute left-0 top-0 w-[40%] h-40 backdrop-blur-xs" />
@@ -74,18 +76,21 @@ export const Team: React.FC = () => {
           enterprise software adoption in New York’s technology ecosystem
         </Text>
       </div>
+
       <div className="mt-25 -mx-4 px-4 overflow-hidden relative max-lg:flex max-lg:flex-col max-lg:mt-12 max-sm:mt-6">
         <Motion
           delay={0.3}
           className="flex flex-col gap-5 absolute z-2 left-10 bottom-0 max-lg:relative max-lg:inset-auto max-lg:flex-row-reverse max-lg:justify-center max-lg:mt-8 max-sm:hidden!"
         >
+          
           <ArrowButton onClick={slideNext} disabled={isEnd} action="next" />
           <ArrowButton
-            className="[&_.animate-spin]:[animation-delay:1.2s]"
+            className="[&_.animate-spin]:[animation-delay:1.2s] z-10"
             onClick={slidePrev}
             disabled={isBeginning}
           />
         </Motion>
+
         <div className="mask-[linear-gradient(to_right,transparent,black_calc((100vw-66.125rem)/2),black_calc((100vw-66.125rem)/2))] max-lg:mask-none max-lg:-order-1">
           <Motion
             animationElement=".team-card"
@@ -109,9 +114,10 @@ export const Team: React.FC = () => {
             >
               {config.team.map((member) => (
                 <SwiperSlide
-                  className="w-96.25! h-auto! flex flex-col"
+                  className="w-96.25! h-auto! flex flex-col z-10"
                   key={member.name + member.position}
                 >
+                  <SpotlightWrapper />
                   <TeamCard {...member} className="grow" />
                 </SwiperSlide>
               ))}
@@ -119,6 +125,7 @@ export const Team: React.FC = () => {
           </Motion>
         </div>
       </div>
+      
     </Section>
   );
 };

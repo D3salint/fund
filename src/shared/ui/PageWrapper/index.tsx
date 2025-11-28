@@ -1,16 +1,16 @@
 "use client";
 
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import { BackgroundContext } from "../BackgroundContext/BackgroundContext";
 import CursorTrail from "../CursorTrail/CursorTrail";
 import { GlareLayer } from "../GlareLayer/GlareLayer";
 import StarfieldCanvas from "../StarfieldCanvas/StarfieldCanvas";
+import { WipeGlowCircle } from "@/shared/ui/WipeGlowCircle/WipeGlowCircle";
 import { useGSAP } from "@gsap/react";
 import clsx from "clsx";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/dist/ScrollTrigger";
-import { WipeGlowCircle } from "@/shared/ui/WipeGlowCircle/WipeGlowCircle";
 
 import { useScroller } from "../Scroller";
 
@@ -118,10 +118,30 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
     const rootRef = React.useRef<HTMLDivElement>(null);
     const innerCircleRef = React.useRef<HTMLDivElement>(null);
     const outerCircleRef = React.useRef<HTMLDivElement>(null);
-
+    const [screenWidth, setScreenWidth] = useState(0);
     const { setBackground } = useContext(BackgroundContext);
 
     const { isReady: isScrollerReady, scrollerRef } = useScroller();
+
+    useEffect(() => {
+      const updateWidth = () => setScreenWidth(window.innerWidth);
+      updateWidth();
+
+      window.addEventListener("resize", updateWidth);
+      return () => window.removeEventListener("resize", updateWidth);
+    }, []);
+
+    const maxOffset = (() => {
+      if (screenWidth < 768) return 1;
+      if (screenWidth < 1024) return 5;
+      return 30;
+    })();
+
+    const speed = (() => {
+      if (screenWidth < 768) return 0.05;
+      if (screenWidth < 1024) return 0.1;
+      return 0.3;
+    })();
 
     useGSAP(
       () => {
@@ -342,7 +362,7 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
               typeof glare === "object" && glare.showOnEnter && "opacity-0"
             )}
           >
-            <GlareLayer maxOffset={30} speed={0.3} />
+            <GlareLayer maxOffset={maxOffset} speed={speed} />
           </div>
         )}
 
@@ -358,7 +378,7 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
               src="/images/hero-light.webp"
               alt=""
             />
-             <WipeGlowCircle className="-bottom-1 left-1/2 -translate-x-1/2 -z-1 hero-light"/>
+            <WipeGlowCircle className="-bottom-1 left-1/2 -translate-x-1/2 -z-1 hero-light" />
           </div>
         )}
 

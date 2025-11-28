@@ -15,6 +15,7 @@ import { useGSAP } from "@gsap/react";
 import clsx from "clsx";
 import { useFormik } from "formik";
 import ScrollTrigger from "gsap/dist/ScrollTrigger";
+import SpotlightWrapper from "@/shared/ui/SpotlightWrapper/SpotlightWrapper";
 
 const config = {
   gp: [
@@ -105,12 +106,15 @@ export const Calculator: React.FC = () => {
           stagger={0.15}
           initialState="translate-y-18 opacity-0"
         >
+          
+
           <ContentCard
             className={clsx(
-              " before:backdrop-blur-3xl rounded-[3.75rem] mt-10 p-7.5 py-6.25 grid grid-cols-2 gap-6 max-sm:mt-5",
+              "relative before:backdrop-blur-3xl rounded-[3.75rem] mt-10 p-7.5 py-6.25 grid grid-cols-2 gap-6 max-sm:mt-5",
               "max-lg:grid-cols-1 max-sm:py-4.5 max-sm:px-4 max-sm:rounded-2xl"
             )}
           >
+            <SpotlightWrapper/>
             {/* Left */}
             <div className="" ref={triggerRef}>
               <h3

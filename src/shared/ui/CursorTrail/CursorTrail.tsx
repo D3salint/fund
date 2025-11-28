@@ -27,6 +27,7 @@ const tipShadow = `rgba(${tipColor.r}, ${tipColor.g}, ${tipColor.b}, 0.9)`;
 
 export default function CursorTrail() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const glowRef = useRef<HTMLDivElement>(null);
 
   const SCREEN = useRef({ w: 0, h: 0 });
   const mouse = useRef({ x: 0, y: 0 });
@@ -41,6 +42,8 @@ export default function CursorTrail() {
   const TAIL_LENGTH = 55;
 
   const particles = useRef<any[]>([]);
+
+  const enableGlow = false;
 
   function createParticles() {
     particles.current = [];
@@ -110,7 +113,7 @@ export default function CursorTrail() {
 
         ctx.beginPath();
         ctx.strokeStyle = `rgba(${color.r}, ${color.g}, ${color.b}, ${alpha})`;
-        ctx.shadowBlur = 28;
+        ctx.shadowBlur = enableGlow ? 28 : 0;
         // ctx.shadowColor = tailShadow;
         ctx.lineWidth = Math.max(0.6, p.size * (1 - t));
         ctx.moveTo(a.x, a.y);
@@ -124,12 +127,18 @@ export default function CursorTrail() {
         ctx.save();
         ctx.beginPath();
         ctx.globalAlpha = fade;
-        ctx.shadowBlur = 48;
-        ctx.shadowColor = tipShadow;
+        ctx.shadowBlur = enableGlow ? 48 : 0;
+        ctx.shadowColor = enableGlow ? tipShadow : "transparent";
         ctx.fillStyle = `rgba(${tipColor.r}, ${tipColor.g}, ${tipColor.b}, 1)`;
         ctx.arc(tip.x, tip.y, Math.max(0.8, p.size * 0.5), 0, Math.PI * 2);
         ctx.fill();
         ctx.restore();
+      }
+
+      // --- блок свечения сверху
+      if (enableGlow && glowRef.current) {
+        glowRef.current.style.setProperty("--x", `${mouse.current.x}px`);
+        glowRef.current.style.setProperty("--y", `${mouse.current.y}px`);
       }
     });
 
@@ -171,11 +180,36 @@ export default function CursorTrail() {
   }, []);
 
   return (
-    <canvas
-      ref={canvasRef}
-      id="world"
-      className="fixed top-0 left-0 pointer-events-none"
-      style={{ width: "100vw", height: "100vh", zIndex: 1 }}
-    />
+    <>
+      <canvas
+        ref={canvasRef}
+        id="world"
+        className="fixed top-0 left-0 pointer-events-none"
+        style={{ width: "100vw", height: "100vh", zIndex: 1 }}
+      />
+
+      {enableGlow && (
+        <div
+          ref={glowRef}
+          aria-hidden
+          style={{
+            position: "fixed",
+            inset: 0,
+            pointerEvents: "none",
+            zIndex: 50,
+            background: `radial-gradient(
+              circle 100px at var(--x, 50%) var(--y, 50%),
+              rgba(255,255,255,0.4) 0%,
+              rgba(255,255,255,0.2) 40%,
+              rgba(255,255,255,0) 100%
+            )`,
+            mixBlendMode: "screen",
+            opacity: 1,
+            filter: "blur(40px)",
+            transition: "background 0.1s ease",
+          }}
+        />
+      )}
+    </>
   );
 }
