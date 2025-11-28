@@ -1,7 +1,8 @@
 "use client";
 
-import clsx from "clsx";
 import React, { useContext } from "react";
+
+import clsx from "clsx";
 
 const ScrollerContext = React.createContext<{
   scrollerRef: { current: HTMLDivElement | null };
@@ -12,7 +13,7 @@ const ScrollerContext = React.createContext<{
   scrollerRef: { current: null },
   isReady: false,
   isScrollActive: true,
-  setScrollActive: () => null
+  setScrollActive: () => null,
 });
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -26,17 +27,22 @@ export function Scroller({ children }: { children: React.ReactNode }) {
   const [isScrollActive, setScrollActive] = React.useState(false);
 
   React.useEffect(() => {
-    if(scrollerRef.current) {
+    if (scrollerRef.current) {
       setReady(true);
     }
-  }, []); 
+  }, []);
 
   return (
-    <ScrollerContext.Provider value={{ scrollerRef, isReady, isScrollActive, setScrollActive }}>
-      <div className={clsx(
-        "fixed inset-0 overflow-auto",
-        isScrollActive ? "overflow-x-hidden" : "overflow-hidden"
-      )} ref={scrollerRef}>
+    <ScrollerContext.Provider
+      value={{ scrollerRef, isReady, isScrollActive, setScrollActive }}
+    >
+      <div
+        className={clsx(
+          "fixed inset-0 overflow-auto",
+          isScrollActive ? "overflow-x-hidden" : "overflow-hidden"
+        )}
+        ref={scrollerRef}
+      >
         {children}
       </div>
     </ScrollerContext.Provider>

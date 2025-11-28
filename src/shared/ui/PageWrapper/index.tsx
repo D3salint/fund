@@ -6,11 +6,11 @@ import { BackgroundContext } from "../BackgroundContext/BackgroundContext";
 import CursorTrail from "../CursorTrail/CursorTrail";
 import { GlareLayer } from "../GlareLayer/GlareLayer";
 import StarfieldCanvas from "../StarfieldCanvas/StarfieldCanvas";
+import { WipeGlowCircle } from "@/shared/ui/WipeGlowCircle/WipeGlowCircle";
 import { useGSAP } from "@gsap/react";
 import clsx from "clsx";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/dist/ScrollTrigger";
-import { WipeGlowCircle } from "@/shared/ui/WipeGlowCircle/WipeGlowCircle";
 
 import { useScroller } from "../Scroller";
 
@@ -263,7 +263,7 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
 
     return (
       <section
-        className={clsx("min-h-svh flex flex-col relative z-1", className)}
+        className={clsx(" min-h-lvh flex flex-col relative z-1", className)}
         ref={(node) => {
           if (node) {
             (rootRef as any).current = node;
@@ -358,7 +358,7 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
               src="/images/hero-light.webp"
               alt=""
             />
-             <WipeGlowCircle className="-bottom-1 left-1/2 -translate-x-1/2 -z-1 hero-light"/>
+            <WipeGlowCircle className="-bottom-1 left-1/2 -translate-x-1/2 -z-1 hero-light" />
           </div>
         )}
 
@@ -420,7 +420,7 @@ export const PageWrapper: React.FC<Props> = ({ children, className }) => {
       <div
         ref={rootRef}
         className={clsx(
-          "flex flex-col min-h-svh relative overflow-hidden",
+          "flex flex-col min-h-lvh relative overflow-hidden",
           className
         )}
       >
