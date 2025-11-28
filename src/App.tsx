@@ -1,5 +1,6 @@
 import { HomeScreens } from "./screens/Home";
 import { PageWrapper } from "./shared/ui/PageWrapper";
+import { Preloader } from "./shared/ui/Preloader";
 import { RegisterGsapPlugins } from "./shared/ui/RegisterGsapPlugins";
 import { Scroller } from "./shared/ui/Scroller";
 
@@ -8,6 +9,7 @@ function App() {
     <PageWrapper>
       <RegisterGsapPlugins />
       <Scroller>
+        <Preloader />
         <HomeScreens.Hero />
         <HomeScreens.Summary />
         <HomeScreens.StandOut /> 
