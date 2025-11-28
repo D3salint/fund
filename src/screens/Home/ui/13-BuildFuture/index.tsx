@@ -15,60 +15,6 @@ import { LocationIcon } from "@/shared/ui/icons/LocationIcon";
 import { PDFIcon } from "@/shared/ui/icons/PDFIcon";
 import { RocketIcon } from "@/shared/ui/icons/RocketIcon";
 import clsx from "clsx";
-import { ForwardIcon } from "@/shared/ui/icons/ForwardIcon";
-import { DownloadIcon } from "@/shared/ui/icons/DownloadIcon";
-import { Button } from "@/shared/ui/Button/Button";
-
-const btn = (
-  <>
-    <Button
-      className={clsx(
-        "p-4 rounded-[100px] flex items-center justify-center gap-1 font-medium text-sm leading2 tracking-normal text-white text-left",
-        "max-sm:text-xs",
-
-        "before:absolute before:inset-0 before:rounded-[100px]",
-        "before:bg-[linear-gradient(to_right,rgba(103,118,255,0.2),rgba(103,118,255,0.8))]",
-        "before:z-1",
-        "before:transition-all before:duration-400 before:ease-in-out",
-
-        "after:absolute after:inset-0 after:rounded-[100px]",
-        "after:u-border-gradient-[linear-gradient(to_right,rgba(51,71,255,0.2),#3347FF)]",
-        "after:z-1",
-
-        "hover:before:brightness-75"
-      )}
-    >
-      <div className="absolute inset-0 rounded-[100px] bg-[#1e202d] -z-1" />
-      <span className="relative z-2 flex items-center gap-1">
-        <ForwardIcon className="size-4.5 shrink-0 max-sm:size-3.5" />
-        Schedule a Meeting
-      </span>
-    </Button>
-
-    <button
-      className={clsx(
-        "relative overflow-hidden",
-        "p-4 rounded-[100px] flex items-center justify-center gap-1 font-medium text-sm leading2 tracking-normal text-white text-left",
-        "max-sm:text-xs",
-
-        "before:absolute before:inset-0 before:rounded-[100px]",
-        "before:bg-[linear-gradient(to_bottom,rgba(51,51,51,0.3),rgba(0,0,0,0.3),rgba(0,0,0,0.3),rgba(51,51,51,0.3))]",
-        "before:z-[-1]",
-        "before:transition-all before:duration-400 before:ease-in-out",
-
-        "after:absolute after:inset-0 after:rounded-[100px]",
-        "after:u-border-gradient-[linear-gradient(to_right,rgba(51,71,255,0.2),#3347FF)]",
-        "after:z-1",
-
-        "hover:before:brightness-45"
-      )}
-      type="button"
-    >
-      <DownloadIcon className="size-4.5 shrink-0 max-sm:size-3.5" /> Download
-      Deck
-    </button>
-  </>
-);
 
 export const BuildFuture: React.FC = () => {
   const { strategies } = React.useMemo(() => {
@@ -371,6 +317,7 @@ export const BuildFuture: React.FC = () => {
               initialState="opacity-0 scale-0"
             >
               <ScheduleMeeting />
+
               <DownloadDeck />
             </Motion>
 

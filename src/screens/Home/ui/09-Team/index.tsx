@@ -47,7 +47,7 @@ const config = {
   ],
 };
 
-//bg-[url(/images/opportunity-bg.webp)]
+// bg-[url(/images/opportunity-bg.webp)]
 
 export const Team: React.FC = () => {
   const { isBeginning, isEnd, setSwiperCore, updater, slidePrev, slideNext } =
@@ -109,7 +109,7 @@ export const Team: React.FC = () => {
             >
               {config.team.map((member) => (
                 <SwiperSlide
-                  className="w-96.25! h-auto! flex flex-col"
+                  className="w-96.25! h-auto! flex flex-col max-sm:w-full!"
                   key={member.name + member.position}
                 >
                   <TeamCard {...member} className="grow" />

@@ -18,7 +18,7 @@ export const Button: React.FC<Props> = ({
   const gradient = `conic-gradient(rgba(0,0,0,0), ${color}, rgba(0,0,0,0) 25%)`;
 
   return (
-    <div className="relative" style={{ padding: "1px", cursor: "pointer" }}>
+    <div className="relative" style={{ padding: "1px 2.5px", cursor: "pointer" }}>
       <div
         className="absolute inset-0 overflow-hidden rounded-[100px] blur-[6px]"
         style={{
@@ -31,8 +31,8 @@ export const Button: React.FC<Props> = ({
             position: "absolute",
             top: "50%",
             left: "50%",
-            width: "99999px",
-            height: "99999px",
+            width: "500px",
+            height: "500px",
             transform: "translate(-50%, -50%) rotate(0deg)",
             backgroundImage: gradient,
             backgroundRepeat: "no-repeat",
@@ -53,8 +53,8 @@ export const Button: React.FC<Props> = ({
             position: "absolute",
             top: "50%",
             left: "50%",
-            width: "99999px",
-            height: "99999px",
+            width: "500px",
+            height: "500px",
             transform: "translate(-50%, -50%) rotate(0deg)",
             backgroundImage: gradient,
             backgroundRepeat: "no-repeat",
