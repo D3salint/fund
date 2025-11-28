@@ -18,14 +18,14 @@ export function Preloader() {
       setTimeout(() => setActive(false), 5550);
 
       gsap
-        .timeline()
+        .timeline({ delay: 0.2 })
         .to(
           ".preloader-white-light",
           {
             opacity: 1,
-            duration: 0.4
+            duration: 0.4,
           },
-          "start"
+          0
         )
         .to(
           ".preloader-text",
@@ -33,13 +33,16 @@ export function Preloader() {
             maskImage: "linear-gradient(to left,transparent 0%, black 100%)",
             duration: 2,
           },
-          "start"
+          0
         )
-        .to('.preloader-blue-light', {
-          opacity: 1,
-          duration: 0.4
-        }, "start+=0.5")
-        .addLabel('end', '-=0.2')
+        .to(
+          ".preloader-blue-light",
+          {
+            opacity: 1,
+            duration: 0.4,
+          },
+          0.5
+        )
         .to(
           ".preloader-box",
           {
@@ -47,7 +50,7 @@ export function Preloader() {
             opacity: 0,
             duration: 0.8,
           },
-          "end"
+          2
         );
     },
     {
