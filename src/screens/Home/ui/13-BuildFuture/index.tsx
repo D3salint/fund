@@ -1,10 +1,13 @@
 import React from "react";
 
+import { Button } from "@/shared/ui/Button/Button";
 import { ContentCard } from "@/shared/ui/ContentCard";
 import CountUp from "@/shared/ui/CountUp/CountUp";
 import { GradientLabel } from "@/shared/ui/GradientLabel/GradientLabel";
 import { Motion } from "@/shared/ui/Motion";
 import { Section } from "@/shared/ui/PageWrapper";
+import ProgressLeft from "@/shared/ui/Progress/ProgressLeft";
+import ProgressRight from "@/shared/ui/Progress/ProgressRight";
 import { Text } from "@/shared/ui/Text";
 import { DownloadIcon } from "@/shared/ui/icons/DownloadIcon";
 import { FlashOrangeIcon } from "@/shared/ui/icons/FlashOrangeIcon";
@@ -239,10 +242,24 @@ export const BuildFuture: React.FC = () => {
 
                   <div className="w-full grid grid-cols-2 gap-px relative">
                     <div className="flex flex-col items-center">
-                      <img
+                      {/* <img
                         src="/images/fast-progress-1.png"
                         className="max-w-51 w-full max-sm:max-w-26.5"
-                      />
+                      /> */}
+
+                      <div className="relative w-50 h-42">
+                        <Motion
+                          delay={2}
+                          initialState="opacity-0"
+                          className="w-full h-full"
+                        > <img
+                          className="absolute -top-8 w-full h-full"
+                          src="/images/fast-progress-new-1.png"
+                        /></Motion>
+                       
+
+                        <ProgressLeft className="absolute top-4 left-8 max-w-31 w-full h-full max-h-22 max-sm:max-w-26.5" />
+                      </div>
 
                       <div className="max-sm:-mt-4 max-sm:flex max-sm:items-center max-sm:gap-2">
                         <p className="-mt-10 font-tthoves text-40 leading-none -tracking-1 text-primary text-center max-xxl:text-32 max-xxl:-mt-6 max-sm:mt-0 max-sm:text-sm">
@@ -257,10 +274,25 @@ export const BuildFuture: React.FC = () => {
                     <div className="w-px h-12.5 bg-white/20 absolute left-1/2 top-1/2 -translate-1/2" />
 
                     <div className="flex flex-col items-center">
-                      <img
+                      {/* <img
                         src="/images/fast-progress-2.png"
                         className="max-w-51 w-full max-sm:max-w-26.5"
-                      />
+                      /> */}
+
+                      <div className="relative w-50 h-42">
+                        <Motion
+                          delay={2}
+                          initialState="opacity-0"
+                          className="w-full h-full"
+                        >
+                          <img
+                            className="absolute -top-8 w-full h-full"
+                            src="/images/fast-progress-new-2.png"
+                          />
+                        </Motion>
+
+                        <ProgressRight className="absolute top-2 left-8 max-w-31 w-full h-full max-h-32 max-sm:max-w-26.5" />
+                      </div>
 
                       <div className="max-sm:-mt-4 max-sm:flex max-sm:items-center max-sm:gap-2">
                         <p className="-mt-10 font-tthoves text-40 leading-none -tracking-1 text-primary text-center max-xxl:text-32 max-xxl:-mt-6 max-sm:mt-0 max-sm:text-sm">
@@ -281,18 +313,16 @@ export const BuildFuture: React.FC = () => {
               className="mt-6.5 grid grid-cols-2 gap-3 max-sm:mt-4"
               stagger={0.2}
               delay={0.4}
-              animationElement=".buildfuture-button-aos"
-              initialState="[&>.buildfuture-button-aos]:opacity-0 [&>.buildfuture-button-aos]:scale-0"
+              initialState="opacity-0 scale-0"
             >
-              <button
+              <Button
                 className={clsx(
-                  "buildfuture-button-aos relative overflow-hidden",
                   "p-4 rounded-[100px] flex items-center justify-center gap-1 font-medium text-sm leading2 tracking-normal text-white text-left",
                   "max-sm:text-xs",
 
                   "before:absolute before:inset-0 before:rounded-[100px]",
                   "before:bg-[linear-gradient(to_right,rgba(103,118,255,0.2),rgba(103,118,255,0.8))]",
-                  "before:z-0",
+                  "before:z-1",
                   "before:transition-all before:duration-400 before:ease-in-out",
 
                   "after:absolute after:inset-0 after:rounded-[100px]",
@@ -301,17 +331,17 @@ export const BuildFuture: React.FC = () => {
 
                   "hover:before:brightness-75"
                 )}
-                type="button"
               >
+                <div className="absolute inset-0 rounded-[100px] bg-[#1e202d] -z-1" />
                 <span className="relative z-2 flex items-center gap-1">
                   <ForwardIcon className="size-4.5 shrink-0 max-sm:size-3.5" />
                   Schedule a Meeting
                 </span>
-              </button>
+              </Button>
 
               <button
                 className={clsx(
-                  "relative overflow-hidden buildfuture-button-aos",
+                  "relative overflow-hidden",
                   "p-4 rounded-[100px] flex items-center justify-center gap-1 font-medium text-sm leading2 tracking-normal text-white text-left",
                   "max-sm:text-xs",
 

@@ -44,13 +44,15 @@ export const Hero: React.FC = () => {
         </div>
 
         <div className="hero-header-button-anim opacity-0 scale-50">
-          <Button
-            className={clsx(
-              "hero-header-button",
-              "before:absolute before:inset-0 before:p-[0.1rem] before:rounded-inherit before:bg-[linear-gradient(190deg,rgba(255,255,255,0.16),rgba(255,255,255,0.04))] before:compositemask before:pointer-events-none",
-              "hover:brightness-[0.85] hover:before:opacity-80",
-              "transition-all duration-300 ease-in-out"
-            )}
+          <a
+            className="pl-8 pr-5 h-11 rounded-[3.75rem] flex items-center gap-3 text-sm -tracking-1 text-white 
+  bg-[linear-gradient(to_bottom,rgba(255,255,255,0.05),rgba(255,255,255,0.02))] 
+  backdrop-blur-2xl relative cursor-pointer
+  before:absolute before:inset-0 before:p-[0.1rem] before:rounded-inherit 
+  before:bg-[linear-gradient(190deg,rgba(255,255,255,0.16),rgba(255,255,255,0.04))] 
+  before:compositemask before:pointer-events-none 
+  hover:brightness-[0.85] hover:before:opacity-80
+  transition-[filter,opacity] duration-300 ease-in-out"
           >
             <span>
               Pitch Deck by{" "}
@@ -59,7 +61,7 @@ export const Hero: React.FC = () => {
               </span>
             </span>{" "}
             <ArrowRightIcon className="size-2.75 shrink-0 stroke-[#cfcfcf]" />
-          </Button>
+          </a>
         </div>
       </div>
 

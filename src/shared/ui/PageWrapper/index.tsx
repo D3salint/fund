@@ -10,6 +10,7 @@ import { useGSAP } from "@gsap/react";
 import clsx from "clsx";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/dist/ScrollTrigger";
+import { WipeGlowCircle } from "@/shared/ui/WipeGlowCircle/WipeGlowCircle";
 
 import { useScroller } from "../Scroller";
 
@@ -208,8 +209,15 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
 
     useGSAP(
       () => {
-        const lightEl = rootRef.current?.querySelector(".hero-light-image");
-        if (!lightEl) return;
+        const lightImgEl = rootRef.current?.querySelector(".hero-light-image");
+        const lightEl = rootRef.current?.querySelector(".hero-light");
+        if (!lightImgEl || !lightEl) return;
+
+        gsap.fromTo(
+          lightImgEl,
+          { y: 100, opacity: 0 },
+          { y: 0, opacity: 1, duration: 1.3, ease: "power3.out", delay: 1.6 }
+        );
 
         gsap.fromTo(
           lightEl,
@@ -341,7 +349,7 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
         {light && (
           <div
             className={clsx(
-              "section-light absolute left-0 bottom-0 -z-1 pointer-events-none w-full",
+              "section-light absolute left-0 bottom-0 -z-1 pointer-events-none w-full ",
               typeof light === "object" && light.showOnEnter && "opacity-0"
             )}
           >
@@ -350,6 +358,7 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
               src="/images/hero-light.webp"
               alt=""
             />
+             <WipeGlowCircle className="-bottom-1 left-1/2 -translate-x-1/2 -z-1 hero-light"/>
           </div>
         )}
 
