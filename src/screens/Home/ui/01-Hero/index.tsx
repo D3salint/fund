@@ -5,40 +5,19 @@ import { GlowText } from "@/shared/ui/GlowText/GlowText";
 import { Label } from "@/shared/ui/Label";
 import { Motion } from "@/shared/ui/Motion";
 import { Section } from "@/shared/ui/PageWrapper";
+import { useScroller } from "@/shared/ui/Scroller";
 import { Text } from "@/shared/ui/Text";
 import { ArrowRightIcon } from "@/shared/ui/icons/ArrowRightIcon";
 import gsap from "gsap";
 
-import { HeroLoader } from "./HeroLoader";
-
-export const Hero: React.FC<{
-  isAnimate?: boolean;
-  loadingDuration?: number;
-}> = ({ isAnimate = true, loadingDuration = 1500 }) => {
+export const Hero: React.FC = () => {
   const rootRef = React.useRef<HTMLDivElement>(null);
-  const [loading, setLoading] = React.useState(isAnimate);
-  const [showContent, setShowContent] = React.useState(false);
+  const { isScrollActive } = useScroller();
 
   const handleScroll = () => smoothScrollToAnchor("#summary-section");
 
   React.useEffect(() => {
-    if (!isAnimate) {
-      setLoading(false);
-      setShowContent(true);
-      return;
-    }
-
-    const timer = setTimeout(() => {
-      setLoading(false);
-      const fadeTimer = setTimeout(() => setShowContent(true), 50);
-      return () => clearTimeout(fadeTimer);
-    }, loadingDuration);
-
-    return () => clearTimeout(timer);
-  }, [isAnimate, loadingDuration]);
-
-  React.useEffect(() => {
-    if (!showContent) return;
+    if (!isScrollActive) return;
 
     gsap
       .timeline({ defaults: { duration: 0.8 } })
@@ -46,14 +25,12 @@ export const Hero: React.FC<{
       .to(`.hero-header-button-anim`, { opacity: 1, scale: 1 }, 1)
       .to(`.header-scrollBtn`, { opacity: 1, y: 0, scale: 1 }, 1.6)
       .to(`.hero-light-image`, { opacity: 1, duration: 1.3 }, 2);
-  }, [showContent]);
+  }, [isScrollActive]);
 
   return (
     <div className="w-full h-screen relative">
-      {loading && <HeroLoader />}
-
-      <div className="absolute inset-0 w-full h-full">
-        {showContent && (
+      {isScrollActive && (
+        <div className="absolute inset-0 w-full h-full">
           <Section
             ref={rootRef}
             className="p-5 justify-center max-md:justify-between max-md:pb-0 max-md:gap-10"
@@ -122,8 +99,8 @@ export const Hero: React.FC<{
               </button>
             </div>
           </Section>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };
