@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Button } from "./Button/Button";
 import { ForwardIcon } from "./icons/ForwardIcon";
 import clsx from "clsx";
