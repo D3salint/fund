@@ -194,8 +194,8 @@ export function MarketGapAnalysisChart({
             </linearGradient>
 
             {/* Blur */}
-            <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-              <feGaussianBlur stdDeviation="20" result="blur" />
+            <filter id="glow" x="-50%" y="-50%" width="400%" height="400%">
+              <feGaussianBlur stdDeviation="16" result="blur" />
               <feMerge>
                 <feMergeNode in="blur" />
               </feMerge>
