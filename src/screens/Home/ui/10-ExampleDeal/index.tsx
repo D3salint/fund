@@ -9,6 +9,7 @@ import { CalendarIcon } from "@/shared/ui/icons/CalendarIcon";
 import { LocationIcon } from "@/shared/ui/icons/LocationIcon";
 import { StrategyIcon } from "@/shared/ui/icons/StrategyIcon";
 import clsx from "clsx";
+import SpotlightWrapper from "@/shared/ui/SpotlightWrapper/SpotlightWrapper";
 
 const config = {
   statistics: [
@@ -78,9 +79,10 @@ export const ExampleDeal: React.FC = () => {
               "rounded-3xl p-7.5 pt-6.25 bg-[url(/images/example-deal-bg.webp)] bg-cover bg-top-right w-full backdrop-blur-3xl",
               "relative before:u-border-gradient-[linear-gradient(170deg,rgba(255,255,255,0.1),rgba(153,153,153,0))]",
               "flex flex-col items-start",
-              " max-sm:px-4 max-sm:py-5"
+              "relative max-sm:px-4 max-sm:py-5"
             )}
           >
+            <SpotlightWrapper />
             {/* Head */}
             <div className="flex flex-col items-start max-sm:flex-row max-sm:justify-between max-sm:gap-3 max-sm:w-full max-sm:items-center">
               {/* Title */}

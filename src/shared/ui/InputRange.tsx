@@ -103,7 +103,7 @@ export function InputRange({
   }, { dependencies: [isAnimationStart] })
 
   return (
-    <div className={clsx(className, "w-full")}>
+    <div className={clsx(className, "w-full z-10")}>
       <div className="max-sm:flex max-sm:items-center max-sm:gap-4 max-sm:justify-between">
         {title && (
           <p

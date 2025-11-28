@@ -3,6 +3,7 @@ import React from "react";
 import { Motion } from "@/shared/ui/Motion";
 import { Section } from "@/shared/ui/PageWrapper";
 import { Partner } from "@/shared/ui/Partner";
+import SpotlightWrapper from "@/shared/ui/SpotlightWrapper/SpotlightWrapper";
 import { Text } from "@/shared/ui/Text";
 import "swiper/css";
 import "swiper/css/effect-creative";
@@ -66,9 +67,9 @@ export const Summary: React.FC = () => {
       id="summary-section"
       glare={{ showOnEnter: true, hideOnLeave: true }}
     >
-      <div className="pointer-events-none absolute left-0 top-0 -translate-x-1/2 w-[60%] h-40 backdrop-blur-xs"/>
+      <div className="pointer-events-none absolute left-0 top-0 -translate-x-1/2 w-[60%] h-40 backdrop-blur-xs" />
 
-      <div className="max-w-400 px-10 mx-auto w-full max-lg:px-6 max-md:px-4">
+      <div className=" max-w-400 px-10 mx-auto w-full max-lg:px-6 max-md:px-4">
         <div className="flex items-center justify-between gap-8 pr-20 max-xxl:pr-0 max-lg:flex-col">
           <div className="max-w-157 min-h-120 flex flex-col max-lg:min-h-auto">
             <Text
@@ -91,6 +92,7 @@ export const Summary: React.FC = () => {
               AI, automation, and product-led strategies continues to drive
               operational efficiency and scalable value creation.
             </Text>
+
             <ul className="summary-stats mt-auto pt-10 grid grid-cols-[1fr_1.2fr_1fr] max-lg:pt-6">
               {stats.map((item, id) => (
                 <Motion
@@ -118,7 +120,8 @@ export const Summary: React.FC = () => {
             </ul>
           </div>
 
-          <div className="min-h-160 max-w-133 w-full px-0.5 flex flex-col max-xl:max-w-105 max-lg:hidden">
+          <div className="relative min-h-160 max-w-133 w-full px-0.5 flex flex-col max-xl:max-w-105 max-lg:hidden">
+            <SpotlightWrapper />
             <div className="my-auto">
               <Swiper
                 className="overflow-visible!"

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import { BackgroundContext } from "../BackgroundContext/BackgroundContext";
 import CursorTrail from "../CursorTrail/CursorTrail";
@@ -118,10 +118,30 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
     const rootRef = React.useRef<HTMLDivElement>(null);
     const innerCircleRef = React.useRef<HTMLDivElement>(null);
     const outerCircleRef = React.useRef<HTMLDivElement>(null);
-
+    const [screenWidth, setScreenWidth] = useState(0);
     const { setBackground } = useContext(BackgroundContext);
 
     const { isReady: isScrollerReady, scrollerRef } = useScroller();
+
+    useEffect(() => {
+      const updateWidth = () => setScreenWidth(window.innerWidth);
+      updateWidth();
+
+      window.addEventListener("resize", updateWidth);
+      return () => window.removeEventListener("resize", updateWidth);
+    }, []);
+
+    const maxOffset = (() => {
+      if (screenWidth < 768) return 1;
+      if (screenWidth < 1024) return 5;
+      return 30;
+    })();
+
+    const speed = (() => {
+      if (screenWidth < 768) return 0.05;
+      if (screenWidth < 1024) return 0.1;
+      return 0.3;
+    })();
 
     useGSAP(
       () => {
@@ -342,7 +362,7 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
               typeof glare === "object" && glare.showOnEnter && "opacity-0"
             )}
           >
-            <GlareLayer maxOffset={30} speed={0.3} />
+            <GlareLayer maxOffset={maxOffset} speed={speed} />
           </div>
         )}
 

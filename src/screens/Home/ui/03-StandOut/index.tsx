@@ -4,6 +4,7 @@ import Progress from "./Progress/Progress";
 import CountUp from "@/shared/ui/CountUp/CountUp";
 import { Motion } from "@/shared/ui/Motion";
 import { Section } from "@/shared/ui/PageWrapper";
+import SpotlightWrapper from "@/shared/ui/SpotlightWrapper/SpotlightWrapper";
 import { Text } from "@/shared/ui/Text";
 
 const tempList = [
@@ -53,7 +54,9 @@ export const StandOut: React.FC = () => {
           strengthen investment appeal.
         </Text>
 
-        <ul className="w-full mt-16 grid grid-cols-4 gap-4 max-xxl:grid-cols-2 max-xxl:mt-10 max-sm:grid-cols-1 max-sm:mt-5 max-sm:gap-3">
+        <ul className="relative w-full mt-16 grid grid-cols-4 gap-4 max-xxl:grid-cols-2 max-xxl:mt-10 max-sm:grid-cols-1 max-sm:mt-5 max-sm:gap-3">
+          <SpotlightWrapper />
+
           {tempList.map((item, id) => (
             <Motion
               className="flex flex-col rounded-3xl pt-6.5 pl-7.5 pb-7.5 pr-2.75 bg-[url(/images/stand-out-glass.webp)] bg-cover relative before:absolute before:inset-0 before:p-[0.1rem] before:rounded-inherit before:compositemask before:bg-[linear-gradient(150deg,rgba(255,255,255,0.1),transparent)] before:pointer-events-none max-sm:pr-7.5"
@@ -85,6 +88,7 @@ export const StandOut: React.FC = () => {
           delay={0.75}
           className="overflow-hidden flex items-center gap-7.5 pl-7 py-3.5 w-full min-h-55.5 rounded-2xl mt-11 bg-[linear-gradient(to_bottom,rgba(255,255,255,0.003),rgba(255,255,255,0.01))] backdrop-blur-2xl relative before:absolute before:inset-0 before:p-[0.1rem] before:rounded-inherit before:compositemask before:bg-[linear-gradient(150deg,rgba(255,255,255,0.1),transparent)] before:pointer-events-none max-lg:flex max-lg:flex-col max-lg:py-7 max-lg:gap-8 max-lg:px-7 max-lg:pb-0 max-md:mt-4 max-sm:gap-5"
         >
+          <SpotlightWrapper />
           <p className="font-tthoves font-semibold text-[1.28125rem] leading-1 -tracking-5 text-white whitespace-nowrap">
             Target Returns:
           </p>
@@ -107,7 +111,11 @@ export const StandOut: React.FC = () => {
             Timeline:
           </p>{" "}
           <div className="-my-3.5 w-116 h-55.5 shrink-0  max-lg:my-0  max-lg:-mx-7 relative max-md:w-full">
-            <Motion delay={2.8} initialState="opacity-0" className="w-full h-full">
+            <Motion
+              delay={2.8}
+              initialState="opacity-0"
+              className="w-full h-full"
+            >
               <img
                 className="w-full h-full object-contain absolute -top-8 -right-14"
                 src="/images/stand-out-chart-bg.png"

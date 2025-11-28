@@ -3,6 +3,7 @@ import React from "react";
 import { Motion } from "@/shared/ui/Motion";
 import { Section } from "@/shared/ui/PageWrapper";
 import { Text } from "@/shared/ui/Text";
+import SpotlightWrapper from "@/shared/ui/SpotlightWrapper/SpotlightWrapper";
 
 const config = {
   list: [
@@ -62,6 +63,8 @@ export const Investment: React.FC = () => {
           </Text>
         </div>
         <Motion delay={0.2} duration={0.6} className="scale-0 mt-16 w-full rounded-[1.25rem] bg-[linear-gradient(to_bottom,rgba(103,118,255,0.03),rgba(103,118,255,0.1))] backdrop-blur-3xl relative border-px before:u-border-gradient-[linear-gradient(to_right,rgba(103,118,255,0.2),rgba(103,118,255,1),rgba(103,118,255,0.2))] max-sm:mt-3">
+         <SpotlightWrapper />
+         
           <Motion
             animationElement=".investment-item"
             initialState="[&_.investment-item]:translate-y-5 [&_.investment-item]:opacity-0"
