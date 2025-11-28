@@ -18,7 +18,7 @@ export function Preloader() {
       setTimeout(() => setActive(false), 5550);
 
       gsap
-        .timeline({ delay: 0.2 })
+        .timeline()
         .to(
           ".preloader-white-light",
           {
