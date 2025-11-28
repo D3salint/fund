@@ -2,13 +2,13 @@ import React from "react";
 
 import { ContentCard } from "@/shared/ui/ContentCard";
 import CountUp from "@/shared/ui/CountUp/CountUp";
+import { DownloadDeck } from "@/shared/ui/DownloadDeck";
 import { HighlightLabel } from "@/shared/ui/HighlightLabel";
 import { Motion } from "@/shared/ui/Motion";
 import { Section } from "@/shared/ui/PageWrapper";
+import { ScheduleMeeting } from "@/shared/ui/ScheduleMeeting";
 import { Text } from "@/shared/ui/Text";
-import { DownloadIcon } from "@/shared/ui/icons/DownloadIcon";
 import { FlashOrangeIcon } from "@/shared/ui/icons/FlashOrangeIcon";
-import { ForwardIcon } from "@/shared/ui/icons/ForwardIcon";
 import { LocationIcon } from "@/shared/ui/icons/LocationIcon";
 import { PDFIcon } from "@/shared/ui/icons/PDFIcon";
 import { RocketIcon } from "@/shared/ui/icons/RocketIcon";
@@ -284,53 +284,8 @@ export const BuildFuture: React.FC = () => {
               animationElement=".buildfuture-button-aos"
               initialState="[&>.buildfuture-button-aos]:opacity-0 [&>.buildfuture-button-aos]:scale-0"
             >
-              <button
-                className={clsx(
-                  "buildfuture-button-aos relative overflow-hidden",
-                  "p-4 rounded-[100px] flex items-center justify-center gap-1 font-medium text-sm leading2 tracking-normal text-white text-left",
-                  "max-sm:text-xs",
-
-                  "before:absolute before:inset-0 before:rounded-[100px]",
-                  "before:bg-[linear-gradient(to_right,rgba(103,118,255,0.2),rgba(103,118,255,0.8))]",
-                  "before:z-0",
-                  "before:transition-all before:duration-400 before:ease-in-out",
-
-                  "after:absolute after:inset-0 after:rounded-[100px]",
-                  "after:u-border-gradient-[linear-gradient(to_right,rgba(51,71,255,0.2),#3347FF)]",
-                  "after:z-1",
-
-                  "hover:before:brightness-75"
-                )}
-                type="button"
-              >
-                <span className="relative z-2 flex items-center gap-1">
-                  <ForwardIcon className="size-4.5 shrink-0 max-sm:size-3.5" />
-                  Schedule a Meeting
-                </span>
-              </button>
-
-              <button
-                className={clsx(
-                  "relative overflow-hidden buildfuture-button-aos",
-                  "p-4 rounded-[100px] flex items-center justify-center gap-1 font-medium text-sm leading2 tracking-normal text-white text-left",
-                  "max-sm:text-xs",
-
-                  "before:absolute before:inset-0 before:rounded-[100px]",
-                  "before:bg-[linear-gradient(to_bottom,rgba(51,51,51,0.3),rgba(0,0,0,0.3),rgba(0,0,0,0.3),rgba(51,51,51,0.3))]",
-                  "before:z-[-1]",
-                  "before:transition-all before:duration-400 before:ease-in-out",
-
-                  "after:absolute after:inset-0 after:rounded-[100px]",
-                  "after:u-border-gradient-[linear-gradient(to_right,rgba(51,71,255,0.2),#3347FF)]",
-                  "after:z-1",
-
-                  "hover:before:brightness-45"
-                )}
-                type="button"
-              >
-                <DownloadIcon className="size-4.5 shrink-0 max-sm:size-3.5" />{" "}
-                Download Deck
-              </button>
+              <ScheduleMeeting />
+              <DownloadDeck />
             </Motion>
 
             <p className="mt-5 text-base text-white/80 leading-4 tracking-normal text-right max-lg:text-left max-sm:mt-4 max-sm:text-sm">
