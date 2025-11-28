@@ -1,7 +1,7 @@
 import React from "react";
 
 import CountUp from "@/shared/ui/CountUp/CountUp";
-import { HighlightLabel } from "@/shared/ui/HighlightLabel";
+import { GradientLabel } from "@/shared/ui/GradientLabel/GradientLabel";
 import { Motion } from "@/shared/ui/Motion";
 import { Section } from "@/shared/ui/PageWrapper";
 import { Text } from "@/shared/ui/Text";
@@ -93,11 +93,13 @@ export const ExampleDeal: React.FC = () => {
                 AI-DrivenOps SaaS Series B
               </p>
               {/* Label */}
-              <HighlightLabel className="deal-aos-item mt-3.5 max-sm:mt-0">
-                <span className="u-text-gradient-[linear-gradient(to_right,#FFF,rgba(255,255,255,0.8))]">
-                  Private Equity
-                </span>
-              </HighlightLabel>
+              <div className="deal-aos-item mt-3.5 max-sm:mt-0">
+                <GradientLabel>
+                  <span className="u-text-gradient-[linear-gradient(to_right,#FFF,rgba(255,255,255,0.8))]">
+                    Private Equity
+                  </span>
+                </GradientLabel>
+              </div>
             </div>
 
             {/* Cards container */}

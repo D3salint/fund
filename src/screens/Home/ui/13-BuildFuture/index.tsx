@@ -2,7 +2,7 @@ import React from "react";
 
 import { ContentCard } from "@/shared/ui/ContentCard";
 import CountUp from "@/shared/ui/CountUp/CountUp";
-import { HighlightLabel } from "@/shared/ui/HighlightLabel";
+import { GradientLabel } from "@/shared/ui/GradientLabel/GradientLabel";
 import { Motion } from "@/shared/ui/Motion";
 import { Section } from "@/shared/ui/PageWrapper";
 import { Text } from "@/shared/ui/Text";
@@ -59,12 +59,12 @@ export const BuildFuture: React.FC = () => {
           className="flex justify-center"
           initialState="translate-y-8 scale-50"
         >
-          <HighlightLabel className="mx-auto  mt-3.5 max-sm:mt-0 flex items-center gap-0.5">
+          <GradientLabel className="mx-auto flex items-center gap-0.5">
             <RocketIcon className="size-4 shrink-0" />
             <span className="u-text-gradient-[linear-gradient(to_right,#FFF,rgba(255,255,255,0.8))]">
               Ready to Partner
             </span>
-          </HighlightLabel>
+          </GradientLabel>
         </Motion>
 
         <Text
@@ -155,7 +155,7 @@ export const BuildFuture: React.FC = () => {
                           <ContentCard
                             as="li"
                             className={clsx(
-                              "buildfuture-cards-pdf-aos p-2 size-15 flex flex-col items-center justify-center gap-0.5 rounded-lg before:backdrop-blur-2xl",
+                              "buildfuture-cards-pdf-aos p-2 size-15 flex flex-col items-center justify-center gap-0.5 rounded-lg before:backdrop-blur-3xl bg-[#1e202dB2]!",
                               `[&+&]:-ml-2.75 max-sm:m-0! max-sm:size-auto max-sm:aspect-square`
                             )}
                             style={{ zIndex: arr.length - id }}

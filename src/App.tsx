@@ -8,7 +8,7 @@ function App() {
     <PageWrapper>
       <RegisterGsapPlugins />
       <Scroller>
-        <HomeScreens.Hero />
+        {/* <HomeScreens.Hero />
         <HomeScreens.Summary />
         <HomeScreens.StandOut /> 
         <HomeScreens.Problem />
@@ -16,10 +16,10 @@ function App() {
         <HomeScreens.Opportunity />
         <HomeScreens.Investment />
         <HomeScreens.MarketAnalysis />
-        <HomeScreens.Team />
+        <HomeScreens.Team />*/}
         <HomeScreens.ExampleDeal />
         <HomeScreens.InvestmentTerms />
-        <HomeScreens.Calculator />
+        <HomeScreens.Calculator /> 
         <HomeScreens.BuildFuture />
       </Scroller>
     </PageWrapper>
