@@ -95,7 +95,7 @@ export default function StarfieldCanvas() {
         width: "100vw",
         height: "100vh",
         pointerEvents: "none",
-        zIndex: -1,
+        zIndex: 0,
       }}
     />
   );

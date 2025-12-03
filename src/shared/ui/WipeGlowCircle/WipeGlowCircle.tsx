@@ -14,7 +14,7 @@ export const WipeGlowCircle: React.FC<Props> = ({
   height = 130,
   circleSize = 700,
 }) => {
-  const shimmerInset = 40;
+  const shimmerInset = 60;
   const shimmerAnimation = `wipe 4s linear infinite`;
 
   return (
@@ -26,12 +26,12 @@ export const WipeGlowCircle: React.FC<Props> = ({
         padding: 40,
       }}
     >
-      <div
+      <div className="absolute -left-12 w-[700px] h-[700px] max-sm:w-[144vw] max-sm:h-[550px] max-sm:left-[calc(50%-72vw)]!"
         style={{
-          width: circleSize,
-          height: circleSize,
+          // width: circleSize,
+          // height: circleSize,
           borderRadius: "50%",
-          position: "absolute",
+          // position: "absolute",
           top: 30,
           left: `calc(50% - ${circleSize / 2}px)`,
           isolation: "isolate",

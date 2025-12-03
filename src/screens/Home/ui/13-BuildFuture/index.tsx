@@ -9,13 +9,13 @@ import { Section } from "@/shared/ui/PageWrapper";
 import ProgressLeft from "@/shared/ui/Progress/ProgressLeft";
 import ProgressRight from "@/shared/ui/Progress/ProgressRight";
 import { ScheduleMeeting } from "@/shared/ui/ScheduleMeeting";
+import SpotlightWrapper from "@/shared/ui/SpotlightWrapper/SpotlightWrapper";
 import { Text } from "@/shared/ui/Text";
 import { FlashOrangeIcon } from "@/shared/ui/icons/FlashOrangeIcon";
 import { LocationIcon } from "@/shared/ui/icons/LocationIcon";
 import { PDFIcon } from "@/shared/ui/icons/PDFIcon";
 import { RocketIcon } from "@/shared/ui/icons/RocketIcon";
 import clsx from "clsx";
-import SpotlightWrapper from "@/shared/ui/SpotlightWrapper/SpotlightWrapper";
 
 export const BuildFuture: React.FC = () => {
   const { strategies } = React.useMemo(() => {
@@ -79,7 +79,7 @@ export const BuildFuture: React.FC = () => {
         </Text>
 
         <div className="mt-10 grid grid-cols-[auto_34%] gap-5 max-lg:grid-cols-1 max-sm:mt-4">
-          <SpotlightWrapper/>
+          <SpotlightWrapper />
 
           <Motion initialState="translate-y-18 scale-40 opacity-0">
             <ContentCard
@@ -312,16 +312,11 @@ export const BuildFuture: React.FC = () => {
               </ContentCard>
             </Motion>
 
-            <Motion
-              as="div"
-              className="mt-6.5 grid grid-cols-2 gap-3 max-sm:mt-4 z-10"
-              stagger={0.2}
-              delay={0.4}
-              initialState="opacity-0 scale-0"
-            >
-              <ScheduleMeeting />
-
-              <DownloadDeck />
+            <Motion stagger={0.2} delay={0.4} initialState="opacity-0 scale-0">
+              <div className="mt-6.5 grid grid-cols-2 gap-3 max-sm:mt-4 z-10">
+                <ScheduleMeeting />
+                <DownloadDeck />
+              </div>
             </Motion>
 
             <p className="mt-5 text-base text-white/80 leading-4 tracking-normal text-right max-lg:text-left max-sm:mt-4 max-sm:text-sm">
