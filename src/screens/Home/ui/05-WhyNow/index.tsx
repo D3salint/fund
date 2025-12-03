@@ -19,7 +19,7 @@ export const WhyNow: React.FC = () => {
         initialState="scale-100 opacity-0"
         className="pointer-events-none absolute inset-0"
       >
-        <div className="pointer-events-none absolute inset-0 bg-[url(/images/why-now-bg-new.png)] bg-cover bg-bottom bg-no-repeat" />
+        <div className="pointer-events-none absolute inset-0 bg-[url(/images/why-now-bg-new.webp)] bg-cover bg-bottom bg-no-repeat" />
       </Motion>
       <div className="pointer-events-none absolute left-1/2 bottom-0 -translate-x-1/2 w-[40%] h-40 backdrop-blur-xs" />
 

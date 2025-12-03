@@ -6,19 +6,19 @@ import { Section } from "@/shared/ui/PageWrapper";
 import SpotlightWrapper from "@/shared/ui/SpotlightWrapper/SpotlightWrapper";
 import { Text } from "@/shared/ui/Text";
 
-//bg-[url(/images/market-analysis-bg.webp)]
+//bg-[url(/images/market-analysis-bg.webp)] bg-[url(/images/market-analysis-bg.webp) bg-cover bg-top-right max-sm:bg-position-[-70%_top] 
 
 export const MarketAnalysis: React.FC = () => {
   return (
-    <Section className="pt-24 pb-10 max-xxxl:pt-20 max-sm:pt-8 bg-[url(/images/market-analysis-bg.webp) bg-cover bg-top-right max-sm:bg-position-[-70%_top] relative">
+    <Section className="pt-24 pb-10 max-xxxl:pt-20 max-sm:pt-8 relative">
       <Motion
         delay={0.6}
         initialState="scale-100 opacity-0"
         className="pointer-events-none absolute inset-0"
       >
-        <div className="pointer-events-none absolute inset-0 bg-[url(/images/market-analysis-bg-new.png)] bg-cover bg-top-left bg-no-repeat max-sm:bg-position-[96%_-240px]" />
+        <div className="pointer-events-none absolute inset-0 bg-[url(/images/market-analysis-bg-new.webp)] bg-cover bg-top-left bg-no-repeat max-sm:bg-position-[96%_-240px]" />
       </Motion>
-      {/* <div className="pointer-events-none absolute right-0 top-0 w-[80%] h-[40%] backdrop-blur-xs" /> */}
+      <div className="pointer-events-none absolute right-0 top-0 w-[80%] h-[40%] backdrop-blur-xs" />
 
       <div className="max-w-400 px-10 mx-auto w-full max-lg:px-6 max-md:px-4">
         <Text

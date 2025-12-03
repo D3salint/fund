@@ -72,7 +72,7 @@ export const Summary: React.FC = () => {
         initialState="scale-100 opacity-0"
         className="pointer-events-none absolute inset-0"
       >
-        <div className="pointer-events-none absolute inset-0 bg-[url(/images/summary-bg-new.png)] bg-cover bg-top-left bg-no-repeat max-sm:bg-position-[13%_-160px]" />
+        <div className="pointer-events-none absolute inset-0 bg-[url(/images/summary-bg-new.webp)] bg-cover bg-top-left bg-no-repeat max-sm:bg-position-[13%_-160px]" />
       </Motion>
 
       <div className="pointer-events-none absolute left-0 top-0 -translate-x-1/2 w-[60%] h-40 backdrop-blur-xs" />
