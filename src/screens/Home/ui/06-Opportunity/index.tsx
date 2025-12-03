@@ -16,20 +16,19 @@ const config = {
 
 //bg-[url(/images/opportunity-bg.webp)]
 
-//bg-[url(/images/opportunity-new.png)]
+//bg-[url(/images/opportunity-new.png)] bg-cover bg-top-left max-sm:bg-position-[-140%_top] relative z-100
 
 export const Opportunity: React.FC = () => {
   return (
     <Section
       glare={{ showOnEnter: true, hideOnLeave: true }}
-      // bg={{
-      //   src: "/images/opportunity-new.png",
-      //   showOnEnter: true,
-      //   hideOnLeave: true,
-      // }}
-      className="px-14 py-10 flex flex-col max-md:px-4 bg-cover bg-top-left max-sm:bg-position-[-140%_top] relative"
+      className="px-14 py-10 flex flex-col max-md:px-4 "
     >
-      <div className="pointer-events-none absolute left-0 top-0 -translate-x-1/2 w-[60%] h-40 backdrop-blur-xs" />
+      <Motion initialState="scale-100 opacity-0" className="pointer-events-none absolute inset-0">
+        <div className="pointer-events-none absolute inset-0 bg-[url(/images/opportunity-new.png)] bg-cover bg-top-left max-sm:bg-position-[22%_-82px] bg-no-repeat" />
+      </Motion>
+
+      <div className="pointer-events-none absolute left-0 top-0 -translate-x-1/2 w-full h-80 backdrop-blur-xs" />
 
       <div className="m-auto grow max-w-372 w-full max-h-194 h-full grid grid-cols-[49%_51%] max-lg:flex max-lg:flex-col max-lg:gap-6 max-lg:m-0 max-lg:max-h-[unset] max-lg:max-w-200 max-lg:mx-auto">
         <div className="flex justify-end pr-10 max-lg:justify-start">

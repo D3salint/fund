@@ -48,15 +48,23 @@ const config = {
   ],
 };
 
-// bg-[url(/images/opportunity-bg.webp)]
+// bg-[url(/images/opportunity-bg.webp)] bg-cover bg-top-left max-sm:bg-position-[-140%_top]
 
 export const Team: React.FC = () => {
   const { isBeginning, isEnd, setSwiperCore, updater, slidePrev, slideNext } =
     useSwiperHelper();
 
   return (
-    <Section className="px-4 py-12 max-md:py-6 flex flex-col justify-center  bg-cover bg-top-left max-sm:bg-position-[-140%_top] relative">
-      <div className="pointer-events-none absolute left-0 top-0 w-[40%] h-40 backdrop-blur-xs" />
+    <Section className="px-4 py-12 max-md:py-6 flex flex-col justify-center  relative">
+      <Motion
+        delay={0.6}
+        initialState="scale-100 opacity-0"
+        className="pointer-events-none absolute inset-0"
+      >
+        <div className="pointer-events-none absolute inset-0 bg-[url(/images/meet-the-team-new.png)] bg-cover bg-top-left bg-no-repeat max-sm:bg-position-[22%_-102px]" />
+      </Motion>
+
+      {/* <div className="pointer-events-none absolute left-0 top-0 w-[40%] h-40 backdrop-blur-xs" /> */}
 
       <div className="max-w-252.5 w-full mx-auto">
         <Text

@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
-import { BackgroundContext } from "../BackgroundContext/BackgroundContext";
+// import { BackgroundContext } from "../BackgroundContext/BackgroundContext";
 import CursorTrail from "../CursorTrail/CursorTrail";
 import { GlareLayer } from "../GlareLayer/GlareLayer";
 import StarfieldCanvas from "../StarfieldCanvas/StarfieldCanvas";
@@ -95,11 +95,6 @@ interface SectionProps extends Props {
         showOnEnter: boolean;
         hideOnLeave: boolean;
       };
-  bg?: {
-    src: string;
-    showOnEnter?: boolean;
-    hideOnLeave?: boolean;
-  };
 }
 
 export const Section = React.forwardRef<HTMLElement, SectionProps>(
@@ -111,7 +106,7 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
       glare = false,
       light = false,
       id,
-      bg = null,
+      // bg = null,
     },
     ref
   ) => {
@@ -119,7 +114,6 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
     const innerCircleRef = React.useRef<HTMLDivElement>(null);
     const outerCircleRef = React.useRef<HTMLDivElement>(null);
     const [screenWidth, setScreenWidth] = useState(0);
-    const { setBackground } = useContext(BackgroundContext);
 
     const { isReady: isScrollerReady, scrollerRef } = useScroller();
 
@@ -134,13 +128,13 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
     const maxOffset = (() => {
       if (screenWidth < 768) return 1;
       if (screenWidth < 1024) return 5;
-      return 30;
+      return 6;
     })();
 
     const speed = (() => {
       if (screenWidth < 768) return 0.05;
       if (screenWidth < 1024) return 0.1;
-      return 0.3;
+      return 0.1;
     })();
 
     useGSAP(
@@ -248,39 +242,6 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
       { scope: rootRef }
     );
 
-    React.useEffect(() => {
-      if (!rootRef.current || !scrollerRef.current) return;
-
-      const trig = ScrollTrigger.create({
-        trigger: rootRef.current,
-        scroller: scrollerRef.current,
-        start: "top 50%",
-        end: "bottom 60%",
-        onEnter: () => {
-          if (bg?.showOnEnter && bg.src) {
-            setBackground(bg.src);
-          }
-        },
-        onEnterBack: () => {
-          if (bg?.showOnEnter && bg.src) {
-            setBackground(bg.src);
-          }
-        },
-        onLeave: () => {
-          if (bg?.hideOnLeave) {
-            setBackground(null);
-          }
-        },
-        onLeaveBack: () => {
-          if (bg?.hideOnLeave) {
-            setBackground(null);
-          }
-        },
-      });
-
-      return () => trig.kill();
-    }, [bg, scrollerRef, setBackground]);
-
     return (
       <section
         className={clsx(" min-h-lvh flex flex-col relative z-1", className)}
@@ -369,16 +330,18 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
         {light && (
           <div
             className={clsx(
-              "section-light absolute left-0 bottom-0 -z-1 pointer-events-none w-full ",
+              "section-light absolute left-0 bottom-0 -z-1 pointer-events-none w-full overflow-hidden h-60",
               typeof light === "object" && light.showOnEnter && "opacity-0"
             )}
           >
             <img
               className="hero-light-image w-125 opacity-0 pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-0"
-              src="/images/hero-light.webp"
+              src="/images/hero-light-new.png"
               alt=""
             />
-            <WipeGlowCircle className="-bottom-1 left-1/2 -translate-x-1/2 -z-1 hero-light" />
+            <div className="absolute bottom-0 w-full">
+              <WipeGlowCircle className="-bottom-4 left-1/2 -translate-x-1/2 -z-1 hero-light max-sm:-bottom-9" />
+            </div>
           </div>
         )}
 
@@ -389,92 +352,20 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
 );
 
 export const PageWrapper: React.FC<Props> = ({ children, className }) => {
-  const rootRef = React.useRef<HTMLDivElement>(null);
-  useGSAP(
-    () => {
-      gsap.timeline().to(`.stars`, { opacity: 1 }, 0.8);
-    },
-    { scope: rootRef }
-  );
-
-  const [currentBg, setCurrentBg] = React.useState<string | null>(
-    "/images/hero-bg.webp"
-  );
-  const [showBg, setShowBg] = React.useState<{
-    src: string | null;
-    visible: boolean;
-  }>({
-    src: currentBg,
-    visible: true,
-  });
-  const fadeDurationMs = 700;
-
-  React.useEffect(() => {
-    if (showBg.src === currentBg) return;
-
-    // поставим следующий и включим видимость
-    setShowBg({ src: currentBg, visible: false });
-
-    // небольшая задержка чтобы браузер применил стиль, затем включить opacity
-    const t1 = setTimeout(() => {
-      setShowBg({ src: currentBg, visible: true });
-
-      // по завершении анимации удаляем старый (оставляем только один слой)
-      const t2 = setTimeout(() => {
-        setShowBg({ src: currentBg, visible: true });
-      }, fadeDurationMs);
-
-      return () => clearTimeout(t2);
-    }, 20);
-
-    return () => clearTimeout(t1);
-  }, [currentBg]);
-
   return (
-    <BackgroundContext.Provider
-      value={{
-        setBackground: (src: string | null) => setCurrentBg(src),
-        currentBackground: currentBg,
-      }}
+    <div
+      className={clsx(
+        "flex flex-col min-h-svh relative",
+        "bg-size-[100svw_100svh] bg-center bg-no-repeat bg-fixed relative",
+        "bg-[url(/images/hero-bg.webp)]",
+        className
+      )}
     >
-      <div
-        ref={rootRef}
-        className={clsx(
-          "flex flex-col min-h-lvh relative overflow-hidden",
-          className
-        )}
-      >
-        <div aria-hidden className="absolute inset-0 -z-20 pointer-events-none">
-          <div className="absolute inset-0 w-full h-full">
-            <img
-              src="/images/hero-bg.webp"
-              className={clsx(
-                "absolute inset-0 w-full h-full object-cover opacity-100"
-              )}
-              draggable={false}
-            />
+      <CursorTrail />
 
-            {showBg.src && (
-              <img
-                src={showBg.src}
-                className={clsx(
-                  "absolute inset-0 w-full h-full object-cover transition-opacity duration-700",
-                  showBg.visible ? "opacity-100" : "opacity-0"
-                )}
-                style={{ transitionDuration: `${fadeDurationMs}ms` }}
-                draggable={false}
-              />
-            )}
-          </div>
-        </div>
-        <CursorTrail />
+      <StarfieldCanvas />
 
-        <div className="stars opacity-0">
-          <StarfieldCanvas />
-        </div>
-
-        {children}
-      </div>
-    </BackgroundContext.Provider>
+      {children}
+    </div>
   );
 };

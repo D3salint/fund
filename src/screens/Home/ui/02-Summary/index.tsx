@@ -67,6 +67,14 @@ export const Summary: React.FC = () => {
       id="summary-section"
       glare={{ showOnEnter: true, hideOnLeave: true }}
     >
+      <Motion
+        delay={0.6}
+        initialState="scale-100 opacity-0"
+        className="pointer-events-none absolute inset-0"
+      >
+        <div className="pointer-events-none absolute inset-0 bg-[url(/images/summary-bg-new.png)] bg-cover bg-top-left bg-no-repeat max-sm:bg-position-[13%_-160px]" />
+      </Motion>
+
       <div className="pointer-events-none absolute left-0 top-0 -translate-x-1/2 w-[60%] h-40 backdrop-blur-xs" />
 
       <div className=" max-w-400 px-10 mx-auto w-full max-lg:px-6 max-md:px-4">
