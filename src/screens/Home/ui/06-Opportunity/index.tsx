@@ -3,8 +3,12 @@ import React from "react";
 import { MarketGapAnalysisChart } from "@/shared/charts/MarketGapAnalysis";
 import { Motion } from "@/shared/ui/Motion";
 import { Section } from "@/shared/ui/PageWrapper";
+import { useScroller } from "@/shared/ui/Scroller";
 import SpotlightWrapper from "@/shared/ui/SpotlightWrapper/SpotlightWrapper";
 import { Text } from "@/shared/ui/Text";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import clsx from "clsx";
 
 const config = {
   list: [
@@ -14,21 +18,46 @@ const config = {
   ],
 };
 
-//bg-[url(/images/opportunity-bg.webp)]
-
-//bg-[url(/images/opportunity-new.png)] bg-cover bg-top-left max-sm:bg-position-[-140%_top] relative z-100
-
 export const Opportunity: React.FC = () => {
+  const rootRef = React.useRef<HTMLDivElement>(null);
+  const { isReady, scrollerRef } = useScroller();
+
+  useGSAP(
+    () => {
+      if (!isReady) return;
+      gsap.to(".s-background", {
+        scrollTrigger: {
+          scroller: scrollerRef.current,
+          trigger: rootRef.current,
+          invalidateOnRefresh: true,
+          start: "top 10%",
+          end: "top 10%",
+          toggleActions: "play none none reverse",
+        },
+        opacity: 1,
+        duration: 0.5,
+      });
+    },
+    { scope: rootRef, dependencies: [isReady] }
+  );
+
   return (
     <Section
       glare={{ showOnEnter: true, hideOnLeave: true }}
       className="px-14 py-10 flex flex-col max-md:px-4 "
+      ref={rootRef}
     >
-      <Motion initialState="scale-100 opacity-0" className="pointer-events-none absolute inset-0">
-        <div className="pointer-events-none absolute inset-0 bg-[url(/images/opportunity-new.png)] bg-cover bg-top-left max-sm:bg-position-[22%_-82px] bg-no-repeat" />
-      </Motion>
+      <div
+        // initialState="scale-100 opacity-0"
+        className="pointer-events-none absolute inset-0"
+      >
+        <div className={clsx(
+          "s-background opacity-0 pointer-events-none absolute inset-0 bg-[url(/images/opportunity-new.png)] bg-cover bg-top-left max-sm:bg-position-[22%_-82px] bg-no-repeat",
+          "mask-[linear-gradient(to_bottom,transparent_0%,black_8%)]"
+        )} />
+      </div>
 
-      <div className="pointer-events-none absolute left-0 top-0 -translate-x-1/2 w-full h-80 backdrop-blur-xs" />
+      <div className="pointer-events-none absolute left-0 top-0 -translate-x-1/2 w-full h-80 backdrop-blur-xs mask-[linear-gradient(to_bottom,transparent_0%,black_8%)]" />
 
       <div className="m-auto grow max-w-372 w-full max-h-194 h-full grid grid-cols-[49%_51%] max-lg:flex max-lg:flex-col max-lg:gap-6 max-lg:m-0 max-lg:max-h-[unset] max-lg:max-w-200 max-lg:mx-auto">
         <div className="flex justify-end pr-10 max-lg:justify-start">

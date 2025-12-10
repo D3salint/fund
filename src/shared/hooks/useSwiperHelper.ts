@@ -28,8 +28,7 @@ export function useSwiperHelper() {
   const slideNext = () => {
     updater();
     swiperCore?.slideNext();
-  }
-
+  };
 
   return {
     swiperCore,
@@ -38,6 +37,6 @@ export function useSwiperHelper() {
     isBeginning,
     isEnd,
     slidePrev,
-    slideNext
+    slideNext,
   };
 }

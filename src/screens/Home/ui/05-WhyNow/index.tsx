@@ -7,11 +7,38 @@ import ProgressLeft from "@/shared/ui/Progress/ProgressLeft";
 import ProgressRight from "@/shared/ui/Progress/ProgressRight";
 import SpotlightWrapper from "@/shared/ui/SpotlightWrapper/SpotlightWrapper";
 import { Text } from "@/shared/ui/Text";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { useScroller } from "@/shared/ui/Scroller";
+import clsx from "clsx";
 
 export const WhyNow: React.FC = () => {
+  const rootRef = React.useRef<HTMLDivElement>(null);
+  const { isReady, scrollerRef } = useScroller();
+
+  useGSAP(
+    () => {
+      if(!isReady) return;
+      gsap.to(".s-background", {
+        scrollTrigger: {
+          scroller: scrollerRef.current,
+          trigger: rootRef.current,
+          invalidateOnRefresh: true,
+          start: "bottom+=3% bottom",
+          end: "bottom+=3% bottom",
+          toggleActions: "play none none reverse",
+        },
+        opacity: 0,
+        duration: 0.5
+      });
+    },
+    { scope: rootRef, dependencies: [isReady] }
+  );
+
   return (
     <Section
-      className="py-14 px-4 flex flex-col items-center justify-center relative "
+      className="py-14 px-4 flex flex-col items-center justify-center relative"
+      ref={rootRef}
       circles={{ showOnEnter: true, hideOnLeave: true }}
     >
       <Motion
@@ -19,9 +46,12 @@ export const WhyNow: React.FC = () => {
         initialState="scale-100 opacity-0"
         className="pointer-events-none absolute inset-0"
       >
-        <div className="pointer-events-none absolute inset-0 bg-[url(/images/why-now-bg-new.webp)] bg-cover bg-bottom bg-no-repeat" />
+        <div className={clsx(
+          "s-background pointer-events-none absolute inset-0 bg-[url(/images/why-now-bg-new.webp)] bg-cover bg-bottom bg-no-repeat",
+          "mask-[linear-gradient(to_top,transparent_0%,black_5%)]"
+        )} />
       </Motion>
-      <div className="pointer-events-none absolute left-1/2 bottom-0 -translate-x-1/2 w-[40%] h-40 backdrop-blur-xs" />
+      {/* <div className="pointer-events-none absolute left-1/2 bottom-0 -translate-x-1/2 w-[40%] h-40 backdrop-blur-xs mask-[linear-gradient(to_top,transparent_0%,black_5%)]" /> */}
 
       <div className="max-w-189 w-full flex flex-col items-center">
         <Text
@@ -125,15 +155,3 @@ export const WhyNow: React.FC = () => {
     </Section>
   );
 };
-
-//bg-[url(/images/whynow-bg.webp)] bg-cover bg-bottom
-
-// bg-[url(/images/why-now-bg-new.webp)]
-
-{
-  /* <img className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-full bg-[url(/images/why-now-bg-new.png)] bg-cover bg-bottom"/> */
-}
-
-{
-  /* <img src="/images/why-now-ray.png" className="absolute bottom-0 left-1/2 -translate-x-1/2 max-w-255 w-full bg-blend-lighten" /> */
-}
