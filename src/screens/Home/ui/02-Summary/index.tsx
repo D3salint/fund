@@ -9,6 +9,9 @@ import "swiper/css";
 import "swiper/css/effect-creative";
 import { Autoplay, EffectCreative } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { useScroller } from "@/shared/ui/Scroller";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 
 const stats = [
   {
@@ -57,8 +60,26 @@ const partners = [
 
 export const Summary: React.FC = () => {
   const rootRef = React.useRef<HTMLDivElement>(null);
+  const { isReady, scrollerRef } = useScroller();
 
-  //bg-[url(/images/summary-bg.webp)] bg-cover bg-top-left max-sm:bg-[url(/images/summary-bg@mob.webp)]
+  useGSAP(
+    () => {
+      if (!isReady) return;
+      gsap.to(".s-background", {
+        scrollTrigger: {
+          scroller: scrollerRef.current,
+          trigger: rootRef.current,
+          invalidateOnRefresh: true,
+          start: "top-=60px top",
+          end: "top 0%",
+          toggleActions: "play none none reverse",
+        },
+        opacity: 1,
+        duration: 0.7,
+      });
+    },
+    { scope: rootRef, dependencies: [isReady] }
+  );
 
   return (
     <Section
@@ -67,13 +88,13 @@ export const Summary: React.FC = () => {
       id="summary-section"
       glare={{ showOnEnter: true, hideOnLeave: true }}
     >
-      <Motion
-        delay={0.6}
-        initialState="scale-100 opacity-0"
+      <div
+        // delay={0.6}
+        // initialState="scale-100 opacity-0"
         className="pointer-events-none absolute inset-0"
       >
-        <div className="pointer-events-none absolute inset-0 bg-[url(/images/summary-bg-new.webp)] bg-cover bg-top-left bg-no-repeat max-sm:bg-position-[13%_-160px]" />
-      </Motion>
+        <div className="s-background opacity-0 pointer-events-none absolute inset-0 bg-[url(/images/summary-bg-new.webp)] bg-cover bg-top-left bg-no-repeat max-sm:bg-position-[13%_-160px]" />
+      </div>
 
       <div className="pointer-events-none absolute left-0 top-0 -translate-x-1/2 w-[60%] h-40 backdrop-blur-xs" />
 

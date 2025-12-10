@@ -5,12 +5,12 @@ import { Motion } from "@/shared/ui/Motion";
 import { Section } from "@/shared/ui/PageWrapper";
 import ProgressLeft from "@/shared/ui/Progress/ProgressLeft";
 import ProgressRight from "@/shared/ui/Progress/ProgressRight";
+import { useScroller } from "@/shared/ui/Scroller";
 import SpotlightWrapper from "@/shared/ui/SpotlightWrapper/SpotlightWrapper";
 import { Text } from "@/shared/ui/Text";
 import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { useScroller } from "@/shared/ui/Scroller";
 import clsx from "clsx";
+import gsap from "gsap";
 
 export const WhyNow: React.FC = () => {
   const rootRef = React.useRef<HTMLDivElement>(null);
@@ -18,18 +18,18 @@ export const WhyNow: React.FC = () => {
 
   useGSAP(
     () => {
-      if(!isReady) return;
+      if (!isReady) return;
       gsap.to(".s-background", {
         scrollTrigger: {
           scroller: scrollerRef.current,
           trigger: rootRef.current,
           invalidateOnRefresh: true,
-          start: "bottom+=3% bottom",
-          end: "bottom+=3% bottom",
+          start: "bottom+=60px bottom",
+          end: "bottom+=60px bottom",
           toggleActions: "play none none reverse",
         },
         opacity: 0,
-        duration: 0.5
+        duration: 0.7,
       });
     },
     { scope: rootRef, dependencies: [isReady] }
@@ -46,12 +46,13 @@ export const WhyNow: React.FC = () => {
         initialState="scale-100 opacity-0"
         className="pointer-events-none absolute inset-0"
       >
-        <div className={clsx(
-          "s-background pointer-events-none absolute inset-0 bg-[url(/images/why-now-bg-new.webp)] bg-cover bg-bottom bg-no-repeat",
-          "mask-[linear-gradient(to_top,transparent_0%,black_5%)]"
-        )} />
+        <div
+          className={clsx(
+            "s-background pointer-events-none absolute inset-0 bg-[url(/images/why-now-bg-new.webp)] bg-cover bg-bottom bg-no-repeat"
+          )}
+        />
       </Motion>
-      {/* <div className="pointer-events-none absolute left-1/2 bottom-0 -translate-x-1/2 w-[40%] h-40 backdrop-blur-xs mask-[linear-gradient(to_top,transparent_0%,black_5%)]" /> */}
+      <div className="pointer-events-none absolute left-1/2 bottom-0 -translate-x-1/2 w-[40%] h-40 backdrop-blur-xs mask-[linear-gradient(to_top,transparent_0%,black_5%)]" />
 
       <div className="max-w-189 w-full flex flex-col items-center">
         <Text
