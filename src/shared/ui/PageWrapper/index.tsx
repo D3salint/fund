@@ -330,7 +330,7 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
         {light && (
           <div
             className={clsx(
-              "section-light absolute left-0 bottom-0 -z-1 pointer-events-none w-full overflow-hidden h-60",
+              "section-light absolute left-0 bottom-0 -z-1 pointer-events-none w-full overflow-hidden h-60 mask-[linear-gradient(to_bottom,black_80%,transparent_100%)]",
               typeof light === "object" && light.showOnEnter && "opacity-0"
             )}
           >
