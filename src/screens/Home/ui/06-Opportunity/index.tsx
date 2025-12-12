@@ -46,7 +46,7 @@ export const Opportunity: React.FC = () => {
       className="px-14 py-10 flex flex-col max-md:px-4 "
       ref={rootRef}
     >
-      <div className="pointer-events-none absolute left-0 top-0 -translate-x-1/2 w-full h-80 backdrop-blur-xs" />
+      {/* <div className="pointer-events-none absolute left-0 top-0 -translate-x-1/2 w-full h-80 backdrop-blur-xs" /> */}
 
       <div className="m-auto grow max-w-372 w-full max-h-194 h-full grid grid-cols-[49%_51%] max-lg:flex max-lg:flex-col max-lg:gap-6 max-lg:m-0 max-lg:max-h-[unset] max-lg:max-w-200 max-lg:mx-auto relative">
         <div className="s-background opacity-0 absolute inset-0 pointer-events-none">
