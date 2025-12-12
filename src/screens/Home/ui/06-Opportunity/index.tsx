@@ -29,7 +29,7 @@ export const Opportunity: React.FC = () => {
           scroller: scrollerRef.current,
           trigger: rootRef.current,
           invalidateOnRefresh: true,
-          start: "top-=60px top",
+          start: "top 30%",
           end: "top 0%",
           toggleActions: "play none none reverse",
         },

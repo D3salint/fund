@@ -3,15 +3,15 @@ import React from "react";
 import { Motion } from "@/shared/ui/Motion";
 import { Section } from "@/shared/ui/PageWrapper";
 import { Partner } from "@/shared/ui/Partner";
+import { useScroller } from "@/shared/ui/Scroller";
 import SpotlightWrapper from "@/shared/ui/SpotlightWrapper/SpotlightWrapper";
 import { Text } from "@/shared/ui/Text";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 import "swiper/css";
 import "swiper/css/effect-creative";
 import { Autoplay, EffectCreative } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { useScroller } from "@/shared/ui/Scroller";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
 
 const stats = [
   {
@@ -70,7 +70,7 @@ export const Summary: React.FC = () => {
           scroller: scrollerRef.current,
           trigger: rootRef.current,
           invalidateOnRefresh: true,
-          start: "top-=60px top",
+          start: "top 40%",
           end: "top 0%",
           toggleActions: "play none none reverse",
         },
@@ -83,132 +83,134 @@ export const Summary: React.FC = () => {
 
   return (
     <Section
-      className="pt-24 pb-10 overflow-hidden relative "
+      className="pt-24 pb-10 relative"
       ref={rootRef}
       id="summary-section"
       glare={{ showOnEnter: true, hideOnLeave: true }}
     >
-      <div
-        // delay={0.6}
-        // initialState="scale-100 opacity-0"
-        className="pointer-events-none absolute inset-0"
-      >
-        <div className="s-background opacity-0 pointer-events-none absolute inset-0 bg-[url(/images/summary-bg-new.webp)] bg-cover bg-top-left bg-no-repeat max-sm:bg-position-[13%_-160px]" />
+      <div className="s-background opacity-0 pointer-events-none absolute inset-0">
+        <img
+          src="/images/bg-4.webp"
+          alt=""
+          className="min-w-full absolute left-0 top-0 -translate-y-[17%] mask-[linear-gradient(to_bottom,transparent,black_10%)] scale-[-1_1]"
+        />
       </div>
 
       <div className="pointer-events-none absolute left-0 top-0 -translate-x-1/2 w-[60%] h-40 backdrop-blur-xs" />
 
-      <div className=" max-w-400 px-10 mx-auto w-full max-lg:px-6 max-md:px-4">
-        <div className="flex items-center justify-between gap-8 pr-20 max-xxl:pr-0 max-lg:flex-col">
-          <div className="max-w-157 min-h-120 flex flex-col max-lg:min-h-auto">
-            <Text
-              className="title font-tthoves font-semibold text-56 -tracking-4 leading-none w-min max-sm:text-3xl max-sm:w-auto"
-              animation={{}}
-              as="h2"
-            >
-              Executive summary:
-            </Text>
-            <Text
-              className="mt-8 text-base leading-4 tracking-normal text-primary/60 max-sm:text-sm max-sm:mt-2"
-              color=""
-              animation={{ delay: 0.2 }}
-            >
-              This New York-based private equity fund targets high-growth B2B
-              SaaS startups, leveraging a proven 10-year track record and 25%
-              net IRR to capitalize on the sector’s robust market fundamentals
-              and accelerating digital transformation. Despite a recent
-              moderation in SaaS growth rates, the industry’s rapid adoption of
-              AI, automation, and product-led strategies continues to drive
-              operational efficiency and scalable value creation.
-            </Text>
+      <div className="overflow-hidden">
+        <div className=" max-w-400 px-10 mx-auto w-full max-lg:px-6 max-md:px-4">
+          <div className="flex items-center justify-between gap-8 pr-20 max-xxl:pr-0 max-lg:flex-col">
+            <div className="max-w-157 min-h-120 flex flex-col max-lg:min-h-auto">
+              <Text
+                className="title font-tthoves font-semibold text-56 -tracking-4 leading-none w-min max-sm:text-3xl max-sm:w-auto"
+                animation={{}}
+                as="h2"
+              >
+                Executive summary:
+              </Text>
+              <Text
+                className="mt-8 text-base leading-4 tracking-normal text-primary/60 max-sm:text-sm max-sm:mt-2"
+                color=""
+                animation={{ delay: 0.2 }}
+              >
+                This New York-based private equity fund targets high-growth B2B
+                SaaS startups, leveraging a proven 10-year track record and 25%
+                net IRR to capitalize on the sector’s robust market fundamentals
+                and accelerating digital transformation. Despite a recent
+                moderation in SaaS growth rates, the industry’s rapid adoption
+                of AI, automation, and product-led strategies continues to drive
+                operational efficiency and scalable value creation.
+              </Text>
 
-            <ul className="summary-stats mt-auto pt-10 grid grid-cols-[1fr_1.2fr_1fr] max-lg:pt-6">
-              {stats.map((item, id) => (
-                <Motion
-                  className="summary-stats-item flex flex-col gap-4 px-10 relative first:pl-0 last:pr-0 max-xl:px-5 max-sm:px-5 max-sm:gap-1.5 not-first:before:block not-first:before:w-px not-first:before:h-full not-first:before:bg-white/20 not-first:before:absolute not-first:before:left-0 not-first:before:top-0"
-                  initialState="opacity-0 translate-y-8"
-                  delay={id * 0.1 + 0.8}
-                  key={item.title + item.value}
-                >
-                  <div className="flex items-center gap-3 max-sm:flex-col max-sm:items-start max-sm:gap-1.5">
-                    <p className="size-10 shrink-0 max-sm:size-6">
-                      <img className="image-contain" src={item.icon} alt="" />
-                    </p>
-                    <Text className="whitespace-nowrap font-tthoves leading-tight text-base -tracking-3 font-semibold pr-[0.3em] u-text-gradient-[linear-gradient(120deg,#fff,#ffffff57)] max-sm:text-sm">
-                      {item.value}
-                    </Text>
-                  </div>
-                  <Text
-                    className="text-[0.8125rem] leading-1 tracking-normal font-medium text-white/50 max-sm:text-[0.8125rem]"
-                    color=""
+              <ul className="summary-stats mt-auto pt-10 grid grid-cols-[1fr_1.2fr_1fr] max-lg:pt-6">
+                {stats.map((item, id) => (
+                  <Motion
+                    className="summary-stats-item flex flex-col gap-4 px-10 relative first:pl-0 last:pr-0 max-xl:px-5 max-sm:px-5 max-sm:gap-1.5 not-first:before:block not-first:before:w-px not-first:before:h-full not-first:before:bg-white/20 not-first:before:absolute not-first:before:left-0 not-first:before:top-0"
+                    initialState="opacity-0 translate-y-8"
+                    delay={id * 0.1 + 0.8}
+                    key={item.title + item.value}
                   >
-                    {item.title}
-                  </Text>
+                    <div className="flex items-center gap-3 max-sm:flex-col max-sm:items-start max-sm:gap-1.5">
+                      <p className="size-10 shrink-0 max-sm:size-6">
+                        <img className="image-contain" src={item.icon} alt="" />
+                      </p>
+                      <Text className="whitespace-nowrap font-tthoves leading-tight text-base -tracking-3 font-semibold pr-[0.3em] u-text-gradient-[linear-gradient(120deg,#fff,#ffffff57)] max-sm:text-sm">
+                        {item.value}
+                      </Text>
+                    </div>
+                    <Text
+                      className="text-[0.8125rem] leading-1 tracking-normal font-medium text-white/50 max-sm:text-[0.8125rem]"
+                      color=""
+                    >
+                      {item.title}
+                    </Text>
+                  </Motion>
+                ))}
+              </ul>
+            </div>
+
+            <div className="relative min-h-160 max-w-133 w-full px-0.5 flex flex-col max-xl:max-w-105 max-lg:hidden">
+              <SpotlightWrapper />
+              <div className="my-auto">
+                <Swiper
+                  className="overflow-visible!"
+                  modules={[EffectCreative, Autoplay]}
+                  autoplay={{
+                    delay: 3000,
+                    pauseOnMouseEnter: true,
+                    waitForTransition: true,
+                  }}
+                  speed={800}
+                  effect="creative"
+                  creativeEffect={{
+                    next: {
+                      opacity: 0.36,
+                      translate: ["-3%", "-46%", 0],
+                      scale: 0.75,
+                      shadow: true,
+                    },
+                    prev: {
+                      opacity: 0.36,
+                      translate: ["2%", "52%", 0],
+                      scale: 0.75,
+                      shadow: true,
+                    },
+                    limitProgress: 2,
+                  }}
+                  allowTouchMove={false}
+                  loop
+                  centeredSlides
+                  loopAdditionalSlides={1}
+                  preventInteractionOnTransition
+                >
+                  {[...partners, ...partners].map((partner, id) => (
+                    <SwiperSlide key={partner.id + id}>
+                      <Partner
+                        name={partner.name}
+                        avatar={partner.avatar}
+                        position={partner.pos}
+                        review={partner.review}
+                      />
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              </div>
+            </div>
+
+            <div className="hidden max-w-157 mt-7 flex-col gap-3 w-full max-lg:flex">
+              {partners.map((partner) => (
+                <Motion key={partner.id}>
+                  <Partner
+                    className="summary-partners-card bg-none bg-[#0a0a0a63]! backdrop-blur-2xl"
+                    avatar={partner.avatar}
+                    name={partner.name}
+                    position={partner.pos}
+                    review={partner.review}
+                  />
                 </Motion>
               ))}
-            </ul>
-          </div>
-
-          <div className="relative min-h-160 max-w-133 w-full px-0.5 flex flex-col max-xl:max-w-105 max-lg:hidden">
-            <SpotlightWrapper />
-            <div className="my-auto">
-              <Swiper
-                className="overflow-visible!"
-                modules={[EffectCreative, Autoplay]}
-                autoplay={{
-                  delay: 3000,
-                  pauseOnMouseEnter: true,
-                  waitForTransition: true,
-                }}
-                speed={800}
-                effect="creative"
-                creativeEffect={{
-                  next: {
-                    opacity: 0.36,
-                    translate: ["-3%", "-46%", 0],
-                    scale: 0.75,
-                    shadow: true,
-                  },
-                  prev: {
-                    opacity: 0.36,
-                    translate: ["2%", "52%", 0],
-                    scale: 0.75,
-                    shadow: true,
-                  },
-                  limitProgress: 2,
-                }}
-                allowTouchMove={false}
-                loop
-                centeredSlides
-                loopAdditionalSlides={1}
-                preventInteractionOnTransition
-              >
-                {[...partners, ...partners].map((partner, id) => (
-                  <SwiperSlide key={partner.id + id}>
-                    <Partner
-                      name={partner.name}
-                      avatar={partner.avatar}
-                      position={partner.pos}
-                      review={partner.review}
-                    />
-                  </SwiperSlide>
-                ))}
-              </Swiper>
             </div>
-          </div>
-
-          <div className="hidden max-w-157 mt-7 flex-col gap-3 w-full max-lg:flex">
-            {partners.map((partner) => (
-              <Motion key={partner.id}>
-                <Partner
-                  className="summary-partners-card bg-none bg-[#0a0a0a63]! backdrop-blur-2xl"
-                  avatar={partner.avatar}
-                  name={partner.name}
-                  position={partner.pos}
-                  review={partner.review}
-                />
-              </Motion>
-            ))}
           </div>
         </div>
       </div>
