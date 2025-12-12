@@ -80,7 +80,7 @@ export const Team: React.FC = () => {
     <Section className="px-4 py-12 max-md:py-6 flex flex-col justify-center relative" ref={rootRef}>
       <div className="max-w-252.5 w-full mx-auto relative">
         <div className="s-background opacity-0 absolute inset-0 pointer-events-none">
-          <div className="max-w-300 w-full absolute left-1/2 -translate-x-2/3 -translate-y-[53%] mask-[radial-gradient(circle_at_center,black_40%,transparent)] -z-1">
+          <div className="max-w-300 w-full absolute left-1/2 -translate-x-2/3 -translate-y-[48%] mask-[radial-gradient(circle_at_center,black_40%,transparent)] -z-1">
             <img src="/images/bg-3.webp" className="w-full" />
             <div className="absolute left-1/8 top-[5%] size-1/2 rounded-full bg-[rgba(174,183,252,0.2)] blur-[7rem]" />
           </div>
