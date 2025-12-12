@@ -5,19 +5,42 @@ import { Motion } from "@/shared/ui/Motion";
 import { Section } from "@/shared/ui/PageWrapper";
 import SpotlightWrapper from "@/shared/ui/SpotlightWrapper/SpotlightWrapper";
 import { Text } from "@/shared/ui/Text";
-
-//bg-[url(/images/market-analysis-bg.webp)] bg-[url(/images/market-analysis-bg.webp) bg-cover bg-top-right max-sm:bg-position-[-70%_top] 
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { useScroller } from "@/shared/ui/Scroller";
 
 export const MarketAnalysis: React.FC = () => {
+  const rootRef = React.useRef<HTMLDivElement>(null);
+  const { isReady, scrollerRef } = useScroller();
+
+  useGSAP(
+    () => {
+      if (!isReady) return;
+      gsap.to(".s-background", {
+        scrollTrigger: {
+          scroller: scrollerRef.current,
+          trigger: rootRef.current,
+          invalidateOnRefresh: true,
+          start: "top 40%",
+          end: "top 0%",
+          toggleActions: "play none none reverse",
+        },
+        opacity: 1,
+        duration: 0.7,
+      });
+    },
+    { scope: rootRef, dependencies: [isReady] }
+  );
+
   return (
-    <Section className="pt-24 pb-10 max-xxxl:pt-20 max-sm:pt-8 relative">
-      <Motion
-        delay={0.6}
-        initialState="scale-100 opacity-0"
-        className="pointer-events-none absolute inset-0"
-      >
-        <div className="pointer-events-none absolute inset-0 bg-[url(/images/market-analysis-bg-new.webp)] bg-cover bg-top-left bg-no-repeat max-sm:bg-position-[96%_-240px]" />
-      </Motion>
+    <Section className="pt-24 pb-10 max-xxxl:pt-20 max-sm:pt-8 relative z-2" ref={rootRef}>
+      <div className="s-background opacity-0 absolute inset-0 pointer-events-none">
+        <img
+          src="/images/bg-4.webp"
+          alt=""
+          className="min-w-160 absolute right-0 top-0 -translate-y-[17%] mask-[linear-gradient(to_bottom,transparent,black_10%)]"
+        />
+      </div>
       <div className="pointer-events-none absolute right-0 top-0 w-[80%] h-[40%] backdrop-blur-xs" />
 
       <div className="max-w-400 px-10 mx-auto w-full max-lg:px-6 max-md:px-4">

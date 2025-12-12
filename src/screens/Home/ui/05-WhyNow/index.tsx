@@ -37,7 +37,7 @@ export const WhyNow: React.FC = () => {
 
   return (
     <Section
-      className="py-14 px-4 flex flex-col items-center justify-center relative"
+      className="py-14 px-4 flex flex-col items-center justify-center relative z-2"
       ref={rootRef}
       circles={{ showOnEnter: true, hideOnLeave: true }}
     >

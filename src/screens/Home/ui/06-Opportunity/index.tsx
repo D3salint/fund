@@ -7,7 +7,6 @@ import { useScroller } from "@/shared/ui/Scroller";
 import SpotlightWrapper from "@/shared/ui/SpotlightWrapper/SpotlightWrapper";
 import { Text } from "@/shared/ui/Text";
 import { useGSAP } from "@gsap/react";
-import clsx from "clsx";
 import gsap from "gsap";
 
 const config = {
@@ -47,20 +46,16 @@ export const Opportunity: React.FC = () => {
       className="px-14 py-10 flex flex-col max-md:px-4 "
       ref={rootRef}
     >
-      <div
-        // initialState="scale-100 opacity-0"
-        className="pointer-events-none absolute inset-0"
-      >
-        <div
-          className={clsx(
-            "s-background opacity-0 pointer-events-none absolute inset-0 bg-[url(/images/opportunity-new.png)] bg-cover bg-top-left max-sm:bg-position-[22%_-82px] bg-no-repeat"
-          )}
-        />
-      </div>
-
       <div className="pointer-events-none absolute left-0 top-0 -translate-x-1/2 w-full h-80 backdrop-blur-xs" />
 
-      <div className="m-auto grow max-w-372 w-full max-h-194 h-full grid grid-cols-[49%_51%] max-lg:flex max-lg:flex-col max-lg:gap-6 max-lg:m-0 max-lg:max-h-[unset] max-lg:max-w-200 max-lg:mx-auto">
+      <div className="m-auto grow max-w-372 w-full max-h-194 h-full grid grid-cols-[49%_51%] max-lg:flex max-lg:flex-col max-lg:gap-6 max-lg:m-0 max-lg:max-h-[unset] max-lg:max-w-200 max-lg:mx-auto relative">
+        <div className="s-background opacity-0 absolute inset-0 pointer-events-none">
+          <div className="max-w-300 w-full absolute left-1/2 -translate-x-2/3 -translate-y-[48%] mask-[radial-gradient(circle_at_center,black_40%,transparent)] -z-1">
+            <img src="/images/bg-3.webp" className="w-full" />
+            <div className="absolute left-1/8 top-[5%] size-1/2 rounded-full bg-[rgba(174,183,252,0.2)] blur-[7rem]" />
+          </div>
+        </div>
+
         <div className="flex justify-end pr-10 max-lg:justify-start">
           <div className="max-w-120 w-full flex flex-col">
             <Text

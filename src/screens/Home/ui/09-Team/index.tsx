@@ -6,9 +6,12 @@ import { useSwiperHelper } from "@/shared/hooks/useSwiperHelper";
 import { ArrowButton } from "@/shared/ui/ArrowButton";
 import { Motion } from "@/shared/ui/Motion";
 import { Section } from "@/shared/ui/PageWrapper";
+import { useScroller } from "@/shared/ui/Scroller";
 import SpotlightWrapper from "@/shared/ui/SpotlightWrapper/SpotlightWrapper";
 import { TeamCard } from "@/shared/ui/TeamCard";
 import { Text } from "@/shared/ui/Text";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 const config = {
@@ -48,25 +51,40 @@ const config = {
   ],
 };
 
-// bg-[url(/images/opportunity-bg.webp)] bg-cover bg-top-left max-sm:bg-position-[-140%_top]
-
 export const Team: React.FC = () => {
   const { isBeginning, isEnd, setSwiperCore, updater, slidePrev, slideNext } =
     useSwiperHelper();
+  const rootRef = React.useRef<HTMLDivElement>(null);
+  const { isReady, scrollerRef } = useScroller();
+
+  useGSAP(
+    () => {
+      if (!isReady) return;
+      gsap.to(".s-background", {
+        scrollTrigger: {
+          scroller: scrollerRef.current,
+          trigger: rootRef.current,
+          invalidateOnRefresh: true,
+          start: "top-=60px top",
+          end: "top 0%",
+          toggleActions: "play none none reverse",
+        },
+        opacity: 1,
+        duration: 0.7,
+      });
+    },
+    { scope: rootRef, dependencies: [isReady] }
+  );
 
   return (
-    <Section className="px-4 py-12 max-md:py-6 flex flex-col justify-center  relative">
-      <Motion
-        delay={0.6}
-        initialState="scale-100 opacity-0"
-        className="pointer-events-none absolute inset-0"
-      >
-        <div className="pointer-events-none absolute inset-0 bg-[url(/images/meet-the-team-new.png)] bg-cover bg-top-left bg-no-repeat max-sm:bg-position-[22%_-102px]" />
-      </Motion>
-
-      {/* <div className="pointer-events-none absolute left-0 top-0 w-[40%] h-40 backdrop-blur-xs" /> */}
-
-      <div className="max-w-252.5 w-full mx-auto">
+    <Section className="px-4 py-12 max-md:py-6 flex flex-col justify-center relative" ref={rootRef}>
+      <div className="max-w-252.5 w-full mx-auto relative">
+        <div className="s-background opacity-0 absolute inset-0 pointer-events-none">
+          <div className="max-w-300 w-full absolute left-1/2 -translate-x-2/3 -translate-y-[53%] mask-[radial-gradient(circle_at_center,black_40%,transparent)] -z-1">
+            <img src="/images/bg-3.webp" className="w-full" />
+            <div className="absolute left-1/8 top-[5%] size-1/2 rounded-full bg-[rgba(174,183,252,0.2)] blur-[7rem]" />
+          </div>
+        </div>
         <Text
           className="font-tthoves text-56 font-semibold leading-none -tracking-4 max-sm:text-32 [&_span]:first:block max-lg:[&_span]:first:inline-block"
           animation={{}}
