@@ -9,9 +9,7 @@ import clsx from "clsx";
 import gsap from "gsap";
 
 export function Preloader() {
-  // Return
-  // const [active, setActive] = React.useState(true);
-  const [active, setActive] = React.useState(false);
+  const [active, setActive] = React.useState(true);
   const [animationStarted, setAnimationStarted] = React.useState(false);
   const nodeRef = React.useRef<HTMLDivElement>(null);
   const { setScrollActive } = useScroller();
