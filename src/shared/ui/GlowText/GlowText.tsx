@@ -76,6 +76,7 @@ export const GlowText: React.FC<Props> = ({
             lineHeight: "inherit",
             whiteSpace: "pre",
             opacity: 0,
+            willChange: 'transform',
             animation: `fadeIn ${fadeDuration}s ease forwards`,
             animationDelay: `${i * 0.02}s`, // небольшая задержка для каждого слоя
           }}
