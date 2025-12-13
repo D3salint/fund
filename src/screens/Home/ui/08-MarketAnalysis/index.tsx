@@ -3,11 +3,11 @@ import React from "react";
 import { MarketGapAnalysisChart } from "@/shared/charts/MarketGapAnalysis";
 import { Motion } from "@/shared/ui/Motion";
 import { Section } from "@/shared/ui/PageWrapper";
+import { useScroller } from "@/shared/ui/Scroller";
 import SpotlightWrapper from "@/shared/ui/SpotlightWrapper/SpotlightWrapper";
 import { Text } from "@/shared/ui/Text";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { useScroller } from "@/shared/ui/Scroller";
 
 export const MarketAnalysis: React.FC = () => {
   const rootRef = React.useRef<HTMLDivElement>(null);
@@ -33,10 +33,13 @@ export const MarketAnalysis: React.FC = () => {
   );
 
   return (
-    <Section className="pt-24 pb-10 max-xxxl:pt-20 max-sm:pt-8 relative z-2" ref={rootRef}>
+    <Section
+      className="pt-24 pb-10 max-xxxl:pt-20 max-sm:pt-8 relative z-2"
+      ref={rootRef}
+    >
       <div className="s-background opacity-0 absolute inset-0 pointer-events-none">
         <img
-          src="/images/bg-4.webp"
+          src="/images/bgs/glow_3.webp"
           alt=""
           className="min-w-160 absolute right-0 top-0 -translate-y-[17%] mask-[linear-gradient(to_bottom,transparent,black_10%)]"
         />

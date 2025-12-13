@@ -90,9 +90,9 @@ export const Summary: React.FC = () => {
     >
       <div className="s-background opacity-0 pointer-events-none absolute inset-0">
         <img
-          src="/images/bg-4.webp"
+          src="/images/bgs/glow_1_webp.webp"
           alt=""
-          className="min-w-full absolute left-0 top-0 -translate-y-[17%] mask-[linear-gradient(to_bottom,transparent,black_10%)] scale-[-1_1]"
+          className="absolute left-0 top-0 -translate-y-[12%] mask-[linear-gradient(to_bottom,transparent,black_10%)] min-w-150 w-full max-w-300"
         />
       </div>
 

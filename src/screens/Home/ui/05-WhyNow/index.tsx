@@ -41,7 +41,7 @@ export const WhyNow: React.FC = () => {
       circles={{ showOnEnter: true, hideOnLeave: true }}
     >
       <div className="s-background opacity-0 min-w-200 absolute left-1/2 top-full -translate-1/2 max-w-306 w-full">
-        <img src="/images/star.webp" className="w-full" />
+        <img src="/images/bgs/star.webp" className="w-full" />
       </div>
 
       <div className="max-w-189 w-full flex flex-col items-center">
